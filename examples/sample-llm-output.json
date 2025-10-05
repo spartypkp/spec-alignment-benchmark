@@ -1,0 +1,28 @@
+{
+    "analysis_type": "combined_all_types",
+    "type1_missing": [
+        "2.1 Authentication & Authorization",
+        "3.3 Rate Limiting",
+        "7.1 Structured Logging"
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1 Request/Response Format",
+            "files": [
+                "middleware/errorHandler.ts",
+                "lib/response.ts"
+            ]
+        },
+        {
+            "section": "5.1 Coverage Requirements",
+            "files": [
+                "jest.config.js"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        "app/admin/route.ts",
+        "api/debug/route.ts",
+        "components/DevTools.tsx"
+    ]
+}
