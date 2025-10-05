@@ -1,0 +1,15 @@
+{
+    "test_branch": "type2_heavy",
+    "test_type": "type1_missing",
+    "expected_sections": [
+        "4.1"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "4.1",
+                "reasoning": "Name field validation for 1-50 characters not implemented"
+            }
+        ]
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "test_branch": "type2_heavy",
+    "test_type": "type2_incorrect",
+    "expected_sections": [
+        "3.1",
+        "3.1",
+        "4.2",
+        "8.1",
+        "3.2",
+        "2.4"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "3.1",
+                "reasoning": "Using SHA256 instead of bcryptjs for password hashing",
+                "files": [
+                    "src/app/api/auth/register/route.ts",
+                    "src/app/api/auth/login/route.ts"
+                ]
+            },
+            {
+                "section": "3.1",
+                "reasoning": "Sessions expire after 1 day instead of 7 days",
+                "files": [
+                    "src/lib/auth.ts"
+                ]
+            },
+            {
+                "section": "4.2",
+                "reasoning": "Returns HTTP 200 for all responses instead of proper status codes",
+                "files": [
+                    "src/app/api/tasks/route.ts",
+                    "src/app/api/auth/login/route.ts"
+                ]
+            },
+            {
+                "section": "8.1",
+                "reasoning": "Foreign key constraints missing CASCADE on delete",
+                "files": [
+                    "src/lib/db.ts"
+                ]
+            },
+            {
+                "section": "3.2",
+                "reasoning": "Task toggle creates new task instead of updating existing",
+                "files": [
+                    "src/app/api/tasks/[id]/route.ts"
+                ]
+            },
+            {
+                "section": "2.4",
+                "reasoning": "Checkbox toggles all tasks instead of individual task",
+                "files": [
+                    "src/components/TaskItem.tsx"
+                ]
+            }
+        ]
+    }
+}

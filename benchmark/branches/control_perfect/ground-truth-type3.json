@@ -1,0 +1,8 @@
+{
+    "test_branch": "control_perfect",
+    "test_type": "type3_extraneous",
+    "expected_features": [],
+    "ground_truth": {
+        "misalignments": []
+    }
+}

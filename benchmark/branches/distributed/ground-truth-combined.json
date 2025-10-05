@@ -1,0 +1,55 @@
+{
+    "test_branch": "distributed",
+    "test_type": "combined_all_types",
+    "ground_truth": {
+        "type1_missing": [
+            {
+                "section": "2.4",
+                "reasoning": "Checkbox component not imported/used in TaskItem"
+            },
+            {
+                "section": "2.1",
+                "reasoning": "Page title metadata not set to 'Welcome to TODOs'"
+            }
+        ],
+        "type2_incorrect": [
+            {
+                "section": "2.4",
+                "reasoning": "Button text says 'Create' instead of 'Add Task'",
+                "files": [
+                    "src/components/TaskInput.tsx"
+                ]
+            },
+            {
+                "section": "6",
+                "reasoning": "Route at /api/auth/signup instead of /api/auth/register",
+                "files": [
+                    "src/app/api/auth/register/route.ts"
+                ]
+            },
+            {
+                "section": "2.3",
+                "reasoning": "Label says 'Full Name' instead of 'Name'",
+                "files": [
+                    "src/app/(auth)/register/page.tsx"
+                ]
+            }
+        ],
+        "type3_extraneous": [
+            {
+                "feature": "Analytics Tracking",
+                "reasoning": "Analytics/metrics tracking not mentioned in specification",
+                "files": [
+                    "src/app/page.tsx"
+                ]
+            },
+            {
+                "feature": "Rate Limiting",
+                "reasoning": "API rate limiting not specified",
+                "files": [
+                    "middleware.ts"
+                ]
+            }
+        ]
+    }
+}

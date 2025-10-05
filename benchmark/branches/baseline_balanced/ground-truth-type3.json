@@ -1,0 +1,27 @@
+{
+    "test_branch": "baseline_balanced",
+    "test_type": "type3_extraneous",
+    "expected_features": [
+        "Admin Dashboard",
+        "Task Priority"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "feature": "Admin Dashboard",
+                "reasoning": "Admin interface not mentioned in specification",
+                "files": [
+                    "src/app/admin/page.tsx"
+                ]
+            },
+            {
+                "feature": "Task Priority",
+                "reasoning": "Priority field and filtering not specified",
+                "files": [
+                    "src/components/TaskItem.tsx",
+                    "src/app/api/tasks/route.ts"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "test_branch": "subtle_only",
+    "test_type": "type2_incorrect",
+    "expected_sections": [
+        "3.1",
+        "5"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "3.1",
+                "reasoning": "Email comparison is case-sensitive instead of case-insensitive",
+                "files": [
+                    "src/app/api/auth/login/route.ts"
+                ]
+            },
+            {
+                "section": "5",
+                "reasoning": "Timestamps use local timezone instead of UTC",
+                "files": [
+                    "src/lib/db.ts"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "test_branch": "baseline_balanced",
+    "test_type": "type1_missing",
+    "expected_sections": [
+        "4.1",
+        "3.1",
+        "2.4"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "4.1",
+                "reasoning": "Password minimum 6 characters validation missing"
+            },
+            {
+                "section": "3.1",
+                "reasoning": "Session 7-day expiry not implemented"
+            },
+            {
+                "section": "2.4",
+                "reasoning": "Statistics bar with three metrics missing"
+            }
+        ]
+    }
+}

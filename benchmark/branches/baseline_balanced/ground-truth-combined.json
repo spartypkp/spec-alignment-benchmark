@@ -1,0 +1,62 @@
+{
+    "test_branch": "baseline_balanced",
+    "test_type": "combined_all_types",
+    "ground_truth": {
+        "type1_missing": [
+            {
+                "section": "4.1",
+                "reasoning": "Password minimum 6 characters validation missing"
+            },
+            {
+                "section": "3.1",
+                "reasoning": "Session 7-day expiry not implemented"
+            },
+            {
+                "section": "2.4",
+                "reasoning": "Statistics bar with three metrics missing"
+            }
+        ],
+        "type2_incorrect": [
+            {
+                "section": "2.4",
+                "reasoning": "Tasks sorted by creation date ascending instead of descending",
+                "files": [
+                    "src/app/api/tasks/route.ts"
+                ]
+            },
+            {
+                "section": "4.2",
+                "reasoning": "Error format incorrect - missing code field",
+                "files": [
+                    "src/app/api/auth/login/route.ts",
+                    "src/app/api/auth/register/route.ts"
+                ]
+            },
+            {
+                "section": "4.1",
+                "reasoning": "Task title max length 50 instead of 100",
+                "files": [
+                    "src/lib/validation.ts",
+                    "src/components/TaskInput.tsx"
+                ]
+            }
+        ],
+        "type3_extraneous": [
+            {
+                "feature": "Admin Dashboard",
+                "reasoning": "Admin interface not mentioned in specification",
+                "files": [
+                    "src/app/admin/page.tsx"
+                ]
+            },
+            {
+                "feature": "Task Priority",
+                "reasoning": "Priority field and filtering not specified",
+                "files": [
+                    "src/components/TaskItem.tsx",
+                    "src/app/api/tasks/route.ts"
+                ]
+            }
+        ]
+    }
+}

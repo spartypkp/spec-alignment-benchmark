@@ -1,0 +1,20 @@
+{
+    "test_branch": "distributed",
+    "test_type": "type1_missing",
+    "expected_sections": [
+        "2.4",
+        "2.1"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "2.4",
+                "reasoning": "Checkbox component not imported/used in TaskItem"
+            },
+            {
+                "section": "2.1",
+                "reasoning": "Page title metadata not set to 'Welcome to TODOs'"
+            }
+        ]
+    }
+}

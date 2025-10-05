@@ -35,38 +35,53 @@ You are analyzing a codebase to identify ALL types of specification misalignment
 
 ## Output Format
 
-Output your findings as a JSON object with simplified data for each type:
+Output your findings as a JSON object with all three types of misalignments:
 
 ```json
 {
-  "analysis_type": "combined_all_types",
   "type1_missing": [
-    "2.1 Authentication & Authorization",
-    "3.3 Rate Limiting"
+    {
+      "section": "4.1",
+      "reasoning": "Password validation for 6-character minimum not implemented"
+    },
+    {
+      "section": "3.1",
+      "reasoning": "Session expiry logic completely missing"
+    }
   ],
   "type2_incorrect": [
     {
-      "section": "3.1 Request/Response Format",
-      "files": ["middleware/errorHandler.ts"]
+      "section": "2.4",
+      "reasoning": "Tasks sorted oldest first (ASC) instead of newest first (DESC)",
+      "files": ["src/app/api/tasks/route.ts"]
     },
     {
-      "section": "5.1 Coverage Requirements",
-      "files": ["package.json"]
+      "section": "4.2",
+      "reasoning": "Error format missing required code field",
+      "files": ["src/app/api/auth/login/route.ts", "src/app/api/auth/register/route.ts"]
     }
   ],
   "type3_extraneous": [
-    "app/admin/route.ts",
-    "api/debug/route.ts"
+    {
+      "feature": "Admin Dashboard",
+      "reasoning": "Admin interface not mentioned in specification",
+      "files": ["src/app/admin/page.tsx"]
+    },
+    {
+      "feature": "Export API",
+      "reasoning": "CSV export functionality not specified",
+      "files": ["src/app/api/export/route.ts"]
+    }
   ]
 }
 ```
 
 **Format Requirements**:
-- **Type 1**: List of section headers (strings) from spec that are missing
-- **Type 2**: List of objects with `section` (header from spec) and `files` (array of file paths)
-- **Type 3**: List of file paths (strings) containing extraneous code
-- Use EXACT section headers and relative file paths
-- No descriptions or explanations needed
+- **Type 1**: Array of objects with `section` (number only) and `reasoning`
+- **Type 2**: Array of objects with `section`, `reasoning`, and `files` array
+- **Type 3**: Array of objects with `feature`, `reasoning`, and `files` array
+- Use section NUMBERS only (e.g., "4.1", not "4.1 Input Validation")
+- Keep reasoning concise but specific
 
 ## Classification Rules
 
@@ -87,8 +102,8 @@ Output your findings as a JSON object with simplified data for each type:
 - Be exhaustive - check EVERYTHING
 - Categorize precisely - each misalignment belongs to exactly one type
 - Include all findings, don't stop early
-- Use exact section headers from the specification
+- Use section numbers only (not full titles)
 - Use relative file paths from repository root
-- No explanations needed, just the data
+- Include clear, concise reasoning for each finding
 
 Begin your comprehensive analysis now. Find ALL misalignments of ALL types.

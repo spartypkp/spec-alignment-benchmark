@@ -1,0 +1,15 @@
+{
+    "test_branch": "subtle_only",
+    "test_type": "type1_missing",
+    "expected_sections": [
+        "5"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "5",
+                "reasoning": "User.createdAt field not auto-populated on insert"
+            }
+        ]
+    }
+}

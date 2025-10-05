@@ -1,0 +1,34 @@
+{
+    "test_branch": "distributed",
+    "test_type": "type2_incorrect",
+    "expected_sections": [
+        "2.4",
+        "6",
+        "2.3"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "2.4",
+                "reasoning": "Button text says 'Create' instead of 'Add Task'",
+                "files": [
+                    "src/components/TaskInput.tsx"
+                ]
+            },
+            {
+                "section": "6",
+                "reasoning": "Route at /api/auth/signup instead of /api/auth/register",
+                "files": [
+                    "src/app/api/auth/register/route.ts"
+                ]
+            },
+            {
+                "section": "2.3",
+                "reasoning": "Label says 'Full Name' instead of 'Name'",
+                "files": [
+                    "src/app/(auth)/register/page.tsx"
+                ]
+            }
+        ]
+    }
+}

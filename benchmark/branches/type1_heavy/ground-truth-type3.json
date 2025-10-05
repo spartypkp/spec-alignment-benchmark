@@ -1,0 +1,18 @@
+{
+    "test_branch": "type1_heavy",
+    "test_type": "type3_extraneous",
+    "expected_features": [
+        "Export Data"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "feature": "Export Data",
+                "reasoning": "CSV export functionality not mentioned in specification",
+                "files": [
+                    "src/app/api/export/route.ts"
+                ]
+            }
+        ]
+    }
+}

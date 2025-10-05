@@ -1,8 +1,12 @@
 # Specification Alignment Benchmark Methodology
 
+**Version 1.0.0** - Implementation Complete
+
 ## Core Concept
 
 We test how well AI coding assistant frameworks (Cursor, Claude Code) can detect misalignments between code and specifications when using the same AI model (Claude 3.5 Sonnet).
+
+**Key Innovation**: This is the first benchmark to test frameworks rather than models, isolating capabilities like search strategy, context management, and tool use.
 
 ## The Three Misalignment Types
 
@@ -11,116 +15,231 @@ Every possible specification misalignment falls into one of these three categori
 ### Type 1: Missing Implementation
 - **Definition**: Spec requires X, code doesn't have X
 - **Example**: Spec requires JWT authentication, code has no authentication
+- **Detection**: List section numbers from spec
 
 ### Type 2: Incorrect Implementation  
 - **Definition**: Spec requires X implemented as A, code implements X as B
 - **Example**: Spec requires 15-minute token expiry, code has 60-minute expiry
+- **Detection**: Section numbers + affected files
 
 ### Type 3: Extraneous Code
 - **Definition**: Code has Y, spec doesn't mention Y
 - **Example**: Code has admin dashboard, spec doesn't mention admin features
+- **Detection**: Feature names or file paths
 
-## Test Structure
+## Current Implementation: Todo Application
 
-### Repository Organization
+### 6 Test Branches (38 Misalignments)
+
+| Branch | Type 1 | Type 2 | Type 3 | Total | Purpose |
+|--------|--------|--------|--------|-------|---------|
+| **control_perfect** | 0 | 0 | 0 | 0 | False positive baseline |
+| **baseline_balanced** | 3 | 3 | 2 | 8 | Overall capability (H1) |
+| **type1_heavy** | 6 | 1 | 1 | 8 | Type 1 specialization (H2a) |
+| **type2_heavy** | 1 | 6 | 1 | 8 | Type 2 specialization (H2b) |
+| **subtle_only** | 2 | 2 | 2 | 6 | Complexity handling (H3) |
+| **distributed** | 3 | 3 | 2 | 8 | Context distribution (H4) |
+
+### Repository Structure
 
 ```
-todo-app-repo/                    # Separate repository with test code
+todo-app-test/                    # Separate test repository
 ├── specs/
-│   └── project-specification.md  # The specification (same path in all branches)
-├── main branch                   # Perfectly aligned code and spec
-├── test-set-1 branch            # Planted misalignments (mix of types)
-├── test-set-2 branch            # Different misalignments
-└── test-set-3 branch            # Edge cases and subtle misalignments
+│   └── todo-specification.md    # Complete specification
+├── src/
+│   ├── app/                     # Next.js app directory
+│   ├── components/              # React components
+│   └── lib/                     # Utilities
+└── [6 branches with planted misalignments]
 
-spec-alignment-benchmark/         # This repository with methodology
-├── prompts/                      # The 4 test prompts
-├── results/                      # Test outputs
-├── scripts/                      # Analysis tools
-└── docs/                         # Documentation
+spec-alignment-benchmark/         # This repository
+├── benchmark/
+│   ├── branches/                # Ground truth for each branch
+│   ├── prompts/                 # The 4 test prompts
+│   └── hypotheses.md            # Scientific predictions
+├── scripts/                     # Automated analysis pipeline
+└── results/                     # Test outputs
 ```
 
-### The Four Tests
+## Scientific Hypotheses
 
-For each test branch, we run 4 separate prompts:
+We're testing 5 specific hypotheses about framework differences:
 
-1. **Type 1 Detection**: Find missing implementations only
-2. **Type 2 Detection**: Find incorrect implementations only
-3. **Type 3 Detection**: Find extraneous code only
-4. **Combined Detection**: Find all three types in one pass
+### H1: Overall Performance
+- **Prediction**: Claude Code > Cursor by ≥15% F1 score
+- **Rationale**: Chat interface encourages systematic analysis
+- **Test**: baseline_balanced branch
 
-## Test Process
+### H2: Type-Specific Specialization
+- **H2a**: Cursor better at Type 1 (file visibility advantage)
+- **H2b**: Claude Code better at Type 2 (reasoning advantage)
+- **H2c**: Cursor better at Type 3 (file explorer advantage)
+- **Tests**: type1_heavy, type2_heavy branches
 
-### 1. Setup Phase
-- Create test branches with known misalignments
-- Document exact misalignments in `ground-truth.json`
-- Remove ground truth before testing (blind test)
+### H3: Complexity Degradation
+- **Prediction**: Claude Code degrades less on subtle issues
+- **Rationale**: Reasoning approach maintains effectiveness
+- **Test**: subtle_only branch
 
-### 2. Execution Phase
-For each framework (Cursor, Claude Code):
-- Load test branch
-- Run each of the 4 prompts separately
-- Fresh context for each prompt (no carryover)
-- Save JSON outputs
+### H4: Context Distribution
+- **Prediction**: Cursor better with distributed misalignments
+- **Rationale**: IDE navigation advantage
+- **Test**: distributed branch
 
-### 3. Scoring Phase
-- Compare outputs against ground truth
-- Calculate precision and recall for each type
-- Measure false positive rate
-- Generate statistical analysis
+### H5: False Positive Rate
+- **Prediction**: Cursor generates 2× more false positives
+- **Rationale**: Emphasis on completeness over precision
+- **Test**: control_perfect branch
+
+## Test Protocol
+
+### The Four Test Prompts
+
+For each branch, we run 4 prompts with fresh context:
+
+1. **`type1-missing.md`**: Find missing implementations only
+2. **`type2-incorrect.md`**: Find incorrect implementations only
+3. **`type3-extraneous.md`**: Find extraneous code only
+4. **`combined-all-types.md`**: Find all three types in one pass
+
+**Test Volume**: 6 branches × 4 prompts × 5 runs × 2 frameworks = **240 total tests**
+
+### Execution Process
+
+1. **Setup Phase**
+   - Load test repository in framework
+   - Switch to test branch
+   - Ensure fresh context
+
+2. **Test Phase**
+   - Copy prompt from `benchmark/prompts/`
+   - Run in framework
+   - Save JSON output
+
+3. **Recording Phase**
+   ```bash
+   python scripts/test_runner.py record \
+     cursor baseline_balanced type1 output.json --score
+   ```
+
+## Automated Analysis Pipeline
+
+### 1. Test Management (`test_runner.py`)
+- Tracks progress across 240 tests
+- Validates output format
+- Organizes results by framework/branch/type
+
+### 2. Individual Scoring (`score_result.py`)
+- Compares output against ground truth
+- Calculates precision, recall, F1 score
+- Point system: +1 correct, -0.25 false positive
+
+### 3. Statistical Aggregation (`aggregate_results.py`)
+- Aggregates multiple runs per test
+- Calculates mean, std deviation, min/max
+- Generates branch-level summaries
+
+### 4. Framework Comparison (`compare_frameworks.py`)
+- Tests all 5 hypotheses
+- Performs paired t-tests
+- Calculates Cohen's d effect sizes
+
+### 5. Visualization (`visualize_results.py`)
+- Overall F1 comparison charts
+- Type-specific performance charts
+- Hypothesis test results
+- Performance heatmaps
+- Summary reports
 
 ## Measurement Metrics
 
-### Per Type Metrics
-- **Detection Rate**: How many misalignments of this type were found?
-- **Precision**: Of the things reported, how many were correct?
-- **Recall**: Of the actual misalignments, how many were found?
+### Primary Metrics
+- **Precision**: Of items reported, how many were correct?
+- **Recall**: Of actual misalignments, how many were found?
 - **F1 Score**: Harmonic mean of precision and recall
+- **Points**: Scoring with penalties for false positives
 
-### Overall Metrics
-- **Total Accuracy**: All misalignments found / Total misalignments
-- **Type Classification**: Are misalignments categorized correctly?
-- **False Positive Rate**: How many non-existent issues reported?
-- **Completeness**: Does it find everything or stop early?
+### Statistical Tests
+- **Paired t-test**: Comparing same test across frameworks
+- **Cohen's d**: Effect size measurement
+- **p < 0.05**: Statistical significance threshold
+- **Minimum 3 runs**: Statistical validity (5 preferred)
+
+## Ground Truth Format
+
+Enhanced format with reasoning for transparency:
+
+```json
+{
+  "test_branch": "baseline_balanced",
+  "test_type": "type1_missing",
+  "expected_sections": ["4.1", "3.1", "2.4"],
+  "ground_truth": {
+    "misalignments": [
+      {
+        "section": "4.1",
+        "reasoning": "Password validation (min 6 chars) not implemented"
+      },
+      {
+        "section": "3.1",
+        "reasoning": "Session 7-day expiry not implemented"
+      }
+    ]
+  }
+}
+```
 
 ## Why This Methodology?
 
 ### Scientific Rigor
-- **Controlled Variables**: Same model, same prompts, same test cases
-- **Isolated Testing**: Each type tested separately AND together
-- **Known Ground Truth**: Exact answer key for objective scoring
-- **Multiple Runs**: Statistical validity through repetition
+- **Controlled Variables**: Same model, prompts, test cases
+- **Hypothesis-Driven**: Testing specific predictions
+- **Statistical Validity**: Multiple runs, significance tests
+- **Automated Pipeline**: Reduces human error
 
 ### Practical Value
-- **Real-World Task**: Specification alignment is a common developer need
-- **Clear Categories**: Three types cover all possible misalignments
+- **Real Task**: Specification alignment is common need
 - **Actionable Results**: Shows specific strengths/weaknesses
 - **Fair Comparison**: No framework-specific advantages
+- **Reproducible**: Complete automation and documentation
 
 ## Key Principles
 
 1. **Simplicity**: Only 3 fundamental misalignment types
-2. **Completeness**: These 3 types cover every possible case
-3. **Objectivity**: Clear ground truth enables objective scoring
-4. **Reproducibility**: Anyone can run the same tests
+2. **Completeness**: These types cover every possible case
+3. **Objectivity**: Clear ground truth with reasoning
+4. **Reproducibility**: Automated tracking and scoring
 5. **Fairness**: Identical conditions for both frameworks
+6. **Transparency**: All hypotheses stated upfront
 
-## Expected Insights
+## Expected Outcomes
 
-This benchmark will reveal:
-- Which framework better detects missing features (Type 1)
-- Which framework better identifies incorrect implementations (Type 2)
-- Which framework better finds extraneous code (Type 3)
-- Whether combined detection differs from individual detection
-- How search strategies differ between frameworks
-- Which framework has better precision vs recall trade-offs
+### If Hypotheses Correct:
+- Claude Code wins overall (~15% higher F1)
+- Clear specialization patterns by type
+- Different degradation on complexity
+- Opposite strengths on distribution
+- Higher false positive rate for Cursor
 
-## Next Steps
+### If Hypotheses Wrong:
+- Frameworks more similar than expected
+- Model dominates framework differences
+- Need to revise assumptions
+- Still provides empirical comparison
 
-1. **Create Test Repository**: Build app with perfect alignment first
-2. **Plant Misalignments**: Create test branches with known issues
-3. **Run Tests**: Execute all prompts on both frameworks
-4. **Analyze Results**: Score against ground truth
-5. **Share Findings**: Publish results and methodology
+## Current Status
 
-This methodology provides the first rigorous comparison of AI coding frameworks (not models) on a practical development task.
+✅ **Implementation Complete**:
+- 6 test branches defined (38 misalignments)
+- Ground truth files created (24 files)
+- Test prompts finalized (4 types)
+- Analysis pipeline implemented (5 scripts)
+- Hypothesis framework established
+
+⏳ **Ready to Execute**:
+- Run control_perfect first (baseline)
+- Complete 240 test executions
+- Analyze results and test hypotheses
+- Generate reports and visualizations
+
+This methodology provides the first rigorous, hypothesis-driven comparison of AI coding frameworks on a practical development task.

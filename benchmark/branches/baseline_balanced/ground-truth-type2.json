@@ -1,0 +1,36 @@
+{
+    "test_branch": "baseline_balanced",
+    "test_type": "type2_incorrect",
+    "expected_sections": [
+        "2.4",
+        "4.2",
+        "4.1"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "2.4",
+                "reasoning": "Tasks sorted by creation date ascending instead of descending",
+                "files": [
+                    "src/app/api/tasks/route.ts"
+                ]
+            },
+            {
+                "section": "4.2",
+                "reasoning": "Error format incorrect - missing code field",
+                "files": [
+                    "src/app/api/auth/login/route.ts",
+                    "src/app/api/auth/register/route.ts"
+                ]
+            },
+            {
+                "section": "4.1",
+                "reasoning": "Task title max length 50 instead of 100",
+                "files": [
+                    "src/lib/validation.ts",
+                    "src/components/TaskInput.tsx"
+                ]
+            }
+        ]
+    }
+}

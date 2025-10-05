@@ -38,30 +38,41 @@ This is NOT Type 1 if:
 
 ## Output Format
 
-Output your findings as a JSON object containing ONLY the section headers from the specification that have missing implementations:
+Output your findings as a JSON object with this exact structure:
 
 ```json
 {
-  "analysis_type": "type1_missing",
-  "type1_missing": [
-    "2.1 Authentication & Authorization",
-    "3.3 Rate Limiting",
-    "6.1 API Documentation"
+  "misalignments": [
+    {
+      "section": "4.1",
+      "reasoning": "Password field exists but no validation for 6-character minimum is implemented in either client or server code"
+    },
+    {
+      "section": "3.1",
+      "reasoning": "Sessions are created but no expiry logic found in auth.ts or login route"
+    },
+    {
+      "section": "2.4",
+      "reasoning": "Dashboard exists but statistics bar component is completely missing"
+    }
   ]
 }
 ```
 
+**Required fields**:
+- `section`: The section NUMBER from the specification (e.g., "4.1", "3.1", "2.4")
+- `reasoning`: Brief explanation of what is missing and why you concluded it's absent
+
 **Important**: 
-- List ONLY the section headers (e.g., "2.1 Authentication & Authorization")
-- Use the EXACT section headers as they appear in the specification
-- Do NOT include descriptions or explanations
-- Order doesn't matter
+- Use ONLY the section number, not the full title
+- Keep reasoning concise but specific
+- Be certain the feature is COMPLETELY missing before reporting
 
 ## Important Notes
 
 - Only report features that are COMPLETELY MISSING
 - Be thorough - check the entire codebase before concluding something is missing
 - Check common locations and alternative implementations before reporting
-- Return the exact section headers from the specification
+- Include clear reasoning for each finding
 
 Begin your analysis now. Focus ONLY on Type 1 (missing) misalignments.

@@ -1,0 +1,9 @@
+{
+    "test_branch": "control_perfect",
+    "test_type": "combined_all_types",
+    "ground_truth": {
+        "type1_missing": [],
+        "type2_incorrect": [],
+        "type3_extraneous": []
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "test_branch": "type1_heavy",
+    "test_type": "type1_missing",
+    "expected_sections": [
+        "8.2",
+        "2.4",
+        "4.1",
+        "4.3",
+        "4.2",
+        "2.4"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "section": "8.2",
+                "reasoning": "Middleware.ts file missing - no route protection"
+            },
+            {
+                "section": "2.4",
+                "reasoning": "Logout API endpoint completely missing"
+            },
+            {
+                "section": "4.1",
+                "reasoning": "Email validation not implemented"
+            },
+            {
+                "section": "4.3",
+                "reasoning": "Database transactions not wrapped for bulk operations"
+            },
+            {
+                "section": "4.2",
+                "reasoning": "Error codes not implemented in error responses"
+            },
+            {
+                "section": "2.4",
+                "reasoning": "Empty state message not shown when no tasks"
+            }
+        ]
+    }
+}

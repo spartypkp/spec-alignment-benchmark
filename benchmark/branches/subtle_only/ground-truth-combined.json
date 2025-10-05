@@ -1,0 +1,45 @@
+{
+    "test_branch": "subtle_only",
+    "test_type": "combined_all_types",
+    "ground_truth": {
+        "type1_missing": [
+            {
+                "section": "5",
+                "reasoning": "User.createdAt field not auto-populated on insert"
+            }
+        ],
+        "type2_incorrect": [
+            {
+                "section": "3.1",
+                "reasoning": "Email comparison is case-sensitive instead of case-insensitive",
+                "files": [
+                    "src/app/api/auth/login/route.ts"
+                ]
+            },
+            {
+                "section": "5",
+                "reasoning": "Timestamps use local timezone instead of UTC",
+                "files": [
+                    "src/lib/db.ts"
+                ]
+            }
+        ],
+        "type3_extraneous": [
+            {
+                "feature": "Unused Utilities",
+                "reasoning": "Helper functions not called anywhere in codebase",
+                "files": [
+                    "src/lib/utils.ts"
+                ]
+            },
+            {
+                "feature": "Debug Logging",
+                "reasoning": "Console.log statements left in production code",
+                "files": [
+                    "src/app/api/tasks/route.ts",
+                    "src/components/TaskList.tsx"
+                ]
+            }
+        ]
+    }
+}

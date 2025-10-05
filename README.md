@@ -1,6 +1,8 @@
 # Specification Alignment Benchmark
 
-A benchmark for testing AI coding assistant frameworks (Cursor, Claude Code, etc.) on their ability to detect misalignments between code and specifications.
+**Version 1.0.0** - Implementation Complete, Ready for Testing
+
+A scientific benchmark for comparing AI coding assistant **frameworks** (not models) on specification alignment detection. By using the same model (Claude 3.5 Sonnet) across Cursor and Claude Code, we isolate framework-specific capabilities.
 
 ## 🎯 What This Does
 
@@ -14,62 +16,94 @@ By using the same AI model (Claude 3.5 Sonnet) across different frameworks, we i
 
 ## 🚀 Quick Start
 
-### 1. Try the Example
-
+### Prerequisites
 ```bash
-# Score a sample output against ground truth
-python3 scripts/score.py examples/sample-llm-output.json examples/sample-ground-truth.json
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-You'll see precision, recall, and F1 scores for each misalignment type.
-
-### 2. Run Your Own Test
-
-**Step 1**: Create a test repository with planted misalignments and a ground truth file:
-
-```json
-{
-  "type1_missing": ["2.1 Authentication & Authorization"],
-  "type2_incorrect": [
-    {"section": "3.1 Error Handling", "files": ["middleware/errors.ts"]}
-  ],
-  "type3_extraneous": ["app/admin/route.ts"]
-}
-```
-
-**Step 2**: Load the test repo in your framework (Cursor, Claude Code, etc.)
-
-**Step 3**: Copy and run each prompt from `prompts/`:
-- `type1-missing.md` - Find missing features
-- `type2-incorrect.md` - Find incorrect implementations
-- `type3-extraneous.md` - Find extra code
-- `combined-all-types.md` - Find all three types
-
-**Step 4**: Score the results:
-
+### 1. Check Test Progress
 ```bash
-python3 scripts/score.py output.json ground-truth.json
+# See overall progress across 240 planned tests
+python scripts/test_runner.py progress
+
+# See what tests to run next
+python scripts/test_runner.py next cursor
 ```
 
-## 📊 How Scoring Works
+### 2. Run a Test
 
-The benchmark uses simple, objective scoring:
+**In your framework (Cursor or Claude Code):**
+1. Load the todo app test repository
+2. Switch to a test branch (e.g., `baseline_balanced`)
+3. Copy a prompt from `benchmark/prompts/type1-missing.md`
+4. Run it and save the JSON output
 
-- **Type 1 & 3**: Simple set intersection (did they find the right sections/files?)
-- **Type 2**: Section + file matching (right section + at least one correct file)
-- **Scoring**: +1 for correct, -0.25 for false positive, 0 for missed
+**Record and score the result:**
+```bash
+python scripts/test_runner.py record \
+  cursor baseline_balanced type1 output.json --score
+```
 
-No fuzzy matching, no subjective interpretation - just exact string comparison.
+### 3. Analyze Results
+```bash
+# After multiple runs, aggregate statistics
+python scripts/aggregate_results.py \
+  --framework cursor --branch baseline_balanced
 
-## 📁 Repository Structure
+# Compare frameworks
+python scripts/compare_frameworks.py \
+  --branch baseline_balanced
+
+# Generate visualizations
+python scripts/visualize_results.py --all
+```
+
+## 🔬 Test Design
+
+### 6 Test Branches (38 Total Misalignments)
+| Branch | Type 1 | Type 2 | Type 3 | Purpose |
+|--------|--------|--------|--------|---------|
+| control_perfect | 0 | 0 | 0 | False positive baseline |
+| baseline_balanced | 3 | 3 | 2 | Overall capability (H1) |
+| type1_heavy | 6 | 1 | 1 | Type 1 specialization (H2a) |
+| type2_heavy | 1 | 6 | 1 | Type 2 specialization (H2b) |
+| subtle_only | 2 | 2 | 2 | Complexity handling (H3) |
+| distributed | 3 | 3 | 2 | File distribution (H4) |
+
+### 5 Hypotheses Being Tested
+1. **H1**: Overall performance difference
+2. **H2**: Type-specific specialization patterns
+3. **H3**: Complexity degradation rates
+4. **H4**: Context distribution effects
+5. **H5**: False positive generation rates
+
+## 📁 What's Implemented
 
 ```
 spec-alignment-benchmark/
-├── prompts/          # The 4 test prompts
-├── scripts/          # Scoring and validation tools
-├── examples/         # Sample inputs and outputs
-├── docs/            # Detailed documentation
-└── specs/           # Methodology and design docs
+├── benchmark/                   # Core benchmark content
+│   ├── branches/               # 6 test branches, 38 misalignments
+│   │   ├── control_perfect/   # False positive baseline (0)
+│   │   ├── baseline_balanced/ # Overall testing (8)
+│   │   ├── type1_heavy/       # Type 1 focus (8)
+│   │   ├── type2_heavy/       # Type 2 focus (8)
+│   │   ├── subtle_only/       # Subtle issues (6)
+│   │   └── distributed/       # Many files (8)
+│   ├── prompts/               # 4 test prompts
+│   └── hypotheses.md          # 5 scientific hypotheses
+│
+├── scripts/                    # Analysis pipeline
+│   ├── test_runner.py         # Test execution manager
+│   ├── score_result.py        # Individual scoring
+│   ├── aggregate_results.py   # Statistical aggregation
+│   ├── compare_frameworks.py  # Hypothesis testing
+│   └── visualize_results.py   # Charts & reports
+│
+└── results/                    # Test outputs (generated)
+    ├── raw/                   # Framework outputs
+    ├── processed/             # Scored results
+    └── analysis/              # Comparisons & charts
 ```
 
 ## 🔬 The Three Misalignment Types
@@ -103,29 +137,47 @@ TYPE1 Results:
 - **High Recall**: Finds most issues
 - **High F1**: Good balance of both
 
-## 🛠️ Testing Your Own Framework
+## 📊 Automated Analysis Pipeline
 
-1. Create test branches with known misalignments
-2. Document them in `ground-truth.json`
-3. Run the 4 prompts in your framework
-4. Save outputs as JSON
-5. Score with `score.py`
-6. Compare results across frameworks
+```mermaid
+graph LR
+    A[Run Test] --> B[Score Result]
+    B --> C[Aggregate Stats]
+    C --> D[Compare Frameworks]
+    D --> E[Test Hypotheses]
+    E --> F[Generate Reports]
+```
+
+### Scripts Overview
+- **`test_runner.py`** - Manages 240 test executions
+- **`score_result.py`** - Scores against ground truth
+- **`aggregate_results.py`** - Statistical aggregation
+- **`compare_frameworks.py`** - Hypothesis testing
+- **`visualize_results.py`** - Charts and reports
 
 ## 📖 Documentation
 
-- [Methodology](METHODOLOGY.md) - Detailed explanation of approach
-- [Test Execution Protocol](docs/test-execution-protocol.md) - Step-by-step testing guide
-- [Ground Truth Format](docs/ground-truth-format.md) - How to create answer keys
-- [Examples](examples/README.md) - Working examples with explanation
+- [Benchmark Specification](specs/benchmark-specification.md) - Complete design document
+- [Repository Specification](specs/repository-specification.md) - Implementation details
+- [Scripts Guide](scripts/README.md) - How to use analysis tools
+- [Hypotheses](benchmark/hypotheses.md) - Scientific predictions
+- [Test Summary](benchmark/test-summary.md) - All test branches
+- [Results Guide](results/README.md) - Output organization
 
-## 🤝 Contributing
+## 🎯 Next Steps
 
-We welcome contributions! Priority areas:
-- Test repositories with different patterns
-- Statistical analysis tools
-- Support for more frameworks
-- Visualization of results
+### Ready to Execute
+1. ✅ 6 test branches defined (38 misalignments)
+2. ✅ Ground truth files created (24 files)
+3. ✅ Analysis pipeline implemented
+4. ✅ Hypothesis framework established
+5. ⏳ **Now:** Run 240 tests (5 runs × 4 prompts × 6 branches × 2 frameworks)
+
+### Test Execution Order
+1. **FIRST**: `control_perfect` (establish false positive baseline)
+2. Then: Other branches in any order
+3. Minimum: 3 runs per test
+4. Recommended: 5 runs per test
 
 ## 📜 License
 

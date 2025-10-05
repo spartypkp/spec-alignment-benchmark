@@ -1,9 +1,11 @@
 # Specification Alignment Benchmark Repository
 
-**Version:** 1.0.0  
+**Version:** 2.0.0  
 **Created:** October 5, 2025  
+**Updated:** October 5, 2025  
 **Repository:** spec-alignment-benchmark  
-**Purpose:** Benchmark AI coding assistant frameworks on specification alignment detection
+**Purpose:** Benchmark AI coding assistant frameworks on specification alignment detection  
+**Status:** Implementation complete, ready for test execution
 
 ---
 
@@ -48,36 +50,65 @@ Every possible specification misalignment falls into exactly one of these catego
 spec-alignment-benchmark/
 ├── README.md                    # Quick start and overview
 ├── METHODOLOGY.md              # Detailed explanation of approach
+├── requirements.txt            # Python dependencies
 │
-├── prompts/                    # Test prompts for frameworks
-│   ├── README.md              # Prompt usage guide
-│   ├── type1-missing.md      # Detect missing implementations
-│   ├── type2-incorrect.md    # Detect incorrect implementations
-│   ├── type3-extraneous.md   # Detect extraneous code
-│   └── combined-all-types.md # Detect all three types
+├── benchmark/                  # Core benchmark content
+│   ├── README.md              # Benchmark documentation
+│   ├── hypotheses.md          # Scientific hypotheses (H1-H5)
+│   ├── test-summary.md        # Overview of 6 branches, 38 misalignments
+│   ├── branches/              # Test branch definitions
+│   │   ├── control_perfect/  # Control (0 misalignments)
+│   │   │   ├── control_perfect.md
+│   │   │   └── [4 ground truth JSON files]
+│   │   ├── baseline_balanced/# Balanced (8 misalignments)
+│   │   │   ├── baseline_balanced.md
+│   │   │   └── [4 ground truth JSON files]
+│   │   ├── type1_heavy/      # Type 1 focus (8 misalignments)
+│   │   ├── type2_heavy/      # Type 2 focus (8 misalignments)
+│   │   ├── subtle_only/      # Subtle issues (6 misalignments)
+│   │   └── distributed/      # Distributed (8 misalignments)
+│   └── prompts/               # Test prompts
+│       ├── README.md
+│       ├── type1-missing.md
+│       ├── type2-incorrect.md
+│       ├── type3-extraneous.md
+│       └── combined-all-types.md
 │
-├── scripts/                    # Analysis tools
-│   ├── score.py              # Main scoring script
-│   └── validate_results.py   # Validate JSON outputs
+├── scripts/                    # Analysis and scoring tools
+│   ├── README.md              # Script usage guide
+│   ├── score_result.py        # Score individual test outputs
+│   ├── test_runner.py         # Manage test execution and tracking
+│   ├── aggregate_results.py   # Statistical aggregation
+│   ├── compare_frameworks.py  # Hypothesis testing
+│   └── visualize_results.py   # Generate charts and reports
 │
 ├── examples/                   # Example inputs and outputs
-│   ├── README.md             # How scoring works
+│   ├── README.md
 │   ├── sample-ground-truth.json
 │   ├── sample-llm-output.json
 │   └── scored_sample-llm-output.json
 │
 ├── docs/                       # Documentation
-│   ├── ground-truth-format.md    # Ground truth schema
-│   └── test-execution-protocol.md # How to run tests
+│   ├── ground-truth-format.md
+│   └── test-execution-protocol.md
 │
-├── results/                    # Test results (create as needed)
-│   ├── raw/                   # Framework outputs
-│   │   ├── cursor/           
-│   │   └── claude-code/      
-│   └── processed/             # Scored results
+├── results/                    # Test outputs (created during testing)
+│   ├── README.md              # Results directory documentation
+│   ├── raw/                   # Raw framework outputs
+│   │   ├── cursor/
+│   │   │   └── [branch folders]
+│   │   └── claude-code/
+│   │       └── [branch folders]
+│   ├── processed/             # Scored results
+│   │   └── [framework/branch structure]
+│   └── analysis/              # Aggregated analysis
+│       ├── cursor/
+│       ├── claude-code/
+│       └── comparisons/
+│           └── visualizations/
 │
 └── specs/                      # Specifications
-    ├── benchmark-specification.md  # Original benchmark design
+    ├── benchmark-specification.md  # Main benchmark design
     └── repository-specification.md # This document
 ```
 
@@ -87,70 +118,128 @@ spec-alignment-benchmark/
 
 ### 1. Test Repository Setup
 
-Create a separate repository with:
+The test repository (todo application) should have:
 ```
-test-repository/
+todo-app-test/
 ├── specs/
-│   └── project-specification.md  # The specification document
-├── app/                          # Implementation code
-├── components/
-├── lib/
-└── ground-truth.json             # Answer key (remove before testing)
+│   └── todo-specification.md    # Complete specification
+├── src/
+│   ├── app/                     # Next.js app directory
+│   ├── components/              # React components
+│   └── lib/                     # Utilities
+└── README.md
 ```
 
-Create test branches with planted misalignments:
-- `main`: Perfectly aligned code and spec
-- `test-set-1`: Mix of Type 1, 2, and 3 misalignments
-- `test-set-2`: Different misalignment patterns
-- `test-set-3`: Edge cases and subtle issues
+**Test Branches** (6 implemented):
+- `main`: Perfectly aligned baseline
+- `control_perfect`: No misalignments (false positive test)
+- `baseline_balanced`: 3 Type 1, 3 Type 2, 2 Type 3 (8 total)
+- `type1_heavy`: 6 Type 1, 1 Type 2, 1 Type 3 (8 total)
+- `type2_heavy`: 1 Type 1, 6 Type 2, 1 Type 3 (8 total)
+- `subtle_only`: 2 Type 1, 2 Type 2, 2 Type 3 (6 subtle)
+- `distributed`: 3 Type 1, 3 Type 2, 2 Type 3 (8 across many files)
 
 ### 2. Test Execution
 
-For each test branch and framework:
-1. Load the test repository in the framework
-2. Run each of the 4 prompts with fresh context:
-   - `type1-missing.md`
-   - `type2-incorrect.md`
-   - `type3-extraneous.md`
-   - `combined-all-types.md`
-3. Save JSON outputs to `results/raw/[framework]/`
+**Using the Test Runner**:
+```bash
+# Check progress
+python scripts/test_runner.py progress
 
-### 3. Scoring
+# See next tests to run
+python scripts/test_runner.py next cursor
+
+# Record and score a test
+python scripts/test_runner.py record cursor baseline_balanced type1 output.json --score
+```
+
+**Manual Execution**:
+1. Load test repository in framework (Cursor or Claude Code)
+2. Switch to test branch (e.g., `git checkout baseline_balanced`)
+3. Copy prompt from `benchmark/prompts/[type].md`
+4. Paste into framework and run
+5. Save JSON output
+6. Record with test_runner or score directly
+
+### 3. Analysis Pipeline
 
 ```bash
-# Score individual test
-python3 scripts/score.py results/raw/cursor/test1.json ground-truth.json
+# 1. Score individual test
+python scripts/score_result.py \
+  results/raw/cursor/baseline_balanced/type1_run1.json \
+  benchmark/branches/baseline_balanced/ground-truth-type1.json
 
-# Output shows:
-# - Precision, Recall, F1 for each type
-# - True/false positives/negatives
-# - Combined score
+# 2. Aggregate results for a branch
+python scripts/aggregate_results.py \
+  --framework cursor \
+  --branch baseline_balanced
+
+# 3. Compare frameworks
+python scripts/compare_frameworks.py \
+  --branch baseline_balanced
+
+# 4. Generate visualizations
+python scripts/visualize_results.py --all
 ```
 
 ---
 
 ## Ground Truth Format
 
-The ground truth is extremely simple - just the data needed for scoring:
+**Enhanced Format with Reasoning** (per branch, 4 files):
 
 ```json
+// ground-truth-type1.json
 {
-  "test_branch": "test-set-1",
-  "specification_file": "specs/project-specification.md",
-  "type1_missing": [
-    "2.1 Authentication & Authorization",
-    "3.3 Rate Limiting"
-  ],
-  "type2_incorrect": [
-    {
-      "section": "3.1 Request/Response Format",
-      "files": ["middleware/errorHandler.ts"]
-    }
-  ],
-  "type3_extraneous": [
-    "app/admin/route.ts",
-    "api/debug/route.ts"
-  ]
+  "test_branch": "baseline_balanced",
+  "test_type": "type1_missing",
+  "expected_sections": ["4.1", "3.1", "2.4"],
+  "ground_truth": {
+    "misalignments": [
+      {
+        "section": "4.1",
+        "reasoning": "Password minimum 6 characters validation missing"
+      },
+      {
+        "section": "3.1",
+        "reasoning": "Session 7-day expiry not implemented"
+      },
+      {
+        "section": "2.4",
+        "reasoning": "Statistics bar with three metrics missing"
+      }
+    ]
+  }
+}
+
+// ground-truth-type2.json includes files
+{
+  "test_branch": "baseline_balanced",
+  "test_type": "type2_incorrect",
+  "ground_truth": {
+    "misalignments": [
+      {
+        "section": "2.4",
+        "reasoning": "Tasks sorted ascending instead of descending",
+        "files": ["src/app/api/tasks/route.ts"]
+      }
+    ]
+  }
+}
+
+// ground-truth-type3.json
+{
+  "test_branch": "baseline_balanced",
+  "test_type": "type3_extraneous",
+  "ground_truth": {
+    "misalignments": [
+      {
+        "feature": "Admin Dashboard",
+        "reasoning": "Admin interface not in specification",
+        "files": ["src/app/admin/page.tsx"]
+      }
+    ]
+  }
 }
 ```
 
@@ -194,23 +283,29 @@ All three types in one response.
 
 ## Scoring System
 
-### Scoring Algorithm
+### Automated Scoring Pipeline
 
-**Type 1 & Type 3**: Simple set operations
-```python
-true_positives = set(llm_output) & set(ground_truth)
-false_positives = set(llm_output) - set(ground_truth)
-precision = len(true_positives) / len(llm_output)
-recall = len(true_positives) / len(ground_truth)
-```
+1. **Individual Test Scoring** (`score_result.py`):
+   - Handles all 4 test types (type1, type2, type3, combined)
+   - Calculates precision, recall, F1 score
+   - Point system: +1 for correct, -0.25 for false positive
 
-**Type 2**: Section + file matching
-- Match if same section AND at least one file overlaps
+2. **Statistical Aggregation** (`aggregate_results.py`):
+   - Aggregates multiple runs
+   - Calculates mean, std deviation, min/max
+   - Generates branch-level summaries
 
-**Point System**:
-- Correct detection: +1 point
-- False positive: -0.25 points
-- Missed detection: 0 points
+3. **Framework Comparison** (`compare_frameworks.py`):
+   - Tests all 5 hypotheses (H1-H5)
+   - Performs statistical significance tests
+   - Uses paired t-tests and Cohen's d
+
+4. **Visualization** (`visualize_results.py`):
+   - Overall F1 comparison charts
+   - Type-specific performance charts
+   - Hypothesis test results
+   - Performance heatmaps
+   - Summary reports
 
 ### Why This Design?
 
@@ -226,43 +321,58 @@ recall = len(true_positives) / len(ground_truth)
 
 ### Prerequisites
 
-- Python 3.9+
-- Access to AI coding frameworks (Cursor, Claude Code, etc.)
-- Test repository with planted misalignments
-
-### Quick Start
-
 ```bash
-# 1. Clone this repository
-git clone https://github.com/[username]/spec-alignment-benchmark
-cd spec-alignment-benchmark
-
-# 2. Create results directory
-mkdir -p results/raw/{cursor,claude-code}
-
-# 3. Run tests in frameworks (manual process)
-# - Load test repository in framework
-# - Copy and paste each prompt
-# - Save outputs to results/raw/
-
-# 4. Score results
-python3 scripts/score.py \
-  results/raw/cursor/type1-output.json \
-  test-repo/ground-truth.json
-
-# 5. View example
-python3 scripts/score.py \
-  examples/sample-llm-output.json \
-  examples/sample-ground-truth.json
+# Install dependencies
+pip install -r requirements.txt
+# Requires: numpy, scipy, matplotlib, seaborn
 ```
 
-### Test Protocol
+### Test Workflow
 
-See `docs/test-execution-protocol.md` for detailed instructions on:
-- Environment setup
-- Test execution steps  
-- Output collection
-- Quality control
+```bash
+# 1. Check current progress
+python scripts/test_runner.py progress
+
+# 2. See what tests to run next
+python scripts/test_runner.py next cursor
+
+# 3. Run test in framework (manual)
+# - Load test repository in framework
+# - Switch to branch (e.g., baseline_balanced)
+# - Copy prompt from benchmark/prompts/
+# - Save JSON output
+
+# 4. Record and score test
+python scripts/test_runner.py record \
+  cursor baseline_balanced type1 output.json --score
+
+# 5. After multiple runs, aggregate
+python scripts/aggregate_results.py \
+  --framework cursor --branch baseline_balanced
+
+# 6. Compare frameworks
+python scripts/compare_frameworks.py \
+  --branch baseline_balanced
+
+# 7. Generate visualizations
+python scripts/visualize_results.py --all
+```
+
+### Test Management
+
+**Test Runner Features**:
+- Progress tracking across 240 total tests
+- Automatic file naming and organization
+- Validation of output format
+- Integration with scoring pipeline
+- Test run logging
+
+**Quality Control**:
+- Always run `control_perfect` branch first
+- Use fresh context for each prompt
+- Validate outputs before scoring
+- Run minimum 3 times per test (5 preferred)
+- Document anomalies in test_runs.log
 
 ---
 
@@ -270,22 +380,38 @@ See `docs/test-execution-protocol.md` for detailed instructions on:
 
 1. **Simplicity**: Only 3 fundamental misalignment types
 2. **Completeness**: These 3 types cover every possible case
-3. **Objectivity**: Clear ground truth enables objective scoring
-4. **Reproducibility**: Anyone can run the same tests
+3. **Objectivity**: Clear ground truth with reasoning for transparency
+4. **Reproducibility**: Automated tracking ensures consistent testing
 5. **Fairness**: Identical prompts and conditions for all frameworks
+6. **Scientific Rigor**: Hypothesis-driven with statistical validation
 
 ---
 
-## Contributing
+## Next Steps
 
-We welcome contributions:
+### Immediate Testing Plan
 
-### Priority Areas
+1. **Create Todo Test Repository**:
+   - Implement todo app matching specification
+   - Create 6 branches with defined misalignments
+   - Verify ground truth files match implementation
 
-1. **Test Cases**: Create test repositories with different patterns
-2. **Analysis Tools**: Improve scoring and visualization
-3. **Documentation**: Clarify methods and usage
-4. **Framework Support**: Add more frameworks to test
+2. **Execute Benchmark**:
+   - Run control_perfect first (establish baseline)
+   - Complete 5 runs × 4 prompts × 6 branches × 2 frameworks
+   - Total: 240 test executions
+
+3. **Analyze Results**:
+   - Test all 5 hypotheses
+   - Generate visualizations
+   - Publish findings
+
+### Future Enhancements
+
+1. **Additional Test Cases**: Beyond todo app
+2. **More Frameworks**: GitHub Copilot, Windsurf, etc.
+3. **Complexity Levels**: Simple to complex codebases
+4. **Language Coverage**: TypeScript, Python, Go, etc.
 
 ### Contribution Process
 
@@ -339,14 +465,17 @@ A: Frameworks add search, context management, and tool use on top of models. Tes
 **Q: Why these three types?**  
 A: They're exhaustive - every possible misalignment must be one of: missing (Type 1), wrong (Type 2), or extra (Type 3).
 
-**Q: Why such simple outputs?**  
-A: Simple outputs enable objective scoring without fuzzy matching or interpretation.
+**Q: What are the 5 hypotheses?**  
+A: H1 (overall performance), H2 (type specialization), H3 (complexity handling), H4 (context distribution), H5 (false positive rate).
+
+**Q: How is scoring automated?**  
+A: Scripts handle scoring, aggregation, comparison, and visualization automatically.
 
 **Q: Can I test other frameworks?**  
 A: Yes! Use the same prompts and ground truth format for any framework.
 
 **Q: How many test runs are needed?**  
-A: Minimum 3-5 runs per framework for statistical validity.
+A: Minimum 3 runs per test, 5 preferred. Total: 240 tests across both frameworks.
 
 ---
 

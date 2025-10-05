@@ -46,36 +46,45 @@ This is NOT Type 2 if:
 
 ## Output Format
 
-Output your findings as a JSON object with section headers and the files containing incorrect implementations:
+Output your findings as a JSON object with this exact structure:
 
 ```json
 {
-  "analysis_type": "type2_incorrect",
-  "type2_incorrect": [
+  "misalignments": [
     {
-      "section": "3.1 Request/Response Format",
-      "files": ["middleware/errorHandler.ts", "lib/apiResponse.ts"]
+      "section": "2.4",
+      "reasoning": "Spec requires tasks sorted newest first (DESC), but code sorts oldest first (ASC) in GET /api/tasks",
+      "files": ["src/app/api/tasks/route.ts"]
     },
     {
-      "section": "5.1 Coverage Requirements",
-      "files": ["package.json"]
+      "section": "4.2",
+      "reasoning": "Spec requires error format {error: {code, message}}, but code returns {error: message} without error codes",
+      "files": ["src/app/api/auth/login/route.ts", "src/app/api/auth/register/route.ts"]
+    },
+    {
+      "section": "3.1",
+      "reasoning": "Spec requires 7-day session expiry, but code sets 1-day expiry",
+      "files": ["src/lib/auth.ts"]
     }
   ]
 }
 ```
 
+**Required fields**:
+- `section`: The section NUMBER from the specification (e.g., "2.4", "4.2", "3.1")
+- `reasoning`: Brief explanation of what the spec requires vs what the code does
+- `files`: Array of relative file paths where the incorrect implementation exists
+
 **Important**:
-- Use EXACT section headers from the specification
+- Use ONLY the section number, not the full title
+- Reasoning should clearly state the difference (spec says X, code does Y)
 - List ALL files that contain the incorrect implementation
-- Use relative file paths from the repository root
-- Do NOT include explanations of what's wrong
-- Only the section header and file paths are needed
 
 ## Important Notes
 
 - Only report features that EXIST but work DIFFERENTLY than specified
 - Check implementation details carefully  
 - Don't report missing features (those are Type 1)
-- Return exact section headers and file paths only
+- Include clear reasoning showing the spec vs code difference
 
 Begin your analysis now. Focus ONLY on Type 2 (incorrect) misalignments.

@@ -1,0 +1,19 @@
+{
+    "test_branch": "type2_heavy",
+    "test_type": "type3_extraneous",
+    "expected_features": [
+        "Theme Toggle"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "feature": "Theme Toggle",
+                "reasoning": "Dark/light theme switcher not mentioned in specification",
+                "files": [
+                    "src/components/ThemeToggle.tsx",
+                    "src/app/layout.tsx"
+                ]
+            }
+        ]
+    }
+}

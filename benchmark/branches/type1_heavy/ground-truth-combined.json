@@ -1,0 +1,50 @@
+{
+    "test_branch": "type1_heavy",
+    "test_type": "combined_all_types",
+    "ground_truth": {
+        "type1_missing": [
+            {
+                "section": "8.2",
+                "reasoning": "Middleware.ts file missing - no route protection"
+            },
+            {
+                "section": "2.4",
+                "reasoning": "Logout API endpoint completely missing"
+            },
+            {
+                "section": "4.1",
+                "reasoning": "Email validation not implemented"
+            },
+            {
+                "section": "4.3",
+                "reasoning": "Database transactions not wrapped for bulk operations"
+            },
+            {
+                "section": "4.2",
+                "reasoning": "Error codes not implemented in error responses"
+            },
+            {
+                "section": "2.4",
+                "reasoning": "Empty state message not shown when no tasks"
+            }
+        ],
+        "type2_incorrect": [
+            {
+                "section": "3.1",
+                "reasoning": "Session cookie named 'session' instead of 'todo-session'",
+                "files": [
+                    "src/lib/auth.ts"
+                ]
+            }
+        ],
+        "type3_extraneous": [
+            {
+                "feature": "Export Data",
+                "reasoning": "CSV export functionality not mentioned in specification",
+                "files": [
+                    "src/app/api/export/route.ts"
+                ]
+            }
+        ]
+    }
+}

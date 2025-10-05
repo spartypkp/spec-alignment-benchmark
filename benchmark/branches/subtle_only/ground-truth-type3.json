@@ -1,0 +1,27 @@
+{
+    "test_branch": "subtle_only",
+    "test_type": "type3_extraneous",
+    "expected_features": [
+        "Unused Utilities",
+        "Debug Logging"
+    ],
+    "ground_truth": {
+        "misalignments": [
+            {
+                "feature": "Unused Utilities",
+                "reasoning": "Helper functions not called anywhere in codebase",
+                "files": [
+                    "src/lib/utils.ts"
+                ]
+            },
+            {
+                "feature": "Debug Logging",
+                "reasoning": "Console.log statements left in production code",
+                "files": [
+                    "src/app/api/tasks/route.ts",
+                    "src/components/TaskList.tsx"
+                ]
+            }
+        ]
+    }
+}

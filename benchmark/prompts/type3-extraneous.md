@@ -50,32 +50,46 @@ This is NOT Type 3 if:
 
 ## Output Format
 
-Output your findings as a JSON object containing ONLY the file paths that contain extraneous code:
+Output your findings as a JSON object with this exact structure:
 
 ```json
 {
-  "analysis_type": "type3_extraneous",
-  "type3_extraneous": [
-    "app/admin/route.ts",
-    "app/admin/dashboard/page.tsx",
-    "api/debug/route.ts",
-    "components/Analytics.tsx"
+  "misalignments": [
+    {
+      "feature": "Admin Dashboard",
+      "reasoning": "Complete admin interface with user management not mentioned anywhere in specification",
+      "files": ["src/app/admin/page.tsx", "src/app/admin/dashboard/page.tsx"]
+    },
+    {
+      "feature": "Task Priority System",
+      "reasoning": "Priority field (low/medium/high) and filtering not specified in requirements",
+      "files": ["src/components/TaskItem.tsx", "src/app/api/tasks/route.ts"]
+    },
+    {
+      "feature": "Export Data",
+      "reasoning": "CSV export endpoint not mentioned in API specification",
+      "files": ["src/app/api/export/route.ts"]
+    }
   ]
 }
 ```
 
+**Required fields**:
+- `feature`: Brief name/description of the extraneous functionality
+- `reasoning`: Explanation of what this feature does and why it's extraneous
+- `files`: Array of relative file paths that contain this extraneous code
+
 **Important**:
-- List ONLY file paths (relative from repository root)
-- Include ALL files that contain unspecified functionality
-- Do NOT include explanations or descriptions
-- Order doesn't matter
-- Use forward slashes for paths
+- Group related files under one feature (e.g., all admin files together)
+- Keep feature names descriptive but concise
+- Reasoning should confirm the feature is not mentioned in spec
 
 ## Important Notes
 
 - Focus on significant extraneous code, not implementation details
 - Check the ENTIRE specification before reporting as extraneous
 - Report actual features/endpoints/capabilities, not just helper code
-- Return only file paths, no explanations
+- Group related files under a single feature
+- Include clear reasoning for why each feature is extraneous
 
 Begin your analysis now. Focus ONLY on Type 3 (extraneous) misalignments.

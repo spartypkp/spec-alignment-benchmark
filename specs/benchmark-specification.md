@@ -1,9 +1,12 @@
 # Framework Benchmark: Cursor vs Claude Code
 
-**Version:** 0.1.0
+**Version:** 1.0.0
 **Created:** October 5, 2025
+**Updated:** October 5, 2025
+**Status:** Implementation Complete - Ready for Testing
 **Purpose:** Compare AI coding assistant frameworks (not models) on specification alignment tasks
 **Model:** Claude 3.5 Sonnet (held constant across frameworks)
+**Test Case:** Todo Application with planted misalignments
 
 ---
 
@@ -85,43 +88,42 @@ Both Cursor and Claude Code can use Claude 3.5 Sonnet, yet users report dramatic
 
 ### 3.1 The Todo App Test Case
 
-**Structure** (5-7 files):
+**Current Implementation Focus**: We are starting with a Next.js todo application as our test case. This provides sufficient complexity while remaining manageable for initial benchmark validation.
+
+**Structure**:
 ```
 todo-app/
-├── todo-spec.md          # The specification document
-├── README.md             # Basic project info
-├── app.py                # Main application
-├── models.py             # Data models
-├── api.py                # API routes
-├── auth.py               # Authentication (partial)
-└── tests/
-    └── test_api.py       # Basic tests (incomplete)
+├── specs/
+│   └── todo-specification.md    # Complete specification document
+├── src/
+│   ├── app/                     # Next.js app directory
+│   │   ├── api/                 # API routes
+│   │   │   ├── auth/           # Authentication endpoints
+│   │   │   └── tasks/          # Task CRUD endpoints
+│   │   └── admin/              # Admin interface (Type 3 misalignment)
+│   ├── components/             # React components
+│   └── lib/                    # Utilities and validation
+└── README.md                   # Project documentation
 ```
 
 ### 3.2 Test Branch Structure
 
-Each test branch contains a specific mix of the three misalignment types:
+**Implemented Test Branches** (6 total with 38 misalignments):
 
-**Example Test Branch Configuration:**
+| Branch | Type 1 | Type 2 | Type 3 | Total | Purpose |
+|--------|--------|--------|--------|-------|---------|
+| **control_perfect** | 0 | 0 | 0 | 0 | False positive baseline (MUST RUN FIRST) |
+| **baseline_balanced** | 3 | 3 | 2 | 8 | Overall capability testing (H1) |
+| **type1_heavy** | 6 | 1 | 1 | 8 | Type 1 specialization (H2a) |
+| **type2_heavy** | 1 | 6 | 1 | 8 | Type 2 specialization (H2b) |
+| **subtle_only** | 2 | 2 | 2 | 6 | Complexity handling (H3) |
+| **distributed** | 3 | 3 | 2 | 8 | Context distribution (H4) |
 
-```
-Branch: test-set-1
-├── Type 1 Misalignments (Missing): 3 instances
-│   - JWT authentication not implemented
-│   - Rate limiting completely absent
-│   - API documentation missing
-│
-├── Type 2 Misalignments (Incorrect): 3 instances  
-│   - Token expiry time wrong (60min instead of 15min)
-│   - Error format inconsistent with spec
-│   - Database operations without required transactions
-│
-└── Type 3 Misalignments (Extraneous): 2 instances
-    - Admin dashboard (not in spec)
-    - Debug endpoints (not in spec)
-```
-
-Each branch has a `ground-truth.json` file documenting exact misalignments.
+**Ground Truth Structure**: Each branch has 4 ground truth files:
+- `ground-truth-type1.json` - Type 1 misalignments only
+- `ground-truth-type2.json` - Type 2 misalignments only
+- `ground-truth-type3.json` - Type 3 misalignments only
+- `ground-truth-combined.json` - All types combined
 
 ### 3.3 Core Misalignment Types
 
@@ -150,25 +152,25 @@ These three types are exhaustive - every possible misalignment falls into one of
 
 ### 4.1 Test Prompts
 
-We use **FOUR** distinct prompts to test misalignment detection:
+**Implemented Prompts** (4 total in `benchmark/prompts/`):
 
-**Prompt 1: Type 1 Detection (Missing Implementation)**
-- Focus: Find features in spec that are completely missing from code
-- Output: List of missing features
+1. **`type1-missing.md`** - Missing Implementation Detection
+   - Focuses on finding spec requirements not in code
+   - Output format: JSON with section numbers
 
-**Prompt 2: Type 2 Detection (Incorrect Implementation)**
-- Focus: Find features that exist but are implemented differently than specified
-- Output: List of incorrect implementations with differences
+2. **`type2-incorrect.md`** - Incorrect Implementation Detection
+   - Focuses on implementations that differ from spec
+   - Output format: JSON with sections and affected files
 
-**Prompt 3: Type 3 Detection (Extraneous Code)**
-- Focus: Find features in code that are not mentioned in the specification
-- Output: List of undocumented features
+3. **`type3-extraneous.md`** - Extraneous Code Detection
+   - Focuses on code not mentioned in spec
+   - Output format: JSON with features and files
 
-**Prompt 4: Combined Detection (All Types)**
-- Focus: Comprehensive analysis finding all three misalignment types
-- Output: Categorized list of all misalignments
+4. **`combined-all-types.md`** - Comprehensive Detection
+   - Finds all three types in one analysis
+   - Output format: JSON with all three categories
 
-Each prompt is run independently on the same test branch.
+Each prompt provides clear instructions and expected JSON output format.
 
 ### 4.2 Execution Protocol
 
@@ -224,22 +226,47 @@ Branch: test-set-1
 
 ```yaml
 sample_size:
-  runs_per_framework: 5 minimum (10 preferred)
-  total_runs: 10 minimum (20 preferred)
-
-randomization:
-  - Alternate starting framework
-  - Vary time of day
-  - Use fresh sessions
+  runs_per_test: 5 (minimum 3)
+  test_types: 4 (type1, type2, type3, combined)
+  branches: 6 (control_perfect through distributed)
+  total_tests_per_framework: 120 (6 branches × 4 prompts × 5 runs)
+  total_tests: 240 (both frameworks)
 
 controls:
   - Same model version (Claude 3.5 Sonnet)
-  - Identical prompts
-  - Same test environment
+  - Identical prompts from benchmark/prompts/
+  - Fresh context for each test
   - No framework-specific optimizations
+  - Systematic test order (control_perfect first)
 ```
 
-### 5.2 Statistical Analysis
+### 5.2 Hypothesis Framework
+
+**Five Core Hypotheses Being Tested**:
+
+1. **H1: Overall Performance**
+   - Prediction: Claude Code > Cursor by ≥15% F1 score
+   - Test: baseline_balanced branch
+
+2. **H2: Type-Specific Specialization**
+   - H2a: Cursor > Claude Code on Type 1 (missing)
+   - H2b: Claude Code > Cursor on Type 2 (incorrect)
+   - H2c: Cursor > Claude Code on Type 3 (extraneous)
+   - Tests: type1_heavy, type2_heavy branches
+
+3. **H3: Complexity Degradation**
+   - Prediction: Claude Code handles subtle issues better
+   - Test: subtle_only branch
+
+4. **H4: Context Distribution**
+   - Prediction: Cursor better with distributed misalignments
+   - Test: distributed branch
+
+5. **H5: False Positive Rate**
+   - Prediction: Cursor generates 2x more false positives
+   - Test: control_perfect branch
+
+### 5.3 Statistical Analysis
 
 **Required Calculations:**
 1. **Descriptive Statistics**
@@ -256,7 +283,7 @@ controls:
    - p < 0.05 for statistical significance
    - Effect sizes: small (0.2), medium (0.5), large (0.8)
 
-### 5.3 Reporting Format
+### 5.4 Reporting Format
 
 ```
 Example Results:
@@ -303,25 +330,23 @@ Compare reported confidence (1-5) with actual correctness:
 
 ## 7. Implementation Timeline
 
-### 7.1 Phase 1: Proof of Concept (This Week)
+### 7.1 Implementation Status
 
-**Day 1-2: Setup**
-- [ ] Create todo app with planted gaps
-- [ ] Write clear specification document
-- [ ] Prepare identical prompts
-- [ ] Set up measurement framework
+**Completed**:
+- ✅ Todo app specification created
+- ✅ 6 test branches documented with misalignments
+- ✅ 38 total misalignments defined
+- ✅ Ground truth files created (24 total)
+- ✅ Test prompts finalized (4 types)
+- ✅ Scoring system implemented
+- ✅ Analysis scripts created
+- ✅ Visualization tools ready
 
-**Day 3-4: Execution**
-- [ ] Run 5 tests on Cursor
-- [ ] Run 5 tests on Claude Code
-- [ ] Collect all metrics
-- [ ] Document observations
-
-**Day 5: Analysis**
-- [ ] Calculate statistics
-- [ ] Create visualizations
-- [ ] Write findings report
-- [ ] Share initial results
+**Ready for Testing**:
+- [ ] Run control_perfect branch first (establish baseline)
+- [ ] Execute 5 runs × 4 prompts × 6 branches × 2 frameworks
+- [ ] Score and aggregate results
+- [ ] Test hypotheses and generate reports
 
 ### 7.2 Success Criteria
 
@@ -383,18 +408,38 @@ Any result provides value:
 
 ---
 
-## 10. Open Source Plan
-
-### 10.1 Repository Contents
+## 10. Repository Structure (Current Implementation)
 
 ```
-framework-benchmarks/
-├── README.md                  # Quick start guide
-├── METHODOLOGY.md            # This document
-├── test-cases/               # All test repositories
-├── results/                  # Raw and processed data
-├── analysis/                 # Jupyter notebooks
-└── scripts/                  # Automation tools
+spec-alignment-benchmark/
+├── README.md                    # Quick start guide
+├── METHODOLOGY.md              # Detailed methodology
+├── requirements.txt            # Python dependencies
+│
+├── benchmark/                  # Test definitions and prompts
+│   ├── branches/              # Branch-specific documentation
+│   │   ├── control_perfect/  # Control branch (0 misalignments)
+│   │   ├── baseline_balanced/# Balanced test (8 misalignments)
+│   │   └── [4 more branches]
+│   ├── prompts/              # Test prompts
+│   ├── hypotheses.md         # Scientific hypotheses
+│   └── test-summary.md       # Test overview
+│
+├── scripts/                   # Analysis tools
+│   ├── score_result.py       # Individual test scoring
+│   ├── test_runner.py        # Test execution management
+│   ├── aggregate_results.py  # Statistical aggregation
+│   ├── compare_frameworks.py # Hypothesis testing
+│   └── visualize_results.py  # Chart generation
+│
+├── results/                   # Test outputs (created during testing)
+│   ├── raw/                  # Framework outputs
+│   ├── processed/            # Scored results
+│   └── analysis/             # Aggregated analysis
+│
+└── specs/                     # Specifications
+    ├── benchmark-specification.md  # This document
+    └── repository-specification.md # Repository details
 ```
 
 ### 10.2 Contribution Guidelines
