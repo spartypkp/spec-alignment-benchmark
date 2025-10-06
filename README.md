@@ -1,85 +1,168 @@
 # Specification Alignment Benchmark
 
-**A Novel Framework Comparison Methodology for AI Coding Assistants**
+**A Framework Comparison Study for AI Coding Assistants**
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue)]()
-[![Status](https://img.shields.io/badge/status-Complete%20with%20Results-success)]()
+[![Status](https://img.shields.io/badge/status-Results%20Available-success)]()
 [![Data](https://img.shields.io/badge/raw%20data-included-green)]()
 
-## 🎯 Executive Summary
+## Executive Summary
 
-This benchmark answers a critical question: **"Which AI coding framework better detects specification misalignments when using the same underlying language model?"**
+This benchmark explores: **"Do different AI coding frameworks detect specification misalignments differently when using the same underlying language model?"**
 
-Unlike existing benchmarks that compare different AI models (GPT-4 vs Claude vs Gemini), we compare different **frameworks** (Cursor vs Claude Code) while holding the model constant (Claude 4.5 Sonnet). This isolates framework-specific capabilities like search strategies, context management, and code understanding.
+Unlike existing benchmarks comparing AI models (GPT-4 vs Claude vs Gemini), we compare **frameworks** (Cursor vs Claude Code) while holding the model constant (Claude 4.5 Sonnet). This isolates framework-specific capabilities like search strategies, context management, and code understanding.
 
-**Key Innovation**: First benchmark to test frameworks rather than models, providing actionable insights for developers choosing tools and teams building them.
+## Key Findings
 
-## 📊 Benchmark Results Available
+**240 test runs completed** (120 per framework, 5 runs per condition)
 
-**✅ Experiment Complete**: 240 test runs executed across both frameworks
+### Main Result: No Overall Performance Difference
+- **Cursor Mean F1**: 0.50
+- **Claude Code Mean F1**: 0.48
+- **Statistical Difference**: None (p = 0.73)
 
-### 🗂️ Where to Find Everything
+**However**, performance varies significantly by misalignment type:
 
-| Resource | Location | Description |
-|----------|----------|-------------|
-| **Test Prompts** | [`benchmark/prompts/`](benchmark/prompts/) | 4 prompts for detecting each misalignment type |
-| **Ground Truth Answers** | [`benchmark/branches/*/ground-truth-*.json`](benchmark/branches/) | Expected results for all 38 misalignments |
-| **Raw Experimental Data** | [`results/raw/`](results/raw/) | All 240 test runs (JSON format) |
-| **Analysis Report** | [`results/comprehensive_analysis_report.pdf`](results/comprehensive_analysis_report.pdf) | Full statistical analysis with visualizations |
-| **Simple Results** | [`results/simple_analysis_results.json`](results/simple_analysis_results.json) | Aggregated metrics per test |
+### Type-Specific Performance Patterns
 
-## 🔬 What We Tested
+| Type | Cursor F1 | Claude Code F1 | Pattern |
+|------|-----------|----------------|---------|
+| **Type 1** (Missing) | 0.39 | 0.36 | Cursor slightly better |
+| **Type 2** (Incorrect) | 0.42 | 0.58 | **Claude Code stronger** (p=0.03) |
+| **Type 3** (Extraneous) | 0.77 | 0.60 | **Cursor stronger** (p=0.04) |
+
+**Key Insight**: While neither framework has an overall advantage, they show different strengths:
+- **Cursor** excels at finding extraneous code (Type 3) and slightly better at detecting missing features (Type 1)
+- **Claude Code** performs better at identifying incorrect implementations (Type 2)
+
+**Next Steps**: These patterns emerged from a pilot study (n=5 per condition). We plan to replicate with larger sample sizes (n≥30) to confirm these type-specific differences and establish more robust statistical evidence.
+
+### Detection Rates
+
+- **Type 1 Detection**: Cursor 37%, Claude Code 45% (both struggle)
+- **Type 2 Detection**: Cursor 71%, Claude Code 73% (moderate success)
+- **Type 3 Detection**: Cursor 72%, Claude Code 71% (best performance)
+- **False Positive Rate**: Cursor 42%, Claude Code 47% (concerning)
+
+## Study Design & Limitations
+
+This study used a controlled experimental design with important characteristics to note:
+
+### Experimental Design
+- **Sample size**: 5 runs per condition (240 total runs)
+- **Control variables**: Same model (Claude 4.5 Sonnet), same prompts, same codebase
+- **Test branches**: 6 branches with varying misalignment distributions
+- **Ground truth**: 38 carefully planted misalignments validated by specification
+
+### Important Considerations
+
+**Sample Size**: The current n=5 per condition provides initial insights but is smaller than typical for robust statistical conclusions. Planned replication with n≥30 will provide stronger evidence for the observed type-specific patterns.
+
+**Statistical Testing**: The Type 2 and Type 3 differences (p=0.03, p=0.04) are at the threshold of significance. With multiple comparisons, these should be interpreted as promising patterns worthy of confirmation rather than definitive findings.
+
+**Scope**: This benchmark focuses on a single todo application with medium complexity. Results may vary with:
+- Enterprise-scale codebases
+- Different application domains  
+- Other programming languages
+- Different model versions
+
+**Generalizability**: Framework performance likely depends on the specific use case, codebase characteristics, and type of misalignment most relevant to your work.
+
+### What This Benchmark Demonstrates
+- Framework architecture influences detection capabilities even with identical models
+- Type-specific performance patterns exist and are measurable
+- A methodology for systematic framework comparison
+- Baseline performance data for specification alignment tasks
+
+## What We Tested
 
 ### The Three Fundamental Misalignment Types
 
-| Type | Description | Example | Detection Method |
-|------|-------------|---------|------------------|
-| **Type 1** | Missing Implementation | Spec requires JWT auth, code has none | Find spec requirements absent from code |
-| **Type 2** | Incorrect Implementation | Spec: 15-min expiry, Code: 60-min | Find implementations that differ from spec |
-| **Type 3** | Extraneous Code | Code has admin panel, spec doesn't mention it | Find code features not in spec |
+| Type | Description | Example |
+|------|-------------|---------|
+| **Type 1** | Missing Implementation | Spec requires JWT auth, code has none |
+| **Type 2** | Incorrect Implementation | Spec: 15-min expiry, Code: 60-min |
+| **Type 3** | Extraneous Code | Code has admin panel, spec doesn't mention it |
 
 ### Test Design: 38 Planted Misalignments
 
-We created a todo application with carefully planted specification misalignments across 6 test branches:
+A todo application with specification misalignments across 6 test branches:
 
 | Branch | Type 1 | Type 2 | Type 3 | Total | Purpose |
 |--------|--------|--------|--------|-------|---------|
 | `control_perfect` | 0 | 0 | 0 | 0 | False positive baseline |
-| `baseline_balanced` | 3 | 3 | 2 | 8 | Overall capability testing |
-| `type1_heavy` | 6 | 1 | 1 | 8 | Type 1 specialization |
-| `type2_heavy` | 1 | 6 | 1 | 8 | Type 2 specialization |
-| `subtle_only` | 2 | 2 | 2 | 6 | Subtle/complex issues |
-| `distributed` | 3 | 3 | 2 | 8 | Distributed across files |
+| `baseline_balanced` | 3 | 3 | 2 | 8 | Overall capability |
+| `type1_heavy` | 6 | 1 | 1 | 8 | Type 1 focus |
+| `type2_heavy` | 1 | 6 | 1 | 8 | Type 2 focus |
+| `subtle_only` | 2 | 2 | 2 | 6 | Complex issues |
+| `distributed` | 3 | 3 | 2 | 8 | Scattered across files |
 
-## 📈 Key Findings
+## Performance Insights
 
-Based on 240 test runs (120 per framework):
+**Detection patterns across 240 test runs:**
 
-### Overall Performance
-- **Mean F1 Score**: Cursor 0.528, Claude Code [pending full analysis]
-- **Statistical Significance**: p < 0.05 for framework differences
-- **Winner**: Varies by misalignment type
+1. **Type-specific specialization observed** 
+   - Cursor: Strong at Type 3 (extraneous code, F1=0.77), competitive at Type 1 (missing, F1=0.39)
+   - Claude Code: Strong at Type 2 (incorrect implementation, F1=0.58), competitive at other types
 
-### Type Specialization Observed
-- **Type 1 (Missing)**: Lower detection rates (~40% F1)
-- **Type 2 (Incorrect)**: Moderate detection (~42% F1)  
-- **Type 3 (Extraneous)**: Best detection (~77% F1)
+2. **Type 3 is most detectable** - Both frameworks achieved ~70% accuracy finding extraneous code not mentioned in specifications
 
-### Critical Insights
-1. **Frameworks excel at finding extraneous code** but struggle with missing implementations
-2. **Performance degrades 50% on subtle issues** (subtle_only branch)
-3. **False positives occur even on perfect code** (control_perfect branch)
-4. **Distributed issues reduce performance by 38%**
+3. **Type 1 is most challenging** - Missing implementations harder to detect (~40% F1 for both frameworks)
 
-## 🚀 Reproduce the Analysis
+4. **Complexity impacts performance** - Subtle/distributed issues reduce detection rates significantly (0.26-0.34 F1 on subtle_only branch vs 0.60-0.70 on baseline)
+
+5. **False positives occur** - Even on perfect code (control_perfect), frameworks flagged some non-issues (42-47% FP rate overall)
+
+### Practical Implications
+
+**Choose based on your primary use case:**
+- **Finding unauthorized features/code bloat**: Cursor shows stronger performance (Type 3)
+- **Validating implementation correctness**: Claude Code shows stronger performance (Type 2)  
+- **Comprehensive auditing**: Both frameworks show similar overall capability; type-specific strengths matter more than overall scores
+
+**Human oversight recommended**: Both frameworks show notable false positive rates, making human review essential for production use.
+
+## Repository Structure
+
+```
+spec-alignment-benchmark/
+├── benchmark/                    # Test definitions
+│   ├── prompts/                 # 4 test prompts
+│   │   ├── type1-missing.md    
+│   │   ├── type2-incorrect.md  
+│   │   ├── type3-extraneous.md 
+│   │   └── combined-all-types.md
+│   ├── branches/                # 6 branches with ground truth
+│   │   └── [branch]/           
+│   │       ├── ground-truth-type1.json
+│   │       ├── ground-truth-type2.json    
+│   │       ├── ground-truth-type3.json    
+│   │       └── ground-truth-combined.json 
+│   └── hypotheses.md
+│
+├── results/
+│   ├── raw/                    # All 240 test runs
+│   │   ├── cursor/             # 120 Cursor runs
+│   │   └── claude-code/        # 120 Claude Code runs
+│   ├── comprehensive_analysis_report.pdf
+│   └── simple_analysis_results.json
+│
+├── scripts/                     # Analysis tools
+│   ├── generate_analysis_pdf.py
+│   ├── simple_analyze.py
+│   └── test_runner.py
+│
+└── specs/                       # Documentation
+    ├── benchmark-specification.md
+    └── repository-specification.md
+```
+
+## Reproduce the Analysis
 
 ### Prerequisites
 ```bash
-# Clone the repository
 git clone https://github.com/spartypkp/spec-alignment-benchmark
 cd spec-alignment-benchmark
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -92,66 +175,29 @@ python scripts/generate_analysis_pdf.py
 python scripts/simple_analyze.py
 
 # View raw data
-ls results/raw/cursor/      # Cursor framework results
-ls results/raw/claude-code/ # Claude Code results
+ls results/raw/cursor/
+ls results/raw/claude-code/
 ```
 
 ### Run Your Own Tests
 
 1. **Get the test repository**: 
-   - Todo app with planted misalignments: https://github.com/spartypkp/example-todo-app
+   - https://github.com/spartypkp/example-todo-app
    
 2. **Use the prompts**:
    ```bash
-   # Copy a prompt from:
-   cat benchmark/prompts/type1-missing.md      # For Type 1 detection
-   cat benchmark/prompts/type2-incorrect.md    # For Type 2 detection
-   cat benchmark/prompts/type3-extraneous.md   # For Type 3 detection
-   cat benchmark/prompts/combined-all-types.md # For all types at once
+   cat benchmark/prompts/type1-missing.md
+   cat benchmark/prompts/type2-incorrect.md
+   cat benchmark/prompts/type3-extraneous.md
+   cat benchmark/prompts/combined-all-types.md
    ```
 
 3. **Check against ground truth**:
    ```bash
-   # Ground truth for each branch and type:
    cat benchmark/branches/baseline_balanced/ground-truth-combined.json
    ```
 
-## 📊 Repository Structure
-
-```
-spec-alignment-benchmark/
-├── benchmark/                    # Test definitions
-│   ├── prompts/                 # 4 test prompts (WHAT TO ASK)
-│   │   ├── type1-missing.md    
-│   │   ├── type2-incorrect.md  
-│   │   ├── type3-extraneous.md 
-│   │   └── combined-all-types.md
-│   ├── branches/                # 6 branches × 4 ground truth files each
-│   │   └── [branch]/           
-│   │       ├── ground-truth-type1.json    # EXPECTED ANSWERS
-│   │       ├── ground-truth-type2.json    
-│   │       ├── ground-truth-type3.json    
-│   │       └── ground-truth-combined.json 
-│   └── hypotheses.md            # Scientific predictions
-│
-├── results/                     # EXPERIMENTAL DATA
-│   ├── raw/                    # All 240 test runs (ACTUAL RESULTS)
-│   │   ├── cursor/             # 120 Cursor framework runs
-│   │   └── claude-code/        # 120 Claude Code runs
-│   ├── comprehensive_analysis_report.pdf  # Full analysis
-│   └── simple_analysis_results.json       # Aggregated metrics
-│
-├── scripts/                     # Analysis tools
-│   ├── generate_analysis_pdf.py # Generate comprehensive report
-│   ├── simple_analyze.py        # Basic statistical analysis
-│   └── test_runner.py          # Test execution management
-│
-└── specs/                       # Documentation
-    ├── benchmark-specification.md  # Complete design document
-    └── repository-specification.md  # Implementation details
-```
-
-## 📖 Understanding the Data
+## Understanding the Data
 
 ### Raw Data Format
 Each test run in `results/raw/` contains:
@@ -183,56 +229,72 @@ Expected results in `benchmark/branches/*/ground-truth-*.json`:
 }
 ```
 
-## 🎓 Scientific Methodology
+## Future Research Directions
 
-### Experimental Design
-- **Sample Size**: 5 runs per condition (240 total)
-- **Control Variables**: Same model, prompts, and starting conditions
-- **Randomization**: Test order randomized to prevent learning effects
-- **Statistical Tests**: Paired t-tests, Cohen's d effect sizes
+To improve scientific rigor, future iterations should:
 
-### Five Hypotheses Tested
-1. **H1**: Overall performance difference (Claude Code > Cursor by ≥15%)
-2. **H2**: Type-specific specialization patterns exist
-3. **H3**: Performance degrades on subtle issues
-4. **H4**: Distributed misalignments reduce accuracy
-5. **H5**: False positive rates differ between frameworks
+**Statistical improvements:**
+- Increase sample size to n≥30 per condition
+- Apply proper multiple comparison corrections
+- Use non-parametric tests for non-normal data
+- Validate ground truth with multiple independent raters
 
-## 🏆 Key Takeaways
+**Methodological enhancements:**
+- Blind evaluation procedures
+- Documented, standardized prompting protocols
+- Multiple application domains
+- Different model versions
+- Additional frameworks (Windsurf, GitHub Copilot, Aider)
 
-1. **Framework architecture matters** - Same model, different results
-2. **No universal winner** - Performance varies by misalignment type
-3. **Human oversight required** - False positives and missed detections common
-4. **Best for focused analysis** - Performance drops on distributed issues
-5. **Tool selection should match use case** - Choose based on primary needs
-
-## 📚 Learn More
-
-- **[Full Benchmark Specification](specs/benchmark-specification.md)** - Complete methodology
-- **[Repository Specification](specs/repository-specification.md)** - Implementation details
-- **[Hypotheses Document](benchmark/hypotheses.md)** - Scientific predictions
-- **[Results README](results/README.md)** - Understanding outputs
-
-## 🤝 Contributing
-
-We welcome contributions! Areas for expansion:
-- Additional frameworks (Windsurf, GitHub Copilot, etc.)
-- More complex test cases
-- Different programming languages
+**Scope expansion:**
 - Enterprise-scale codebases
+- Multiple programming languages
+- Different complexity levels
+- Real-world specification documents
 
-## 📜 License
+## Using This Benchmark
+
+**This benchmark is useful for:**
+- Understanding framework behavior patterns in specification alignment tasks
+- Comparing type-specific detection capabilities
+- Informing framework selection based on your primary use case
+- Establishing baseline performance expectations
+- Generating hypotheses for deeper investigation
+
+**Keep in mind:**
+- Results are from a pilot study; larger replication planned to confirm patterns
+- Performance may vary with different codebases, domains, and model versions
+- Framework-specific strengths matter more than overall scores
+- Human review remains essential regardless of framework choice
+
+## Contributing
+
+We welcome contributions that address study limitations:
+- Larger-scale replications
+- Additional frameworks
+- Improved ground truth validation
+- Statistical methodology refinements
+
+## Learn More
+
+- [Full Benchmark Specification](specs/benchmark-specification.md)
+- [Repository Specification](specs/repository-specification.md)
+- [Hypotheses Document](benchmark/hypotheses.md)
+- [Results README](results/README.md)
+
+## License
 
 MIT License - See [LICENSE](LICENSE) file
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-This benchmark addresses a critical gap in AI tool evaluation by comparing frameworks rather than models, providing the first empirical data for framework selection in specification alignment tasks.
+This benchmark addresses a gap in AI tool evaluation by comparing frameworks rather than models, providing empirical data on type-specific performance patterns in specification alignment tasks. While conducted as a pilot study, it establishes methodology and reveals meaningful performance differences that warrant further investigation with larger sample sizes.
 
 ---
 
-**Citation**: If you use this benchmark in your research or decision-making, please cite:
+**Citation**: 
 ```
 Specification Alignment Benchmark v1.0.0 (2025)
 https://github.com/spartypkp/spec-alignment-benchmark
+Pilot study results (n=5 per condition); larger replication planned
 ```
