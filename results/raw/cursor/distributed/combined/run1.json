@@ -1,0 +1,76 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "6.1",
+            "reasoning": "Registration endpoint located at /api/auth/signup instead of required /api/auth/register",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login route uses error code 'MISSING_CREDENTIALS' instead of specified 'MISSING_FIELDS'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task input button displays 'Create' instead of specified 'Add Task'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task item uses button with text symbols (✓/○) instead of proper checkbox component for toggling completion",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page error handling displays error as string instead of extracting message from structured error.message format",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Register page error handling displays error as string instead of extracting message from structured error.message format",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard uses mock user data instead of retrieving actual user information from authentication",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking implementation not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting functionality (100 requests per minute) not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks function implemented but not specified as required feature (only mentioned as transaction example)"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "deleteAllTasks function implemented but not specified as required feature (only mentioned as transaction example)"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "toggleAllTasks function implemented but not specified as required feature (only mentioned as transaction example)"
+        }
+    ]
+}

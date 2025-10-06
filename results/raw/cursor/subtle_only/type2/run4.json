@@ -1,0 +1,25 @@
+{
+    "misalignments": [
+        {
+            "section": "5",
+            "reasoning": "Spec requires ISO timestamp format for createdAt and updatedAt fields, but code uses new Date().toString() which produces non-ISO format like 'Mon Oct 06 2025 14:30:00 GMT-0700' instead of ISO format like '2025-10-06T14:30:00.000Z'",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error code 'MISSING_FIELDS' when required fields are missing, but login endpoint uses 'MISSING_CREDENTIALS' instead",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires statistics bar to display 'Completion percentage' as the label, but code displays 'Progress' instead",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

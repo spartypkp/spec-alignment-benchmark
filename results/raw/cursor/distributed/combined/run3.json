@@ -1,0 +1,52 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "6.1",
+            "reasoning": "API endpoint implemented as POST /api/auth/signup but specification requires POST /api/auth/register",
+            "files": [
+                "src/app/api/auth/signup/route.ts",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task input button displays 'Create' but specification requires 'Add Task' button text",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data ('User', 'user@example.com') instead of actual authenticated user's name from session",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error display shows entire error object instead of extracting error.message field from standardized error response format",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task completion toggle uses Button component instead of Checkbox component as specified ('Checkbox (left) to toggle completion')",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking code (gtag.js integration) not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting functionality (100 requests per minute with IP-based tracking) not specified in requirements"
+        }
+    ]
+}

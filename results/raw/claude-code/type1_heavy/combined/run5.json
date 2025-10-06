@@ -1,0 +1,64 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation not implemented in login form (spec requires validateEmail function)"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' not displayed when task list is empty"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation function using regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ not implemented anywhere"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Structured error response format with code and message fields not implemented - errors use simple string format instead"
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Database transaction wrapper db.transaction() not used for bulk operations clearCompletedTasks, deleteAllTasks, toggleAllTasks"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint not implemented - logout directory exists but contains no route.ts file"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware not implemented - no middleware.ts file exists for route protection and redirects"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie name is 'session' instead of specified 'todo-session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error responses use simple string format instead of structured {error: {code: string, message: string}} format",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Statistics bar uses flex justify-around instead of stacking vertically on mobile as required",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint GET /api/export not mentioned in API specification section 6"
+        }
+    ]
+}

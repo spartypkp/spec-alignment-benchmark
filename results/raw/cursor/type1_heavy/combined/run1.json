@@ -1,0 +1,74 @@
+{
+    "type1_missing": [
+        {
+            "section": "8.2",
+            "reasoning": "Middleware configuration file completely missing - no middleware.ts exists to protect /dashboard routes or redirect authenticated users from login/register pages"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint missing - logout directory exists but contains no route.ts file"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation function with regex pattern /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ not implemented - no validateEmail function exists in validation.ts"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' not displayed in TaskList component when tasks array is empty"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Client-side email format validation with specified regex not implemented on login and register pages - only uses browser's default type='email' validation"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie name is 'session' instead of specified 'todo-session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format returns { error: 'message' } instead of specified format { error: { code: 'ERROR_CODE', message: 'Human-readable message' } }",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data (hardcoded 'User' and 'user@example.com') instead of fetching actual user information from the API",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Bulk operations clearCompletedTasks, deleteAllTasks, and toggleAllTasks are not wrapped in db.transaction() for atomic operations as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Statistics bar lacks responsive design implementation - does not stack vertically on mobile breakpoints (375px), only uses horizontal flex layout",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint for tasks not mentioned in API specification section 6"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function not included in specified file structure section 7"
+        }
+    ]
+}

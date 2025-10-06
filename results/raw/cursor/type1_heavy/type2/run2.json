@@ -1,0 +1,29 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie name to be 'todo-session', but code uses 'session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error response format with 'code' and 'message' fields: { error: { code: 'ERROR_CODE', message: '...' } }, but code returns simple string format: { error: '...' }",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts",
+                "src/app/api/export/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Spec requires bulk operations (clearCompletedTasks, deleteAllTasks, toggleAllTasks) to be wrapped in transactions using db.transaction(), but code executes them as standalone queries without transaction wrappers",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        }
+    ]
+}

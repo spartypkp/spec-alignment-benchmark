@@ -1,0 +1,42 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookies with 7-day expiry, but code sets expiresAt to current timestamp (no expiry duration added)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookies with 7-day expiry, but code does not set maxAge or expires in cookie configuration",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Spec requires tasks sorted by creation date newest first, but code sorts by createdAt ASC (oldest first)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires task title validation of 1-100 characters, but code validates max 50 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires structured error format with code and message fields in an error object, but code returns simple string error field in some cases",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ]
+}

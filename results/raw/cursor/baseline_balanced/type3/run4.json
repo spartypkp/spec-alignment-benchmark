@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics table is not mentioned anywhere in the specification. Spec only defines pages: /, /login, /register, and /dashboard"
+        }
+    ]
+}

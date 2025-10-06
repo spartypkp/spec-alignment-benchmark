@@ -1,0 +1,71 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/register endpoint does not exist - spec requires this exact endpoint but code has /api/auth/signup instead"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Task Input button text is 'Create' instead of specified 'Add Task'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task item uses custom button symbols (○ and ✓) instead of a proper checkbox component as specified",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint returns error as string 'data.error' instead of error object with code and message structure",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Register endpoint error handling returns error as string 'data.error' instead of error object with code and message structure",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login API error code is 'MISSING_CREDENTIALS' instead of standard 'MISSING_FIELDS' specified in spec",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics integration (Script tags for gtag.js) not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting functionality (100 requests per minute) not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks function implementing bulk clear completed tasks feature not specified"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "deleteAllTasks function implementing bulk delete all tasks feature not specified"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "toggleAllTasks function implementing bulk toggle all tasks feature not specified"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility function cn() for className merging using clsx and tailwind-merge not specified"
+        }
+    ]
+}

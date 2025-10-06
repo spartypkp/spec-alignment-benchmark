@@ -1,0 +1,40 @@
+{
+    "misalignments": [
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email validation for login form not implemented - only HTML5 validation present"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' completely missing from task list"
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie named 'session' instead of required 'todo-session'"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation function with regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ not implemented"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Consistent error response format with error codes (MISSING_FIELDS, INVALID_EMAIL, etc.) not implemented"
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Database transactions using db.transaction() for bulk operations not implemented"
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Responsive design for statistics bar stacking vertically on mobile not implemented"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint completely missing - no route.ts file exists"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware for route protection completely missing from codebase"
+        }
+    ]
+}

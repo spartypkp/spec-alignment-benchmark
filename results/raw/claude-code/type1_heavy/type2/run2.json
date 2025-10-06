@@ -1,0 +1,35 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie name 'todo-session', but code uses 'session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires structured error format with 'code' and 'message' fields (e.g., {error: {code: 'ERROR_CODE', message: 'Human-readable message'}}), but code returns simple string error format (e.g., {error: 'Error message'})",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Spec requires bulk operations wrapped in transactions using db.transaction(), but code executes clearCompletedTasks, deleteAllTasks, and toggleAllTasks as simple prepared statements without transaction wrapping",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires empty state message 'No tasks yet. Add your first task above!' when task list is empty, but code has no empty state handling in TaskList component",
+            "files": [
+                "src/components/TaskList.tsx"
+            ]
+        }
+    ]
+}

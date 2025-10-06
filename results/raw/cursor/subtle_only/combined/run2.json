@@ -1,0 +1,64 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.2",
+            "reasoning": "No API endpoint to fetch current authenticated user information. Dashboard requires displaying user's name (section 2.4), but after page refresh, there's no way to retrieve user data from the session cookie. The getCurrentUser() function exists in auth.ts but is not exposed via any API endpoint."
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "5",
+            "reasoning": "Timestamps use .toString() instead of .toISOString() for ISO timestamp format. Spec explicitly states 'ISO timestamp' in data model comments, but implementation uses Date.toString() which produces a different format (e.g., 'Tue Jan 01 2024...' instead of '2024-01-01T00:00:00.000Z')",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "User createdAt field set to empty string instead of ISO timestamp when creating new user",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Frontend error handling accesses data.error as string instead of data.error.message. API returns { error: { code, message } } but frontend code treats data.error as a string, which would display '[object Object]' instead of the actual error message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data { name: 'User', email: 'user@example.com' } instead of actual authenticated user information",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Button heights (h-9=36px, h-8=32px, h-10=40px) don't meet specified 44x44px minimum for mobile touch-friendly targets",
+            "files": [
+                "src/components/ui/button.tsx"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Statistics bar uses 'flex justify-around' without responsive classes to stack vertically on mobile as specified. Should use responsive utilities like 'flex-col md:flex-row' to stack on mobile devices",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Contains unused utility functions formatDate, debounce, and truncateString (lines 8-42) that are explicitly commented as 'Unused utility functions' and are not mentioned anywhere in the specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains bulk operation functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks (lines 152-181) that are never used anywhere in the codebase. Spec section 3.2 lists only singular operations (create, toggle, delete, view tasks), and section 4.3 only mentions these as transaction examples, not required features"
+        }
+    ]
+}

@@ -1,0 +1,68 @@
+{
+    "type1_missing": [
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware file completely missing - spec requires middleware to protect /dashboard routes and redirect authenticated users from login/register pages"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint not implemented - logout folder exists but contains no route file"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation regex not implemented anywhere - spec requires `/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/` validation but no validateEmail function exists in validation.ts"
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation missing on login page - spec requires client-side validation for email format but page only uses HTML5 type='email'"
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Client-side email format validation missing on registration page - spec requires both client and server-side validation but client only validates name and password"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message not implemented in TaskList - spec requires 'No tasks yet. Add your first task above!' but component displays nothing when tasks array is empty"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie named 'session' instead of specified 'todo-session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format incorrect - using { error: 'message' } instead of { error: { code: 'ERROR_CODE', message: 'Human-readable message' } }",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts",
+                "src/app/api/export/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Bulk operations not wrapped in db.transaction() - clearCompletedTasks, deleteAllTasks, and toggleAllTasks are plain queries without transaction wrapper",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data 'User' instead of fetching actual user name from database via getCurrentUser() or API endpoint",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint not mentioned in API specification section 6 - provides GET /api/export to download tasks as CSV"
+        }
+    ]
+}

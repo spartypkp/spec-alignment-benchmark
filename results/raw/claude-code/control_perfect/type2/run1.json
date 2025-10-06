@@ -1,0 +1,44 @@
+{
+    "misalignments": [
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error code 'MISSING_FIELDS' for required fields missing, but login endpoint uses 'MISSING_CREDENTIALS'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec lists specific common error codes but implementation uses undocumented codes: 'INVALID_NAME', 'REGISTRATION_FAILED', 'LOGIN_FAILED', 'LOGOUT_FAILED', 'FETCH_FAILED', 'CREATE_FAILED', 'UPDATE_FAILED', 'DELETE_FAILED', 'INVALID_TITLE'",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/logout/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error format { error: { code, message } } and API returns this correctly, but frontend incorrectly accesses data.error as a string instead of data.error.message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires displaying the actual user's name in dashboard header, but code displays hardcoded mock data 'User' instead of fetching real user data",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Spec requires statistics bar to stack vertically on mobile and be horizontal on desktop, but code uses fixed horizontal layout without responsive breakpoints",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

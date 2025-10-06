@@ -1,0 +1,28 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie name 'todo-session', but code uses 'session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error format with nested structure {error: {code: '...', message: '...'}}, but code returns flat structure {error: '...'}",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Spec requires bulk operations (clear completed, delete all, toggle all) to be wrapped in db.transaction(), but code implements them as individual statements without transactions",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file not specified in the file structure (Section 7 only lists db.ts, auth.ts, and validation.ts in /lib). Contains unused helper functions (formatDate, debounce, truncateString) that are never called in the codebase."
+        }
+    ]
+}

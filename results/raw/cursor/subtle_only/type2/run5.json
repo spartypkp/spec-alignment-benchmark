@@ -1,0 +1,33 @@
+{
+    "misalignments": [
+        {
+            "section": "5",
+            "reasoning": "Spec requires ISO timestamp format for all date fields (createdAt, updatedAt, expiresAt), but code uses Date().toString() which produces a different format like 'Mon Oct 06 2025 10:00:00 GMT...' instead of ISO format like '2025-10-06T17:00:00.000Z'",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Spec requires createdAt to be an ISO timestamp, but createUser() function sets createdAt to empty string '' instead of a timestamp",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines error code 'MISSING_FIELDS' for required fields missing, but login route uses 'MISSING_CREDENTIALS' which is not in the spec's list of common error codes",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error response format with nested message field, but client code accesses 'data.error' directly as a string instead of 'data.error.message', which would display '[object Object]' instead of the human-readable message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "4.2",
+            "reasoning": "Error response format is {error: {code, message}} but client-side code expects data.error to be a string, not data.error.message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "User createdAt field is empty string instead of ISO timestamp in createUser function",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Task createdAt and updatedAt use Date.toString() instead of ISO timestamp format",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Session expiresAt uses Date.toString() instead of ISO timestamp format",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses bcrypt with 10 rounds instead of bcryptjs as specified in spec section 3.1",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility functions formatDate, debounce, and truncateString are not mentioned in specification and unused in codebase"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "Debug console.log statements for rendering tasks not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Debug console.log statements for task fetching and creation not specified"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "Debug console.log statements for task operations not specified"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "Debug console.log statement for user registration not specified"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "Debug console.log statement for user login not specified"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "Debug console.log statement for user logout not specified"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks not mentioned in API endpoints section 6.2"
+        }
+    ]
+}

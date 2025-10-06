@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark/light theme toggle component not mentioned anywhere in specification"
+        }
+    ]
+}

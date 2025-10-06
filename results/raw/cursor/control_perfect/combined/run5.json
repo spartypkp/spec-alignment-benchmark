@@ -1,0 +1,39 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "No API endpoint exists to fetch current authenticated user's information. Dashboard requires displaying user's name but uses hardcoded mock data (line 42 dashboard/page.tsx). While login/register return user data initially, on page refresh there is no way to retrieve current user information."
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling incorrectly uses data.error object directly as string instead of extracting data.error.message, which would display '[object Object]' instead of the actual error message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint uses error code 'MISSING_CREDENTIALS' instead of specified 'MISSING_FIELDS' for missing required fields",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar uses single card containing all metrics instead of multiple cards/boxes for visual separation as specified (plural 'cards/boxes' implies separate containers)",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks (lines 153-181) are implemented but never used in any API endpoint or UI component. Section 4.3 lists these as examples of operations that must be atomic if implemented, not as required features."
+        }
+    ]
+}

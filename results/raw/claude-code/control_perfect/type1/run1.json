@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation missing on login page - spec requires 'Client-side validation for email format' but login page only has HTML5 'type=email' validation, no explicit JavaScript regex validation like register page has"
+        }
+    ]
+}

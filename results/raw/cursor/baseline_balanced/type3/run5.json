@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics table not mentioned in specification, which only defines 4 pages: landing (/), login, register, and dashboard"
+        }
+    ]
+}

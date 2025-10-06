@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Contains utility functions (formatDate, debounce, truncateString) that are not mentioned in specification and marked as 'Unused utility functions'"
+        }
+    ]
+}

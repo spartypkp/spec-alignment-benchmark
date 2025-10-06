@@ -1,0 +1,39 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires bcryptjs for password hashing, but code uses SHA256 (crypto.createHash) which is less secure and not the specified algorithm",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires 7-day session cookie expiry, but code sets maxAge to 24 * 60 * 60 (1 day)",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "Spec requires PUT /api/tasks/[id] to update task, but code calls createTask() instead of updateTask(), creating duplicate tasks instead of updating existing ones",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Spec requires toggle completion to update a single task state, but code toggles ALL tasks by iterating through all tasks and updating each one to the same completion state",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error code 'MISSING_FIELDS' for required fields missing, but login endpoint uses 'MISSING_CREDENTIALS'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ]
+}

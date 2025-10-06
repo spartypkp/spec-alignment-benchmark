@@ -1,0 +1,75 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires POST /api/auth/register endpoint, but code implements /api/auth/signup",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error format {error: {code, message}}, but frontend accesses data.error instead of data.error.message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires 'Add Task' button text, but code displays 'Create'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires checkbox to toggle completion, but code uses Button component with text symbols",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "9.1",
+            "reasoning": "Spec requires redirect to homepage (/) after logout, but code redirects to /login",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires MISSING_FIELDS error code for missing fields, but login endpoint uses MISSING_CREDENTIALS",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires displaying actual user's name, but code uses hardcoded mock data 'User'",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2",
+            "reasoning": "Spec requires standard Tailwind CSS v3 configuration, but code has custom theme extensions with color system and border radius variables",
+            "files": [
+                "tailwind.config.js"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Spec requires statistics bar to stack vertically on mobile, but code uses horizontal flex layout without responsive breakpoints",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Spec requires touch-friendly button sizes (min 44x44px) on mobile, but button heights are only 32-40px (h-8 to h-10)",
+            "files": [
+                "src/components/ui/button.tsx"
+            ]
+        }
+    ]
+}

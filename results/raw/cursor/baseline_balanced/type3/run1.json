@@ -1,0 +1,20 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page showing user statistics - not mentioned anywhere in specification which only lists pages: /, /login, /register, /dashboard"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "POST endpoint accepts and returns priority parameter for tasks, but Task model in specification (Section 5) does not include priority field"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Includes priority dropdown selector (low/medium/high) not specified in Task Input Section requirements (Section 2.4)"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Displays priority indicator with color coding, but specification only mentions checkbox, task title, and delete button for each task item (Section 2.4)"
+        }
+    ]
+}

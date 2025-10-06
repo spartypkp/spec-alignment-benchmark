@@ -1,0 +1,78 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint not implemented - logout directory exists but contains no route.ts file"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Middleware configuration for route protection not implemented - no middleware.ts file exists to protect /dashboard or redirect authenticated users"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' not displayed when task list is empty"
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Client-side validation for email format on login page not implemented"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation using regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ not implemented in validation.ts"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie name is 'session' instead of specified 'todo-session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format is flat string instead of structured format with code and message properties",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Bulk operations not wrapped in transactions - clearCompletedTasks, deleteAllTasks, and toggleAllTasks use simple statements instead of db.transaction()",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar uses single container instead of separate cards/boxes for visual separation of metrics",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Statistics bar does not stack vertically on mobile - uses flex justify-around at all screen sizes instead of responsive layout",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint not specified in API documentation section 6"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode theme variables defined but dark mode not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks not specified in requirements"
+        }
+    ]
+}

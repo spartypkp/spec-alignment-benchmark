@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/register endpoint completely missing. The specification requires this endpoint at /api/auth/register, but only /api/auth/signup exists in the codebase (at src/app/api/auth/signup/route.ts). The register page attempts to call /api/auth/register which would result in a 404 error."
+        }
+    ]
+}

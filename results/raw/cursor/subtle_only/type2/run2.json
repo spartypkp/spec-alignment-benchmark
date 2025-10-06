@@ -1,0 +1,26 @@
+{
+    "misalignments": [
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error code 'MISSING_FIELDS' for missing required fields, but login endpoint uses 'MISSING_CREDENTIALS'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Spec requires ISO timestamp format for all date fields (createdAt, updatedAt, expiresAt), but code uses empty string and new Date().toString() which produces non-ISO format",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires displaying error.message from error response, but code displays the entire error object which would show '[object Object]' instead of the message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ]
+}

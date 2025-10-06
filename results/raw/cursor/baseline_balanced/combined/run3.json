@@ -1,0 +1,81 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar showing total tasks count, completed tasks count, and completion percentage is completely missing from dashboard"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Client-side password validation (minimum 6 characters) is missing from registration page - only name and email are validated client-side"
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation is missing from login page - only HTML5 required attribute is used"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "4.1",
+            "reasoning": "Task title validation allows maximum 50 characters instead of specified 100 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Tasks are sorted by creation date in ascending order (oldest first) instead of newest first as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session expiry is set to current time with no actual 7-day expiry calculated - sessions expire immediately instead of after 7 days",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format in auth endpoints uses simple string format {error: 'message'} instead of specified nested structure {error: {code: 'CODE', message: 'message'}}",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "User name displayed in dashboard header uses mock data ('User') instead of actual user data from session/database",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie missing maxAge property for 7-day expiry - only server-side expiresAt should be checked, cookie itself should have maxAge",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics table not mentioned anywhere in specification"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Priority selection dropdown (low/medium/high) for tasks not mentioned in specification - spec only requires title input"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Priority indicator display with color coding not mentioned in specification - task items should only show checkbox, title, and delete button"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks are implemented but not required by specification and never used"
+        }
+    ]
+}

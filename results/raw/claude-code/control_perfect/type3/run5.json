@@ -1,0 +1,16 @@
+{
+    "misalignments": [
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains clearCompletedTasks() function (lines 153-161) - bulk operation not specified in requirements, only mentioned as example of what must be atomic if implemented"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains deleteAllTasks() function (lines 163-171) - bulk operation not specified in requirements, only mentioned as example of what must be atomic if implemented"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains toggleAllTasks() function (lines 173-181) - bulk operation not specified in requirements, only mentioned as example of what must be atomic if implemented"
+        }
+    ]
+}

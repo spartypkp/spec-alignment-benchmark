@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains unused bulk operation functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) with no corresponding API endpoints or UI features in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Contains unused utility functions (formatDate, debounce, truncateString) not mentioned in specification and never used in codebase"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility functions file not mentioned in specification file structure (Section 7). Contains cn, formatDate, debounce, and truncateString functions not referenced in spec."
+        }
+    ]
+}

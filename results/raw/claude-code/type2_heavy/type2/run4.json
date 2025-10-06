@@ -1,0 +1,53 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires bcryptjs for password hashing, but code uses SHA-256 hashing (crypto.createHash)",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie to expire in 7 days, but code sets maxAge to 1 day (24 * 60 * 60 instead of 7 * 24 * 60 * 60)",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "Spec requires PUT /api/tasks/[id] to update existing task, but code creates a new duplicate task instead of updating",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Spec requires toggle completion to update individual task state, but code toggles ALL tasks to the same completion state",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires consistent HTTP status codes for errors (400 for validation errors, 401 for unauthorized, 404 for not found, 500 for server errors), but login route returns status 200 for all error responses instead of proper HTTP status codes",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires consistent HTTP status codes for errors, but tasks route returns status 200 for error responses (UNAUTHORIZED, FETCH_FAILED, INVALID_TITLE, CREATE_FAILED) instead of proper HTTP status codes",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires statistics bar to display 'Completion percentage' label, but code displays 'Progress' label",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

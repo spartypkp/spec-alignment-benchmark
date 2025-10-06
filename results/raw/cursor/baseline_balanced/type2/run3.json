@@ -1,0 +1,44 @@
+{
+    "misalignments": [
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires task title validation of 1-100 characters, but code validates 1-50 characters (validation.ts line 13, TaskInput.tsx line 23)",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires sessions with 7-day expiry, but code sets expiresAt to current time (immediate expiry) in db.ts line 134 and doesn't set maxAge on cookie in auth.ts lines 21-26",
+            "files": [
+                "src/lib/db.ts",
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires tasks sorted by creation date newest first, but code sorts with ORDER BY createdAt ASC (oldest first) in db.ts line 96",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error response format { error: { code: 'CODE', message: 'msg' } }, but auth endpoints return { error: 'string' } instead of nested object with code and message fields",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires password validation (minimum 6 characters) in registration form validation, but register endpoint doesn't call validatePassword() before hashing",
+            "files": [
+                "src/app/api/auth/register/route.ts"
+            ]
+        }
+    ]
+}

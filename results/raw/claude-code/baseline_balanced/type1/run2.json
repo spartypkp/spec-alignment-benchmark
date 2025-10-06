@@ -1,0 +1,20 @@
+{
+    "misalignments": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar with total tasks count, completed tasks count, and completion percentage is completely missing from dashboard"
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie 7-day expiry not implemented - session expiresAt is set to current timestamp with no future date calculation"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Server-side password validation (minimum 6 characters) not enforced - validatePassword imported but never called in register endpoint"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Client-side email format validation missing on login page - no emailRegex or validation before submission"
+        }
+    ]
+}

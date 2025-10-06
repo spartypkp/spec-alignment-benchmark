@@ -1,0 +1,50 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "4.2",
+            "reasoning": "Login page error handling accesses data.error as string instead of data.error.message from structured error format",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Register page error handling accesses data.error as string instead of data.error.message from structured error format",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data instead of fetching real user information from the API",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar uses single container instead of separate cards/boxes for visual separation as specified",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login API uses error code MISSING_CREDENTIALS instead of specified MISSING_FIELDS",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn function not specified in file structure section 7"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Database transaction functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks are implemented but unused and not specified"
+        }
+    ]
+}

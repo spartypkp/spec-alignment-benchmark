@@ -1,0 +1,64 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Task input button labeled 'Create' instead of specified 'Add Task'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task checkbox implemented as button with ✓/○ symbols instead of actual checkbox component",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login/register error display shows data.error (entire object) instead of data.error.message as per spec format",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "6.1",
+            "reasoning": "Registration endpoint at /api/auth/signup instead of specified /api/auth/register",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking scripts not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting implementation (100 requests per minute) not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks function not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "deleteAllTasks function not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "toggleAllTasks function not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "cn utility function for class merging not mentioned in specification"
+        },
+        {
+            "file": "src/components/ui/checkbox.tsx",
+            "reasoning": "Checkbox component exists but is not used; spec only requires checkbox functionality in TaskItem"
+        }
+    ]
+}

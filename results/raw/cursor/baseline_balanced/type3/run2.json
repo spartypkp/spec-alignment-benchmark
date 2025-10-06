@@ -1,0 +1,20 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page showing statistics for all users - specification does not mention any admin functionality, admin routes, or ability to view other users' data"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "POST endpoint accepts and returns priority field for tasks - specification's Task interface (Section 5) does not include priority, only: id, userId, title, completed, createdAt, updatedAt"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Task input form includes priority dropdown selector (low/medium/high) - specification Section 2.4 defines task input as 'Single text input for new task title' with no mention of priority selection"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Task display includes priority indicator with color coding - specification Section 2.4 defines task items as showing only checkbox, title, and delete button, with no priority display"
+        }
+    ]
+}

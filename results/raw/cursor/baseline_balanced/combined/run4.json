@@ -1,0 +1,92 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar with three metrics (Total tasks count, Completed tasks count, Completion percentage) completely absent from dashboard - only Header, TaskInput, and TaskList are rendered"
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Client-side password validation (minimum 6 characters) not implemented in registration form - only name and email are validated"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Server-side password validation not implemented - validatePassword function is imported in register route but never called"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "4.1",
+            "reasoning": "Task title validation allows max 50 characters instead of specified 100 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Tasks sorted oldest first (ORDER BY createdAt ASC) instead of newest first as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session expiry set to current time instead of 7 days in future, causing immediate expiration",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie missing maxAge property for 7-day expiry - becomes session cookie that expires on browser close",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error responses use wrong format { error: string } instead of { error: { code: string, message: string } }",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error codes don't match specification - should use MISSING_FIELDS, INVALID_EMAIL, WEAK_PASSWORD, EMAIL_EXISTS, INVALID_CREDENTIALS but these codes are not used",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data { name: 'User', email: 'user@example.com' } instead of actual logged-in user's name",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Complete admin dashboard page with user statistics table - no admin features mentioned in specification"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Priority field (low/medium/high) with selector dropdown added to task input - not in Task data model specification"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Priority display indicator showing task priority levels - priority field not specified in Task interface"
+        },
+        {
+            "file": "src/app/dashboard/page.tsx",
+            "reasoning": "Priority parameter handling in handleAddTask function - task priority feature not in specification"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Priority field processing in POST endpoint adding priority property to tasks - not part of specified Task model"
+        }
+    ]
+}

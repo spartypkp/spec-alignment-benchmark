@@ -1,0 +1,66 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses SHA256 (crypto.createHash) instead of bcryptjs as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie maxAge set to 1 day (24 * 60 * 60) instead of specified 7-day expiry",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error responses return HTTP status 200 for all errors instead of proper HTTP status codes (400, 401, etc.)",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] endpoint creates new task via createTask() instead of updating existing task via updateTask()",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Toggle task functionality incorrectly toggles ALL tasks instead of only the clicked task (loops through all tasks and updates each one)",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data ('User', 'user@example.com') instead of fetching and displaying actual logged-in user information",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Theme toggle component with dark/light mode switching not mentioned in specification"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Contains dark mode CSS styling (.dark class with theme variables) not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains unused bulk operation functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) that are not required by specification and have no corresponding API endpoints or UI features"
+        },
+        {
+            "file": "src/app/layout.tsx",
+            "reasoning": "Imports and renders ThemeToggle component which is not part of the specification"
+        }
+    ]
+}

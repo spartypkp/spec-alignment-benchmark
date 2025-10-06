@@ -1,0 +1,72 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses SHA256 instead of bcryptjs as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie maxAge set to 1 day (86400 seconds) instead of 7 days",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint returns status 200 for errors instead of proper error status codes (400/401)",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks GET endpoint returns status 200 for UNAUTHORIZED error instead of 401",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks POST endpoint returns status 200 for all errors instead of proper status codes (400/401)",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format is flat object {error: string} instead of nested {error: {code: string, message: string}}",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] creates new task instead of updating existing task",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Task toggle functionality toggles ALL tasks instead of single clicked task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark/light theme toggle component not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility function cn() for class merging not specified in requirements"
+        }
+    ]
+}

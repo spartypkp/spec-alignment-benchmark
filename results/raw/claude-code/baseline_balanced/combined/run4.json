@@ -1,0 +1,70 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar with Total tasks count, Completed tasks count, and Completion percentage is completely missing from dashboard"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Password validation (minimum 6 characters) missing on registration - neither client-side in register page nor server-side in API"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Tasks sorted by creation date oldest first (ASC) instead of newest first (DESC) as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session expiry set to current time instead of 7 days in the future",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Task title validation allows max 50 characters but spec requires max 100 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format inconsistent - some errors use simple string format {error: 'message'} instead of required {error: {code: 'CODE', message: 'message'}} format",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics not mentioned anywhere in specification"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Priority field (low/medium/high) selector and functionality not specified in requirements"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Priority display with color coding not specified in requirements"
+        },
+        {
+            "file": "src/app/dashboard/page.tsx",
+            "reasoning": "Priority handling in handleAddTask function not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Priority parameter in POST endpoint not specified in API requirements"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility function cn() for class merging not mentioned in specification"
+        }
+    ]
+}

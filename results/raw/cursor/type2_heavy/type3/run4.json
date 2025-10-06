@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Theme toggle component implementing light/dark mode switching not mentioned anywhere in specification. Spec only mentions 'Tailwind CSS (standard v3 configuration)' with no theme switching requirements."
+        }
+    ]
+}

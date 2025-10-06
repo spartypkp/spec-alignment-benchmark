@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "File not listed in specification's file structure (Section 7). Contains unused utility functions (formatDate, debounce, truncateString) explicitly marked as 'Unused utility functions' that are never called anywhere in the codebase. While it includes a 'cn' helper for Tailwind, the file contains extraneous/deprecated code not specified in requirements."
+        }
+    ]
+}

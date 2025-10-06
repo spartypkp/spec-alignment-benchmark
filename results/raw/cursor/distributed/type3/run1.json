@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Contains Google Analytics tracking implementation (lines 8-20) which is not specified anywhere in the requirements. The spec makes no mention of analytics or user tracking."
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Implements rate limiting functionality (lines 4-33) that is not specified. The spec only requires session-based authentication checks and redirects in middleware, with no mention of rate limiting."
+        }
+    ]
+}

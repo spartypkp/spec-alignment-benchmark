@@ -1,0 +1,28 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "4.2",
+            "reasoning": "Error response format uses {error: string} instead of specified {error: {code: string, message: string}} format in client-side error handling",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for className merging not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains clearCompletedTasks(), deleteAllTasks(), and toggleAllTasks() bulk operation functions not specified in requirements"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Contains dark mode CSS variables (.dark class) not mentioned in specification"
+        }
+    ]
+}

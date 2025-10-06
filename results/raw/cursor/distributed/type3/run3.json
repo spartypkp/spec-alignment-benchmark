@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Contains Google Analytics tracking code (lines 8-20) with gtag scripts that are not mentioned anywhere in the specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Implements rate limiting functionality (lines 4-32) with request throttling and IP-based tracking that is not specified in the requirements"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "misalignments": [
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error code 'MISSING_FIELDS' for missing required fields, but login route uses 'MISSING_CREDENTIALS' instead",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines error format as { error: { code, message } }, but frontend pages access data.error directly instead of data.error.message to display error text, which would show '[object Object]' instead of the human-readable message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires displaying the actual logged-in user's name in the dashboard header, but implementation uses hardcoded mock data 'User' instead of fetching the real user information",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

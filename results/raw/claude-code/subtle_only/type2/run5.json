@@ -1,0 +1,32 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires bcrypt password hashing with default rounds (implicitly 10), but code uses bcryptjs with 10 rounds explicitly in auth.ts:9",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Spec requires ISO timestamp format for createdAt/updatedAt fields, but code uses new Date().toString() which produces a non-ISO string format",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Spec requires createdAt to be an ISO timestamp, but code sets it to empty string '' in createUser function",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Spec requires responsive design with statistics bar stacking vertically on mobile, but code only has horizontal flex layout with no mobile breakpoints",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

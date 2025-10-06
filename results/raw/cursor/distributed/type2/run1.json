@@ -1,0 +1,41 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires 'POST /api/auth/register' endpoint, but code implements it as 'POST /api/auth/signup' at src/app/api/auth/signup/route.ts",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires 'Checkbox (left) to toggle completion' for task items, but code uses a Button component with symbols ('✓' and '○') instead of the Checkbox UI component",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires '\"Add Task\" button' for task creation, but code displays 'Create' as the button text",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines MISSING_FIELDS error code for required fields missing, but login endpoint uses MISSING_CREDENTIALS instead",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error response format with code and message properties, but frontend pages display data.error object directly (showing '[object Object]' instead of the message text)",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

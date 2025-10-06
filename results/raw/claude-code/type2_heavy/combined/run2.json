@@ -1,0 +1,64 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires bcryptjs for password hashing but code uses SHA256 (crypto.createHash)",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie maxAge set to 1 day (24*60*60) instead of 7 days as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Toggle completion updates ALL tasks instead of just the clicked task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint returns status 200 for errors instead of proper error status codes (400, 401, 500)",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks GET endpoint returns status 200 with error object instead of 401 for unauthorized access",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks POST endpoint returns status 200 for validation errors instead of 400",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] creates new task instead of updating existing task",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Theme toggle component with dark/light mode switching not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for class merging not specified in file structure"
+        }
+    ]
+}

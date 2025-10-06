@@ -1,0 +1,11 @@
+{
+    "misalignments": [
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error code 'MISSING_FIELDS' for required fields missing, but code uses 'MISSING_CREDENTIALS' in the login endpoint",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ]
+}

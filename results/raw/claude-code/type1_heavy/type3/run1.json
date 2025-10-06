@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint not mentioned in API specification (section 6). Spec only lists auth and tasks endpoints, no export functionality specified."
+        }
+    ]
+}

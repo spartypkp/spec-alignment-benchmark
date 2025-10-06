@@ -1,0 +1,24 @@
+{
+    "misalignments": [
+        {
+            "file": "public/file.svg",
+            "reasoning": "Unused SVG asset not referenced in specification or codebase"
+        },
+        {
+            "file": "public/globe.svg",
+            "reasoning": "Unused SVG asset not referenced in specification or codebase"
+        },
+        {
+            "file": "public/next.svg",
+            "reasoning": "Unused SVG asset not referenced in specification or codebase"
+        },
+        {
+            "file": "public/vercel.svg",
+            "reasoning": "Unused SVG asset not referenced in specification or codebase"
+        },
+        {
+            "file": "public/window.svg",
+            "reasoning": "Unused SVG asset not referenced in specification or codebase"
+        }
+    ]
+}

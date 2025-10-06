@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar completely missing from dashboard. Spec requires three metrics (total tasks count, completed tasks count, completion percentage) displayed with cards/boxes for visual separation, but dashboard only contains Header, TaskInput, and TaskList components with no statistics implementation whatsoever."
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Password validation (minimum 6 characters) completely missing from registration. The validatePassword function exists in validation.ts and is imported in register/route.ts but is never called. No password length validation occurs on either client-side (register/page.tsx) or server-side (register/route.ts), allowing users to register with any password length."
+        }
+    ]
+}

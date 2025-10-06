@@ -1,0 +1,48 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires sessions with 7-day expiry, but code creates sessions with current timestamp as expiresAt (no 7-day offset added)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires task title validation of 1-100 characters, but code validates for max 50 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires tasks sorted by creation date newest first, but code sorts tasks oldest first (ORDER BY createdAt ASC)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error format with nested object {error: {code: string, message: string}}, but login/register routes return flat {error: string} format",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts"
+            ]
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Spec requires client-side password validation (minimum 6 characters) on registration page, but code has no password length validation",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie with maxAge set for 7-day expiry, but code does not set maxAge cookie attribute",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        }
+    ]
+}

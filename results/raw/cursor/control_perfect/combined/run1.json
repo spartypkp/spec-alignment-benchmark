@@ -1,0 +1,27 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user name 'User' instead of actual logged-in user's name from database",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side code extracts error incorrectly as 'data.error' (object) instead of 'data.error.message' (string) per specification's error format",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks (lines 153-181) are exported but never used anywhere in codebase and not specified as required features"
+        }
+    ]
+}

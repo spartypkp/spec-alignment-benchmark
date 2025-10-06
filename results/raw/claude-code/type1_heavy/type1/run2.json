@@ -1,0 +1,40 @@
+{
+    "misalignments": [
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation (regex: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/) missing from login page - uses only HTML5 type=\"email\" validation"
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Client-side email format validation missing from registration page - uses only HTML5 type=\"email\" validation"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' not displayed when task list is empty"
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie named 'session' instead of specified 'todo-session'"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation function completely absent from validation.ts - no regex-based email validation exists"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Structured error response format with error.code and error.message fields not implemented - API returns simple {error: string} instead of {error: {code: string, message: string}}"
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Database transaction wrapper (db.transaction()) not implemented for bulk operations clearCompletedTasks, deleteAllTasks, and toggleAllTasks"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint not implemented - logout directory exists but contains no route.ts file"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware for route protection completely missing - no middleware.ts file exists to protect /dashboard or redirect authenticated users"
+        }
+    ]
+}

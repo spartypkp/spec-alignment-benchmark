@@ -1,0 +1,56 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires sessions with 7-day expiry, but code sets expiresAt to current date (no 7 days added)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookies with 7-day expiry, but code doesn't set maxAge or expires property on the cookie",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires task title validation of 1-100 characters, but code validates max 50 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires tasks sorted by creation date newest first, but code sorts by createdAt ASC (oldest first)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error format { error: { code: '...', message: '...' } }, but auth routes return { error: 'string' }",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires server-side password validation (minimum 6 characters) for registration, but code doesn't call validatePassword function",
+            "files": [
+                "src/app/api/auth/register/route.ts"
+            ]
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Spec requires client-side password validation (minimum 6 characters) on registration page, but code has no password length check",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ]
+}

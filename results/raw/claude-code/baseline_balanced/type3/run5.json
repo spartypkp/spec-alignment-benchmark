@@ -1,0 +1,16 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page showing user statistics and task counts - no admin functionality is mentioned anywhere in the specification"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Implements task priority feature (low/medium/high) with dropdown selector - priority is not mentioned in the specification"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Displays task priority indicator with color coding - priority feature is not specified"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark/light theme toggle component with localStorage persistence - theme switching is not mentioned anywhere in the specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for merging Tailwind classes - not mentioned in specification file structure (section 7)"
+        }
+    ]
+}

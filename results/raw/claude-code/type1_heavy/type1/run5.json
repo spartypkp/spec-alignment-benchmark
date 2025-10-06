@@ -1,0 +1,36 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie named 'todo-session' required by spec, but code uses 'session' as cookie name in auth.ts:5"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' completely missing from TaskList component"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation function with regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ not implemented in validation.ts or anywhere in codebase"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Structured error response format with code and message fields completely absent - all error responses use simple string format instead of {error: {code: 'ERROR_CODE', message: 'Human-readable message'}}"
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Database transactions using db.transaction() not implemented - bulk operations (clearCompletedTasks, deleteAllTasks, toggleAllTasks) exist but are not wrapped in transactions"
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Mobile-specific responsive breakpoints for statistics bar to stack vertically not implemented - statistics bar uses 'flex justify-around' without responsive classes"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint completely missing - logout directory exists but contains no route.ts file"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware for route protection completely missing - no middleware.ts file exists in project root"
+        }
+    ]
+}

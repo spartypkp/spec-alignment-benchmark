@@ -1,0 +1,31 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "4.2",
+            "reasoning": "Login API returns error code 'MISSING_CREDENTIALS' but spec requires 'MISSING_FIELDS' for missing required fields",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling extracts 'data.error' as string but API returns error as object with 'code' and 'message' properties per spec format",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for className merging not specified in file structure (section 7)"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains bulk operation functions clearCompletedTasks(), deleteAllTasks(), and toggleAllTasks() that are not mentioned in API endpoints (section 6) or core functionality (section 3)"
+        }
+    ]
+}

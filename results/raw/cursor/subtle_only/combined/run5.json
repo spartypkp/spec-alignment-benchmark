@@ -1,0 +1,71 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "5",
+            "reasoning": "User createdAt field set to empty string '' instead of ISO timestamp as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Task and Session timestamps use new Date().toString() instead of ISO timestamp format (.toISOString())",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling accesses data.error instead of data.error.message to match API response format { error: { code, message } }",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint uses MISSING_CREDENTIALS error code instead of MISSING_FIELDS as specified",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "API endpoints use error codes not in specification list: INVALID_NAME, REGISTRATION_FAILED, LOGIN_FAILED, LOGOUT_FAILED, FETCH_FAILED, CREATE_FAILED, UPDATE_FAILED, DELETE_FAILED, INVALID_TITLE",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/logout/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard uses hardcoded mock user data { name: 'User' } instead of fetching actual user's name from session",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks not mentioned in API endpoints or core functionality sections"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file not in specification file structure; contains unused functions formatDate, debounce, and truncateString"
+        },
+        {
+            "file": "README.md",
+            "reasoning": "README file not mentioned in specification file structure"
+        },
+        {
+            "file": "components.json",
+            "reasoning": "Configuration file not mentioned in specification"
+        }
+    ]
+}

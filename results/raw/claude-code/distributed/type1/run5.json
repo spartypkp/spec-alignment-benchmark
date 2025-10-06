@@ -1,0 +1,20 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "API endpoint POST /api/auth/register is completely missing. The codebase has /api/auth/signup instead, which is a different route path than specified"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task list items specified to use checkbox (left) for toggling completion, but implementation uses a button with text symbols (✓/○) instead of actual checkbox input element"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "TaskInput component button text specified as 'Add Task' but implementation shows 'Create' instead"
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page specified to have client-side validation for email format, but no email format validation logic exists in the login page component before submission"
+        }
+    ]
+}

@@ -1,0 +1,87 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint completely missing - logout directory exists but contains no route.ts file"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware file completely absent - no middleware.ts or middleware.js exists to protect routes or redirect authenticated users"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message not implemented in TaskList component - specification requires 'No tasks yet. Add your first task above!' when tasks array is empty"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation function with specified regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ not implemented anywhere in validation.ts or codebase"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie name is 'session' instead of specified 'todo-session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format uses { error: 'message' } instead of specified { error: { code: 'ERROR_CODE', message: 'Human-readable message' } } structure",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Bulk operations clearCompletedTasks, deleteAllTasks, and toggleAllTasks not wrapped in db.transaction() despite specification requirement for atomic transactions",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page missing client-side email format validation - relies only on HTML5 type='email' instead of explicit validation with specified regex",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Registration page missing client-side email format validation - has name and password validation but no email validation with specified regex",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar displays 'Progress' instead of specified 'Completion percentage' label",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data ({ name: 'User', email: 'user@example.com' }) instead of retrieving actual user name from session",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "9.1",
+            "reasoning": "Logout redirects to /login instead of homepage (/) as specified in user flow step 11",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint (GET /api/export) not mentioned anywhere in API endpoints specification section 6"
+        }
+    ]
+}

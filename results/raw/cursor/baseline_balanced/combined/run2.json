@@ -1,0 +1,86 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar with three metrics (Total tasks count, Completed tasks count, Completion percentage) completely missing from dashboard page"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session expiry set to current time instead of 7 days in the future",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie created without maxAge property for 7-day expiry",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error responses use { error: 'string' } format instead of specified { error: { code: 'CODE', message: 'message' } } format",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Task title validation enforces 50 character maximum instead of specified 100 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Tasks sorted by createdAt ASC (oldest first) instead of specified DESC (newest first)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Password minimum 6 characters validation missing on client side in registration form",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page lacks explicit client-side email format validation beyond HTML5 type attribute",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user name 'User' instead of actual authenticated user's name",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics table not specified in requirements"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Task priority dropdown (low/medium/high) not mentioned in specification"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Task priority display indicator not mentioned in specification"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "API accepts and handles priority parameter not specified in requirements"
+        }
+    ]
+}

@@ -1,0 +1,82 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Sessions expire in 7 days but createdAt timestamps not stored as ISO format (spec requires ISO timestamps, code uses Date.toString())",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "User.createdAt field set to empty string instead of ISO timestamp",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Task timestamps use Date.toString() instead of ISO format (createdAt, updatedAt should be ISO timestamps)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Session.expiresAt uses Date.toString() instead of ISO timestamp format",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Frontend expects error.message string but receives error object with code and message properties",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Login API returns MISSING_CREDENTIALS error code instead of spec-required MISSING_FIELDS",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Contains unused utility functions (formatDate, debounce, truncateString) not mentioned in specification"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "Contains console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Contains console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "Contains console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "Contains console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "Contains console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "Contains console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) implemented but not mentioned in specification"
+        }
+    ]
+}

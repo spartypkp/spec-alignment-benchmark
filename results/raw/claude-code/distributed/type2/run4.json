@@ -1,0 +1,40 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires endpoint POST /api/auth/register, but code implements POST /api/auth/signup",
+            "files": [
+                "src/app/api/auth/signup/route.ts",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires button text 'Add Task' for task creation, but code displays 'Create'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires completion percentage label as 'Completion percentage', but code displays 'Progress'",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.1",
+            "reasoning": "Spec requires landing page with Google Analytics scripts, but this is not specified in the requirements (Extra feature - Type 3)",
+            "files": [
+                "src/app/page.tsx"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Spec requires Tailwind CSS standard v3 configuration, but code extends theme with custom CSS variables (border, input, ring, background, foreground, primary, secondary, destructive, muted, accent, popover, card)",
+            "files": [
+                "tailwind.config.js"
+            ]
+        }
+    ]
+}

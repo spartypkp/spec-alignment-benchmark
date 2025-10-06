@@ -1,0 +1,26 @@
+{
+    "misalignments": [
+        {
+            "section": "5",
+            "reasoning": "Spec requires createdAt as ISO timestamp, but code stores empty string '' for user createdAt in createUser function",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Spec requires ISO timestamp format for createdAt/updatedAt/expiresAt, but code uses new Date().toString() which produces non-ISO format (e.g., 'Thu Oct 05 2025' instead of '2025-10-05T...')",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error response format with error.message, but frontend displays data.error (the object) instead of data.error.message, causing incorrect error display",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ]
+}

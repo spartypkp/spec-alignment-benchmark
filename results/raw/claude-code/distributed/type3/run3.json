@@ -1,0 +1,16 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics integration (lines 8-20) with gtag tracking script not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting functionality (lines 4-32) implementing 100 requests/minute limit not specified in requirements"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for class name merging not mentioned in file structure specification"
+        }
+    ]
+}

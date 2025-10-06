@@ -1,0 +1,82 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar section completely missing - no component displays Total tasks count, Completed tasks count, or Completion percentage metrics"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format not using specified structure - responses use simple string format like {error: 'message'} instead of {error: {code: 'ERROR_CODE', message: 'Human-readable message'}}"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Required error codes MISSING_FIELDS, INVALID_EMAIL, WEAK_PASSWORD, EMAIL_EXISTS, and INVALID_CREDENTIALS are not implemented - API uses different error codes like INVALID_TITLE, FETCH_FAILED, etc."
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Task validation incorrect - spec requires max 100 characters, code validates max 50 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Tasks sorted by creation date oldest first (ASC) instead of newest first (DESC) as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie expiry incorrect - spec requires 7-day expiry, code sets expiresAt to current timestamp (no actual expiry)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Password validation missing on registration - spec requires minimum 6 characters validation on both client and server, but validatePassword function imported but never called in register endpoint",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format inconsistent - some endpoints use {error: {code, message}} format while auth endpoints use {error: 'string'} format",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Task update endpoint error message says 'must be 100 characters or less' but validation actually checks for 50 characters",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics table not mentioned anywhere in specification"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Priority field (low/medium/high) with dropdown selector not specified in requirements"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Priority indicator display and color coding not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility functions cn() for className merging not specified, appears to be from shadcn/ui library"
+        }
+    ]
+}

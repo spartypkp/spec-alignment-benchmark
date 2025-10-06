@@ -1,0 +1,70 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/register endpoint specified but does not exist - only /api/auth/signup exists"
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation on login page not implemented"
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Responsive design with mobile breakpoints (375px) and vertical statistics bar stacking not implemented"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "User name display in dashboard header uses mock data instead of fetching actual user from session"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Task input button text is 'Create' instead of specified 'Add Task'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login page displays entire error object instead of error.message from structured error response format",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "TaskItem uses button symbols (✓/○) instead of proper checkbox component as specified",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/auth/signup/route.ts",
+            "reasoning": "API endpoint /api/auth/signup exists but specification only defines /api/auth/register"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting functionality (100 requests/minute with in-memory store) not mentioned in specification"
+        },
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics integration with tracking scripts not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk transaction functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) exist but are not exposed via API or UI as specified"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode CSS variables and .dark class styling not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility function cn() for className merging not specified or referenced in requirements"
+        }
+    ]
+}

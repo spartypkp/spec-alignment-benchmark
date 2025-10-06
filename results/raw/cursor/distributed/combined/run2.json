@@ -1,0 +1,92 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "6.1",
+            "reasoning": "API registration endpoint is named '/api/auth/signup' instead of '/api/auth/register' as specified",
+            "files": [
+                "src/app/api/auth/signup/route.ts",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page missing client-side validation for email format - only has HTML5 required attribute but no email format validation",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login page reads error as 'data.error' instead of 'data.error.message' per specified nested error format",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Register page reads error as 'data.error' instead of 'data.error.message' per specified nested error format",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "TaskInput button labeled 'Create' instead of specified 'Add Task' button text",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "TaskItem uses Button component with icons instead of proper Checkbox component for task completion toggle",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data ('User', 'user@example.com') instead of fetching and displaying actual authenticated user's name",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login route uses error code 'MISSING_CREDENTIALS' instead of specified 'MISSING_FIELDS' for missing required fields",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking code (lines 8-20) not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting implementation (lines 4-32) not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) not required by specification - no UI features or API endpoints use these"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() helper function not listed in specification's file structure (section 7)"
+        },
+        {
+            "file": "public/file.svg",
+            "reasoning": "SVG file not mentioned in specification"
+        },
+        {
+            "file": "public/globe.svg",
+            "reasoning": "SVG file not mentioned in specification"
+        },
+        {
+            "file": "public/window.svg",
+            "reasoning": "SVG file not mentioned in specification"
+        }
+    ]
+}

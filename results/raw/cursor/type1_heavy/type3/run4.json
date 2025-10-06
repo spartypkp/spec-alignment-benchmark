@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint that allows users to download their tasks as a CSV file. This export/download feature is not mentioned anywhere in the specification."
+        }
+    ]
+}

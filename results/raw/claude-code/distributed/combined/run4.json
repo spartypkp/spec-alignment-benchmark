@@ -1,0 +1,62 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "6.1",
+            "reasoning": "Registration endpoint is /api/auth/signup instead of /api/auth/register",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task input button text is 'Create' instead of 'Add Task'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login error code is 'MISSING_CREDENTIALS' instead of 'MISSING_FIELDS'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar displays 'Progress' label instead of 'Completion percentage'",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "TaskItem uses buttons with symbols instead of checkbox component for completion toggle",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking code not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting functionality (100 requests per minute) not specified in requirements"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "cn utility function for className merging not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks, deleteAllTasks, and toggleAllTasks functions not mentioned in specification"
+        },
+        {
+            "file": "src/components/ui/checkbox.tsx",
+            "reasoning": "Checkbox UI component exists but is not used (spec mentions checkbox but implementation uses button)"
+        }
+    ]
+}

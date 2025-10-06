@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark/light theme toggle component not mentioned in specification"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Contains dark mode theme CSS variables (lines 29-49) not specified in requirements"
+        }
+    ]
+}

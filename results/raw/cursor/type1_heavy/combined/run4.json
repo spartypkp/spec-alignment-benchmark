@@ -1,0 +1,75 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint is completely missing - no route.ts file exists in src/app/api/auth/logout/ directory, though logout() function exists in auth.ts"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation function with regex pattern /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ is not implemented anywhere - validation.ts has no validateEmail function"
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation on login page is completely absent - no pattern attribute or validation logic for email field"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware file does not exist - no middleware.ts or middleware.js in project root to protect /dashboard routes or redirect authenticated users from login/register pages"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' is not implemented in TaskList component - component renders nothing when tasks array is empty"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie name is 'session' instead of specified 'todo-session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format is { error: \"message\" } instead of specified nested format { error: { code: \"ERROR_CODE\", message: \"Human-readable message\" } }",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts",
+                "src/app/api/export/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Bulk operations clearCompletedTasks, deleteAllTasks, and toggleAllTasks do not use db.transaction() wrapper as required - they execute as single statements without transaction atomicity",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Responsive design breakpoints not configured to specification - spec requires Mobile (375px) and Desktop (1024px+) but Tailwind uses default breakpoints (640px, 768px, 1024px, 1280px, 1536px)",
+            "files": [
+                "tailwind.config.js"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data ('User', 'user@example.com') instead of fetching actual user information from the API",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint (GET /api/export) not mentioned in specification's API endpoints section 6"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode CSS variables and theme implementation (lines 29-49) not specified in requirements - specification mentions only standard Tailwind CSS v3 configuration"
+        }
+    ]
+}

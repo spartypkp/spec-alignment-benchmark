@@ -1,0 +1,28 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires endpoint POST /api/auth/register, but code implements POST /api/auth/signup",
+            "files": [
+                "src/app/api/auth/signup/route.ts",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Spec requires link text 'Don't have an account? Register' but code has 'Don't have an account? Register' (correct) with different styling",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error format with nested structure {error: {code, message}}, but frontend code expects data.error as a string or object (inconsistent handling)",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

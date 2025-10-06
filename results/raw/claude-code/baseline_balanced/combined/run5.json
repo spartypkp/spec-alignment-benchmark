@@ -1,0 +1,97 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar with Total tasks count, Completed tasks count, and Completion percentage not implemented on dashboard"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie expiry set to current timestamp (no actual expiry) instead of 7 days",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie missing maxAge configuration for 7-day expiry",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Tasks sorted by createdAt ASC (oldest first) instead of DESC (newest first) as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Task title validation allows max 50 characters instead of 1-100 characters as specified",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Registration password validation missing - no client-side check for minimum 6 characters",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Login page missing client-side validation for email format",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error responses use inconsistent format - simple strings instead of structured error objects with code and message",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error codes don't match specification - using custom codes instead of specified ones like MISSING_FIELDS, INVALID_EMAIL, WEAK_PASSWORD, EMAIL_EXISTS, INVALID_CREDENTIALS",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses 10 rounds instead of default bcryptjs rounds, specification doesn't specify rounds but standard is typically discussed",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics table not mentioned in specification"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Priority selector dropdown (low/medium/high) not specified in requirements - spec only mentions task title input"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Priority indicator display and color coding not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility function cn() for class merging not specified in requirements"
+        }
+    ]
+}

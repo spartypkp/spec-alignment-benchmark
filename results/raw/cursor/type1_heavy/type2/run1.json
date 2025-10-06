@@ -1,0 +1,37 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie name to be 'todo-session', but code uses 'session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error response format with nested structure {error: {code: string, message: string}}, but code returns simple format {error: string}",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts",
+                "src/app/api/export/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Spec requires bulk operations (clearCompletedTasks, deleteAllTasks, toggleAllTasks) to be wrapped in db.transaction(), but code implements them as single statements without transaction wrappers",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires email validation using regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ on both client and server, but validation.ts has no email validation function and register page only uses HTML5 type='email' validation",
+            "files": [
+                "src/lib/validation.ts",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires endpoint at POST /api/auth/register, but code implements it at /api/auth/signup (directory structure shows signup/ folder, which creates /api/auth/signup endpoint in Next.js)",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines MISSING_FIELDS as the error code for required fields missing, but login route uses MISSING_CREDENTIALS instead",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ]
+}

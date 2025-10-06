@@ -1,0 +1,25 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires endpoint POST /api/auth/register, but code implements POST /api/auth/signup",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires 'Add Task' button text, but code uses 'Create' button text",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires checkbox (left) to toggle completion, but code implements a button with '✓' or '○' symbols instead of an actual checkbox",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        }
+    ]
+}

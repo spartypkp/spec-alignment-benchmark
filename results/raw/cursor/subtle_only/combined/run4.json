@@ -1,0 +1,119 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "5",
+            "reasoning": "User.createdAt set to empty string instead of ISO timestamp as specified in User interface",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Timestamps use .toString() instead of .toISOString() format. Spec requires ISO timestamps for Task.createdAt, Task.updatedAt, and Session.expiresAt",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint returns error code 'MISSING_CREDENTIALS' but spec defines 'MISSING_FIELDS' for required fields missing",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Frontend extracts data.error instead of data.error.message from error response. Spec defines error format as { error: { code, message } }",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page lacks explicit client-side email validation using regex pattern. Only uses HTML5 validation while registration page shows the required explicit validation pattern",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data instead of fetching actual user information. Comment says 'Mock user data for now'",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Entire utils.ts file not listed in specification's file structure section which only specifies db.ts, auth.ts, and validation.ts"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "formatDate function is unused and not called anywhere in the codebase"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "debounce function is unused and not called anywhere in the codebase"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "truncateString function is unused and not called anywhere in the codebase"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks function implemented but never exposed via API endpoints or called anywhere"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "deleteAllTasks function implemented but never exposed via API endpoints or called anywhere"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "toggleAllTasks function implemented but never exposed via API endpoints or called anywhere"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "Console.log statement for user registration logging not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "Console.log statement for user login logging not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "Console.log statement for logout logging not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Console.log statements for task operations logging not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "Console.log statements for task update/delete logging not specified in requirements"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "Console.log statements for debugging task rendering not specified in requirements"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode theme CSS variables and .dark class not mentioned in specification which describes standard Tailwind v3 configuration"
+        },
+        {
+            "file": "src/components/ui/button.tsx",
+            "reasoning": "Dark mode styles using dark: prefix not specified in requirements"
+        },
+        {
+            "file": "src/components/ui/input.tsx",
+            "reasoning": "Dark mode styles using dark: prefix not specified in requirements"
+        },
+        {
+            "file": "src/components/ui/checkbox.tsx",
+            "reasoning": "Dark mode styles using dark: prefix not specified in requirements"
+        }
+    ]
+}

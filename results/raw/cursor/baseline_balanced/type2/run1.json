@@ -1,0 +1,49 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires sessions with 7-day expiry, but code sets expiresAt to current time (immediately expired) instead of 7 days from creation",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookies with 7-day expiry, but code does not set maxAge property on cookie, making it a session cookie that expires when browser closes",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires task title validation of 1-100 characters, but code validates 1-50 characters in validation function, client-side form, and API error messages",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires tasks sorted by creation date newest first (descending), but code sorts oldest first using ORDER BY createdAt ASC",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires consistent error format { error: { code: 'CODE', message: 'msg' } }, but auth endpoints use simple format { error: 'msg' } without code field or nested structure",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Spec requires both client and server-side validation with minimum 6 characters for password, but register page only implements server-side validation and lacks client-side password length check",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ]
+}

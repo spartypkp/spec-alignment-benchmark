@@ -1,0 +1,41 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookies with 7-day expiry, but code sets expiresAt to current time (new Date().toISOString()) with no expiry duration added",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie name 'todo-session' (which is correct), but session creation in db.ts sets expiresAt to current time instead of 7 days in the future",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires task title validation of 1-100 characters, but code validates 1-50 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires consistent error format with nested structure {\"error\": {\"code\": \"ERROR_CODE\", \"message\": \"...\"}} but login and register routes return simple {\"error\": \"message\"} format",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires tasks sorted by creation date (newest first), but code in db.ts sorts by createdAt ASC (oldest first)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        }
+    ]
+}

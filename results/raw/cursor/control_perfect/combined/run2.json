@@ -1,0 +1,61 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded user name 'User' instead of fetching and displaying actual user's name from authentication",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling incorrectly accesses data.error instead of data.error.message, will display '[object Object]' instead of error message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Login page missing explicit client-side email format validation, relies only on HTML5 validation while spec requires client-side validation like registration page has",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Statistics bar missing responsive design breakpoints - should stack vertically on mobile but only implements horizontal layout",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "public/file.svg",
+            "reasoning": "SVG file not mentioned in specification and not used in application code"
+        },
+        {
+            "file": "public/globe.svg",
+            "reasoning": "SVG file not mentioned in specification and not used in application code"
+        },
+        {
+            "file": "public/next.svg",
+            "reasoning": "SVG file not mentioned in specification and not used in application code"
+        },
+        {
+            "file": "public/vercel.svg",
+            "reasoning": "SVG file not mentioned in specification and not used in application code"
+        },
+        {
+            "file": "public/window.svg",
+            "reasoning": "SVG file not mentioned in specification and not used in application code"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Contains dark mode CSS theme (lines 29-49) not mentioned in specification for this simple TODO app"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Contains Google Analytics tracking code (lines 8-20) which is not mentioned anywhere in the specification. The spec only requires a landing page with title, description, and navigation buttons."
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Implements rate limiting functionality (lines 4-32) which is not specified. The spec section 8.2 only requires middleware to check session cookies and handle redirects, with no mention of rate limiting or request throttling."
+        }
+    ]
+}

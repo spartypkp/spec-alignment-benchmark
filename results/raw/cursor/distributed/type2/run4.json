@@ -1,0 +1,26 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires POST /api/auth/register endpoint, but code implements POST /api/auth/signup",
+            "files": [
+                "src/app/api/auth/signup/route.ts",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires displaying actual user's name from session in dashboard header, but code uses hardcoded mock data (name: 'User', email: 'user@example.com')",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires MISSING_FIELDS error code for missing required fields, but code uses MISSING_CREDENTIALS in login endpoint",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ]
+}

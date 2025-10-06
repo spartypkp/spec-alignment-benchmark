@@ -1,0 +1,71 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.2",
+            "reasoning": "Client-side email format validation not implemented - no regex validation for email format on login page"
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Client-side email format validation not implemented - no regex validation for email format on registration page"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' not displayed when task list is empty"
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie name is 'session' instead of specified 'todo-session'"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Structured error response format with code and message not implemented - responses only contain simple error strings"
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Database transactions using db.transaction() not implemented for bulk operations - functions use direct statements without transaction wrapper"
+        },
+        {
+            "section": "4.4",
+            "reasoning": "Responsive design breakpoints and mobile-specific features not implemented - no flex-col for mobile, no min-height for buttons, statistics bar doesn't stack vertically on mobile"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint not implemented - logout directory exists but contains no route file"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Middleware configuration for route protection not implemented - no middleware.ts file exists to protect dashboard routes"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics section uses single container div instead of separate cards/boxes for visual separation as specified",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email validation uses HTML5 type='email' instead of specified regex pattern /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint not mentioned in API endpoints specification (section 6)"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode CSS variables and theme configuration not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks not specified in requirements - only mentioned as transaction examples but not as required features"
+        }
+    ]
+}

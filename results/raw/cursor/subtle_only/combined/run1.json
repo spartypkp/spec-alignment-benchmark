@@ -1,0 +1,104 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "5",
+            "reasoning": "User createdAt field is set to empty string instead of ISO timestamp as specified in data model",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Task createdAt and updatedAt use new Date().toString() instead of ISO timestamp format (should use toISOString())",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Session expiresAt uses new Date().toString() instead of ISO timestamp format",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login page accesses data.error instead of data.error.message per specified error response format",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Register page accesses data.error instead of data.error.message per specified error response format",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Dashboard page accesses data.error instead of data.error.message per specified error response format",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data instead of fetching actual authenticated user information",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "formatDate utility function not mentioned in specification and unused"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "debounce utility function not mentioned in specification and unused"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "truncateString utility function not mentioned in specification and unused"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks bulk operation function not specified in requirements (section 4.3 only mentions examples, not these specific functions)"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "deleteAllTasks bulk operation function not specified in API endpoints or requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "toggleAllTasks bulk operation function not specified in API endpoints or requirements"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "console.log debugging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "console.log debugging statements not specified in requirements"
+        }
+    ]
+}

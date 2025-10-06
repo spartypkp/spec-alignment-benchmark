@@ -1,0 +1,40 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires bcryptjs for password hashing, but code uses SHA-256 hashing (crypto.createHash('sha256'))",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookies with 7-day expiry, but code sets maxAge to 1 day (24 * 60 * 60)",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Spec requires toggling individual task completion, but code toggles ALL tasks when any checkbox is clicked",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error responses with structured error object format {error: {code, message}}, but API endpoints return status 200 for errors instead of proper HTTP error status codes",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "Spec requires PUT /api/tasks/[id] to update task, but code creates a new duplicate task instead of updating existing task",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        }
+    ]
+}

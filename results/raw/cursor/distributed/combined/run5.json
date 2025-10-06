@@ -1,0 +1,76 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "6.1",
+            "reasoning": "API endpoint /api/auth/register is required but implemented as /api/auth/signup. The registration page calls /api/auth/register which will fail because the actual endpoint is at /api/auth/signup.",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page requires client-side validation for email format, but no validation logic exists before form submission (only HTML5 type='email' validation)",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error handling displays data.error directly instead of data.error.message. API returns {error: {code, message}} format but client tries to display the object instead of the message property",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task input button text is 'Create' instead of specified 'Add Task' button",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Task items use Button components with symbols (✓ and ○) instead of proper Checkbox components as specified. Spec requires 'Checkbox (left) to toggle completion' and checkbox.tsx exists but is not used",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock/hardcoded user data (name: 'User', email: 'user@example.com') instead of fetching actual user information from the session",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint uses error code MISSING_CREDENTIALS instead of specified MISSING_FIELDS for missing required fields",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar uses a single container instead of separate cards/boxes for visual separation of the three metrics as specified ('Use cards/boxes for visual separation' - plural)",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking code (lines 8-20) not mentioned in specification requirements"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting implementation (lines 4-32 with in-memory store, 100 requests per minute limit) not specified in requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions clearCompletedTasks, deleteAllTasks, and toggleAllTasks (lines 153-181) are implemented but not specified in requirements and not used anywhere in the application"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "misalignments": [
+        {
+            "section": "6.1",
+            "reasoning": "Spec requires POST /api/auth/register endpoint, but code implements POST /api/auth/signup (file located at src/app/api/auth/signup/route.ts instead of register/route.ts)",
+            "files": [
+                "src/app/api/auth/signup/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires checkbox UI element for toggling task completion, but code implements a button with symbols (✓ or ○) instead of using the available Checkbox component",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires displaying the actual user's name in the header, but code displays hardcoded mock value 'User' instead of fetching and displaying real user data",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,74 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/register endpoint specified but codebase only has /api/auth/signup (register page calls /api/auth/register which doesn't exist)"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Task input button displays 'Create' instead of specified 'Add Task'",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data ('User', 'user@example.com') instead of actual user's name from session",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error display shows entire error object instead of error.message property (shows 'data.error' instead of 'data.error.message' for user-friendly messages)",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking code (lines 8-20) not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting system (100 requests per minute) not specified in requirements"
+        },
+        {
+            "file": "src/components/ui/checkbox.tsx",
+            "reasoning": "Radix UI Checkbox component exists but is never used in the application (TaskItem uses custom button implementation)"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "cn() utility function only used by unused Checkbox component, not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Database transaction functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) implemented but never used and not mentioned in specification"
+        },
+        {
+            "file": "src/app/api/auth/signup/route.ts",
+            "reasoning": "Console.log statements for user activity logging not mentioned in specification"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "Console.log statements for user activity logging not mentioned in specification"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "Console.log statements for logout logging not mentioned in specification"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Console.log statements for task operations not mentioned in specification"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "Console.log statements for task update/delete operations not mentioned in specification"
+        }
+    ]
+}

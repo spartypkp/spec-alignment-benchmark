@@ -1,0 +1,53 @@
+{
+    "misalignments": [
+        {
+            "section": "5",
+            "reasoning": "Spec requires createdAt as ISO timestamp, but code sets User.createdAt to empty string ''",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Spec requires createdAt and updatedAt as ISO timestamps, but code uses new Date().toString() which produces a different format (e.g., 'Fri Oct 06 2023...' instead of '2023-10-06T12:34:56.789Z')",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Spec requires expiresAt as ISO timestamp, but code uses new Date().toString() instead of ISO format, which also breaks string-based date comparisons in getSession()",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error code 'MISSING_FIELDS' for required fields missing, but login API uses 'MISSING_CREDENTIALS'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines error response format with nested structure {error: {code, message}}, but login page accesses data.error directly instead of data.error.message",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines error response format with nested structure {error: {code, message}}, but register page accesses data.error directly instead of data.error.message",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines error response format with nested structure {error: {code, message}}, but dashboard page accesses data.error directly instead of data.error.message when creating tasks",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

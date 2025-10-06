@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard header requires displaying actual user's name, but no API endpoint exists to retrieve current user information, resulting in hardcoded mock user data being displayed instead"
+        }
+    ]
+}

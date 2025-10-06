@@ -1,0 +1,38 @@
+{
+    "misalignments": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires session cookie name 'todo-session', but code uses 'session'",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires structured error format with 'error.code' and 'error.message' fields, but code returns simple {'error': 'message'} format",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines specific error codes (MISSING_FIELDS, INVALID_EMAIL, WEAK_PASSWORD, EMAIL_EXISTS, INVALID_CREDENTIALS, UNAUTHORIZED, NOT_FOUND), but code doesn't use these error codes in responses",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts",
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Spec requires bulk operations (clearCompletedTasks, deleteAllTasks, toggleAllTasks) to be wrapped in db.transaction(), but code doesn't use transactions",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        }
+    ]
+}

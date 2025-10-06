@@ -1,0 +1,54 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded user name 'User' instead of fetching and displaying the actual logged-in user's name from the session",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login page displays error object instead of error message. Code uses 'data.error' which is an object {code, message} but should use 'data.error.message' to display the actual error text",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Register page displays error object instead of error message. Code uses 'data.error' which is an object {code, message} but should use 'data.error.message' to display the actual error text",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Dashboard handleAddTask displays error object instead of error message. Code uses 'data.error' which is an object {code, message} but should use 'data.error.message' for proper error display",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login API route uses error code 'MISSING_CREDENTIALS' for missing fields, but specification defines 'MISSING_FIELDS' as the common error code for required fields missing. Register route correctly uses MISSING_FIELDS for consistency",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Function clearCompletedTasks (line 153) implements bulk operation to delete all completed tasks, which is not specified as a feature in the application requirements and is never called anywhere in the codebase"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Function deleteAllTasks (line 163) implements bulk operation to delete all user tasks, which is not specified as a feature in the application requirements and is never called anywhere in the codebase"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Function toggleAllTasks (line 173) implements bulk operation to mark all tasks as complete/incomplete, which is not specified as a feature in the application requirements and is never called anywhere in the codebase"
+        }
+    ]
+}

@@ -1,0 +1,88 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses bcrypt with 10 rounds instead of the default which should be unspecified or match common practice. Spec says 'bcryptjs for password hashing' without specifying rounds",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "User createdAt field set to empty string instead of ISO timestamp as specified in data model",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Task createdAt and updatedAt use Date().toString() instead of ISO timestamp format as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Session expiresAt uses Date().toString() instead of ISO timestamp format as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data ('User', 'user@example.com') instead of actual user's name from database",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint uses error code 'MISSING_CREDENTIALS' instead of 'MISSING_FIELDS' as specified",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Register endpoint uses error code 'INVALID_NAME' which is not in the specified list of common error codes",
+            "files": [
+                "src/app/api/auth/register/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Contains unused utility functions formatDate, debounce, and truncateString not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Exports bulk operation functions clearCompletedTasks, deleteAllTasks, toggleAllTasks that are not used anywhere and not specified"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Contains console.log statements for debugging that are not specified in the requirements"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "Contains console.log statements for user activity logging not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "Contains console.log statements for user activity logging not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "Contains console.log statement not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "Contains console.log statements for debugging not specified in requirements"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "Contains console.log statements for debugging not specified in requirements"
+        }
+    ]
+}

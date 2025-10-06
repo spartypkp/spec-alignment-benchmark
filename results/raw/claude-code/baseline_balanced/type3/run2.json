@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page showing user statistics not mentioned anywhere in specification"
+        }
+    ]
+}

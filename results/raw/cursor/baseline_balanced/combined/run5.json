@@ -1,0 +1,71 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar with total tasks count, completed tasks count, and completion percentage is completely missing from dashboard page"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Password validation (minimum 6 characters) is not implemented on either client-side registration form or server-side register endpoint - validatePassword function exists but is never called"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Session expiry set to current time instead of 7 days in the future - sessions would expire immediately",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Task title validation checks maximum 50 characters instead of specified 100 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Tasks sorted by creation date in ascending order (oldest first) instead of descending order (newest first)",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format inconsistent - auth endpoints return simple error strings instead of object with code and message fields",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/auth/register/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page not mentioned in specification - no admin functionality specified"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Priority field (low/medium/high) selector not specified in task input requirements"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Priority display and color coding not specified in task item requirements"
+        },
+        {
+            "file": "src/app/dashboard/page.tsx",
+            "reasoning": "Priority parameter in handleAddTask function not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Priority field handling in POST endpoint not specified in API requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) not required as features - only mentioned as transaction examples"
+        }
+    ]
+}

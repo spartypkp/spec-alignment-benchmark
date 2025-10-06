@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "section": "2.2",
+            "reasoning": "Login page missing client-side JavaScript email format validation (regex). Only HTML5 type='email' validation present, but registration page has explicit regex validation showing the expected pattern."
+        }
+    ]
+}

@@ -1,0 +1,83 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses SHA256 instead of bcryptjs as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie expiry set to 1 day (24 hours) instead of 7 days as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data ('User', 'user@example.com') instead of fetching real user name from database",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Toggle completion feature incorrectly toggles ALL tasks instead of only the clicked task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] endpoint creates duplicate task instead of updating the existing task",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Authentication API endpoints return HTTP status 200 for all errors instead of proper error status codes (400, 401, etc.)",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Task API endpoints return HTTP status 200 for all errors instead of proper error status codes (400, 401, 404, etc.)",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling accesses data.error instead of data.error.message as per specified error format structure",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Registration form client-side validation missing name length check (1-50 characters requirement)",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark/light theme toggle component not mentioned in specification"
+        },
+        {
+            "file": "src/app/layout.tsx",
+            "reasoning": "ThemeToggle component imported and rendered in root layout, theme switching functionality not specified"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) implemented but not specified as user features in requirements"
+        }
+    ]
+}

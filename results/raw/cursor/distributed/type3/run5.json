@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics integration (lines 8-20) - specification makes no mention of analytics, tracking, or third-party integrations anywhere"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting functionality (lines 4-32) - specification only requires session checking and redirects in middleware, does not mention rate limiting or request throttling"
+        }
+    ]
+}

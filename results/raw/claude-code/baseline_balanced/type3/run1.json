@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page displaying user statistics and task counts across all users. The specification does not mention any admin functionality, only personal task management for individual users."
+        }
+    ]
+}

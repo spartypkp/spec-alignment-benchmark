@@ -1,0 +1,106 @@
+{
+    "type1_missing": [
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/register endpoint completely missing - frontend calls it but only /api/auth/signup exists in codebase"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.2",
+            "reasoning": "Login page lacks explicit client-side email format validation as specified - only relies on HTML5 type attribute",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard uses mock user data ('User', 'user@example.com') instead of fetching real user information",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "TaskInput button labeled 'Create' instead of specified 'Add Task' button text",
+            "files": [
+                "src/components/TaskInput.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "TaskItem uses Button component styled as checkbox instead of actual Checkbox component as specified",
+            "files": [
+                "src/components/TaskItem.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login and register pages incorrectly handle error response format - expect data.error as string but API returns nested object with code and message properties",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Dashboard task error handling expects data.error as string instead of data.error.message from nested error object format",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint uses error code MISSING_CREDENTIALS instead of specified MISSING_FIELDS for missing required fields",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Google Analytics tracking code (lines 8-20) not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Rate limiting implementation (lines 5-32) with 100 requests per minute limit not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/signup/route.ts",
+            "reasoning": "Signup endpoint exists but specification requires /api/auth/register instead"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks function implemented but never called and has no API endpoint"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "deleteAllTasks function implemented but never called and has no API endpoint"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "toggleAllTasks function implemented but never called and has no API endpoint"
+        },
+        {
+            "file": "public/file.svg",
+            "reasoning": "SVG file not mentioned in specification (Next.js default)"
+        },
+        {
+            "file": "public/globe.svg",
+            "reasoning": "SVG file not mentioned in specification (Next.js default)"
+        },
+        {
+            "file": "public/next.svg",
+            "reasoning": "SVG file not mentioned in specification (Next.js default)"
+        },
+        {
+            "file": "public/vercel.svg",
+            "reasoning": "SVG file not mentioned in specification (Next.js default)"
+        },
+        {
+            "file": "public/window.svg",
+            "reasoning": "SVG file not mentioned in specification (Next.js default)"
+        }
+    ]
+}

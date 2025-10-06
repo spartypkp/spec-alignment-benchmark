@@ -1,0 +1,81 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "5",
+            "reasoning": "User.createdAt is not populated with ISO timestamp - set to empty string instead of new Date().toISOString()",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Task timestamps use new Date().toString() instead of ISO timestamp format (should be toISOString())",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses bcrypt with 10 rounds instead of bcryptjs as specified in tech stack",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login error response uses 'error' instead of structured error format with code and message object",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Register error response uses 'error' instead of structured error format with code and message object",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays 'Progress' label instead of 'Completion percentage' as specified",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "formatDate, debounce, and truncateString utility functions not mentioned in specification"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "Console.log debug statements not specified (lines 11, 14, 25)"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Console.log debug statements not specified (lines 9, 11, 46)"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "Console.log debug statements not specified (lines 66, 103)"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "Console.log debug statement not specified (line 59)"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "Console.log debug statements not specified (lines 47)"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "Console.log debug statement not specified (line 9)"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks, deleteAllTasks, and toggleAllTasks bulk transaction functions not mentioned in spec - only general bulk operations mentioned in 4.3"
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "type1_missing": [
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie name should be 'todo-session' but is set to 'session' in auth.ts"
+        },
+        {
+            "section": "6.1",
+            "reasoning": "POST /api/auth/logout endpoint completely missing - directory exists but has no route.ts file"
+        },
+        {
+            "section": "8.2",
+            "reasoning": "Next.js middleware for route protection completely missing - no middleware.ts file exists in project root"
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Empty state message 'No tasks yet. Add your first task above!' not implemented in TaskList component"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Email format validation function missing - no validateEmail function in validation.ts or elsewhere"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Structured error response format with code and message fields not implemented anywhere - all endpoints return simple error strings"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "4.1",
+            "reasoning": "Login page missing client-side email format validation - only has type='email' HTML5 validation, not regex validation",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Registration page missing client-side email format validation - should use regex /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/ but only validates name and password length",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.3",
+            "reasoning": "Bulk operations not wrapped in db.transaction() - clearCompletedTasks, deleteAllTasks, and toggleAllTasks use simple statements instead of atomic transactions",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/api/export/route.ts",
+            "reasoning": "CSV export endpoint not mentioned anywhere in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for className merging not specified in file structure"
+        }
+    ]
+}

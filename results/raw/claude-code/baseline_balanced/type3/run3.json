@@ -1,0 +1,20 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page with user statistics table not mentioned anywhere in specification. Spec only defines pages: /, /login, /register, /dashboard"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Contains priority dropdown (low/medium/high) not specified in requirements. Spec only mentions single text input for task title"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Displays priority indicator badge not specified in requirements. Spec defines task items should only show: checkbox, title, and delete button"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file for className merging (cn function) not mentioned in specification's file structure section 7"
+        }
+    ]
+}

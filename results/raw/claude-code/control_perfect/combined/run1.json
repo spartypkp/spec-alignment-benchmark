@@ -1,0 +1,30 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "4.2",
+            "reasoning": "Error response format in login endpoint uses 'error' field directly instead of nested 'error.code' and 'error.message' structure when displaying simple error messages",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "cn() utility function for class merging not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "clearCompletedTasks(), deleteAllTasks(), and toggleAllTasks() bulk operations functions not mentioned in API specification"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode theme variables (.dark class) defined but dark mode not mentioned in specification"
+        },
+        {
+            "file": "README.md",
+            "reasoning": "README documentation file not specified in requirements"
+        }
+    ]
+}

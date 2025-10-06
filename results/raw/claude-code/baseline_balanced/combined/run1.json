@@ -1,0 +1,78 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar displaying total tasks, completed tasks, and completion percentage is completely missing from dashboard page"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Client-side password validation for minimum 6 characters is missing from registration form"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Tasks sorted by createdAt ASC (oldest first) instead of DESC (newest first) as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Task title validation max length is 50 characters instead of specified 100 characters",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error responses use inconsistent format - some use simple strings like {error: 'message'} instead of {error: {code: 'CODE', message: 'message'}}",
+            "files": [
+                "src/app/api/auth/register/route.ts",
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session expiresAt set to current time instead of 7 days in future",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie missing maxAge configuration for 7-day expiry as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page displaying user statistics not mentioned in specification"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Task priority selector (low/medium/high) not specified in requirements"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Task priority display badge not specified in requirements"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() helper function not required by specification"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode theme CSS variables (lines 29-49) not mentioned in specification"
+        },
+        {
+            "file": "README.md",
+            "reasoning": "Documentation file not specified in requirements"
+        }
+    ]
+}

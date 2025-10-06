@@ -33,12 +33,12 @@ Scores a single test output against ground truth.
 ```bash
 # Score a Type 1 test
 python scripts/score_result.py \
-  results/raw/cursor/baseline_balanced/type1_run1.json \
+  results/raw/cursor/baseline_balanced/type1/run1.json \
   benchmark/branches/baseline_balanced/ground-truth-type1.json
 
 # Score a combined test
 python scripts/score_result.py \
-  results/raw/cursor/baseline_balanced/combined_run1.json \
+  results/raw/cursor/baseline_balanced/combined/run1.json \
   benchmark/branches/baseline_balanced/ground-truth-combined.json
 ```
 

@@ -85,13 +85,12 @@ class TestRunner:
     def record_test_output(self, framework: str, branch: str, test_type: str,
                           run_number: int, output: Dict) -> Path:
         """Save test output to the raw results directory."""
-        # Create output directory
-        output_dir = self.results_dir / "raw" / framework / branch
+        # Create output directory with test type as subdirectory
+        output_dir = self.results_dir / "raw" / framework / branch / test_type
         output_dir.mkdir(parents=True, exist_ok=True)
         
-        # Generate filename
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{branch}_{test_type}_run{run_number}_{timestamp}.json"
+        # Generate filename - just run{N}.json now
+        filename = f"run{run_number}.json"
         output_path = output_dir / filename
         
         # Save output
@@ -111,12 +110,12 @@ class TestRunner:
             print(f"Warning: Ground truth file not found: {gt_file}")
             return None
         
-        # Create scored output directory
-        scored_dir = self.results_dir / "processed" / framework / branch
+        # Create scored output directory with test type as subdirectory
+        scored_dir = self.results_dir / "processed" / framework / branch / test_type
         scored_dir.mkdir(parents=True, exist_ok=True)
         
-        # Generate scored filename
-        scored_filename = f"{branch}_{test_type}_run{run_number}_scored.json"
+        # Generate scored filename - just run{N}_scored.json now
+        scored_filename = f"run{run_number}_scored.json"
         scored_path = scored_dir / scored_filename
         
         # Run scoring script

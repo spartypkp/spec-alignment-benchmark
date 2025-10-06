@@ -1,0 +1,83 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "2.2",
+            "reasoning": "Login page missing client-side email format validation with specified regex, only has HTML5 validation",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling displays error object instead of message string - should extract data.error.message not data.error",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data instead of fetching real authenticated user information",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "User createdAt field stored as empty string instead of ISO timestamp as specified in data model",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Task createdAt and updatedAt use Date.toString() instead of ISO timestamp format (should use toISOString())",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session expiry comparison uses Date.toString() instead of ISO timestamp, causing incorrect date comparisons",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility functions formatDate, debounce, and truncateString not mentioned in specification and marked as unused"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk operation functions clearCompletedTasks, deleteAllTasks, toggleAllTasks implemented but no corresponding API endpoints or UI features exist"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "Console.log debugging statement at line 59 not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "Console.log debugging statement at line 47 not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "Console.log debugging statement at line 9 not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Console.log debugging statements at lines 9, 11, and 46 not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "Console.log debugging statements at lines 66 and 103 not specified in requirements"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "Console.log debugging statements at lines 11, 14, and 25 not specified in requirements"
+        }
+    ]
+}

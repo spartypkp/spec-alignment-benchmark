@@ -1,0 +1,80 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses SHA256 instead of specified bcryptjs. Code uses crypto.createHash('sha256') but spec explicitly requires bcryptjs",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie expiry set to 1 day (24 * 60 * 60) instead of specified 7 days. Spec states '7-day expiry' but maxAge is 86400 seconds",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page missing client-side email format validation. Spec requires 'Client-side validation for email format' but page only has HTML5 type='email' validation, no regex check before submission",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Register page doesn't validate name length (1-50 characters) on client side. Only checks if name is truthy, missing length validation",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error responses return HTTP status 200 instead of proper error codes (400 for validation, 401 for auth). Spec shows error responses should use appropriate HTTP status codes",
+            "files": [
+                "src/app/api/auth/login/route.ts",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling displays error object instead of error.message. Code does 'data.error' where error is object {code, message}, resulting in '[object Object]' display",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Toggle completion updates ALL tasks instead of single clicked task. Loop iterates through all tasks and updates each one to same state instead of updating only the target task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] creates duplicate task instead of updating existing one. Calls createTask() instead of updateTask(), violating update endpoint specification",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data instead of fetching real user information. Shows hardcoded 'User' name instead of actual user's name from database",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark/light theme toggle component not mentioned anywhere in specification. Spec doesn't require or mention theme switching functionality"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utils file with cn() helper function not included in specified file structure. Section 7 lists only db.ts, auth.ts, and validation.ts in /lib directory"
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "2.2",
+            "reasoning": "Login page lacks explicit client-side email validation using the regex pattern. Only has HTML5 type='email' attribute, whereas spec requires client-side validation for email format and registration page implements explicit regex validation",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page error handling displays error object instead of error message string. Line 32 sets error to data.error (an object {code, message}), but line 81 renders it as text, resulting in '[object Object]' display",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "2.3",
+            "reasoning": "Registration page error handling displays error object instead of error message string. Line 53 sets error to data.error (an object {code, message}), but line 115 renders it as text, resulting in '[object Object]' display",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data ('User', 'user@example.com') instead of actual logged-in user's name. Line 42 hardcodes mock values instead of using user data from authentication response or API",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login route uses error code 'MISSING_CREDENTIALS' instead of specified 'MISSING_FIELDS' for required fields validation. Spec lists MISSING_FIELDS as the code for 'Required fields missing'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for merging Tailwind classes not included in specification's file structure (section 7 lists only db.ts, auth.ts, validation.ts under /lib)"
+        },
+        {
+            "file": "README.md",
+            "reasoning": "README documentation file not mentioned in specification's file structure or requirements"
+        }
+    ]
+}

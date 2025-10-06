@@ -1,0 +1,13 @@
+{
+    "misalignments": [
+        {
+            "section": "4.1",
+            "reasoning": "Spec requires 'Clear, user-friendly messages' to be displayed for errors. The API correctly returns errors in format { error: { code, message } }, but the UI code attempts to display the entire error object (data.error) instead of extracting just the message string (data.error.message). This would result in React attempting to render an object, which fails or displays '[object Object]' instead of a user-friendly message.",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

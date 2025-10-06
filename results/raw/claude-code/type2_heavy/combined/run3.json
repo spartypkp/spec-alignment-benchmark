@@ -1,0 +1,72 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Spec requires bcryptjs for password hashing, code uses SHA256 (crypto.createHash) which is insecure",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie maxAge set to 1 day (24 * 60 * 60) instead of 7 days as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint returns status 200 for all errors instead of proper error status codes",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks GET endpoint returns status 200 for UNAUTHORIZED errors instead of 401",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks POST endpoint returns status 200 for validation and auth errors instead of proper status codes",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] creates new task instead of updating existing task",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Dashboard toggles ALL tasks when clicking one task checkbox instead of toggling individual task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Theme toggle component for dark/light mode not specified in requirements"
+        },
+        {
+            "file": "src/app/layout.tsx",
+            "reasoning": "ThemeToggle component imported and rendered but not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function not mentioned in file structure specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Bulk transaction functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) not specified in API or functionality requirements"
+        }
+    ]
+}

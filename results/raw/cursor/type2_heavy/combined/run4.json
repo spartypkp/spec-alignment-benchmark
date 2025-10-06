@@ -1,0 +1,79 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses SHA256 instead of bcryptjs as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie maxAge set to 1 day (86400 seconds) instead of 7 days",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page missing client-side validation for email format as specified",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login API returns status 200 for all error responses instead of appropriate error status codes (400 for validation errors, 401 for authentication errors)",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks API returns status 200 for error responses instead of appropriate error status codes (401 for unauthorized, 400 for validation errors, 500 for server errors)",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] creates a new task instead of updating the existing task",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Dashboard handleToggleTask function toggles ALL tasks instead of only the clicked task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login API uses error code 'MISSING_CREDENTIALS' instead of spec-defined 'MISSING_FIELDS'",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark/light theme toggle component not mentioned in specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Function clearCompletedTasks defined but never used and not required by specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Function deleteAllTasks defined but never used and not required by specification"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Function toggleAllTasks defined but never used and not required by specification"
+        }
+    ]
+}

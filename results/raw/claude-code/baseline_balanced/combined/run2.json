@@ -1,0 +1,89 @@
+{
+    "type1_missing": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar with Total tasks count, Completed tasks count, and Completion percentage is completely missing from dashboard"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Client-side validation for email format on login page is not implemented - spec requires it"
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Client-side password minimum 6 characters validation on registration page is not implemented"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Structured error response format with error.code and error.message is not implemented in auth endpoints - they return simple string errors"
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Required error codes MISSING_FIELDS, INVALID_EMAIL, WEAK_PASSWORD, EMAIL_EXISTS, and INVALID_CREDENTIALS are not implemented"
+        }
+    ],
+    "type2_incorrect": [
+        {
+            "section": "2.4",
+            "reasoning": "Task title validation is 50 characters max instead of specified 100 characters max",
+            "files": [
+                "src/lib/validation.ts",
+                "src/components/TaskInput.tsx",
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Tasks sorted by creation date in ascending order (oldest first) instead of newest first as specified",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie expiry set to current time (no actual expiry) instead of 7-day expiry",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie missing maxAge setting - spec requires 7-day expiry to be enforced",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data 'User' instead of fetching actual user name from session/database",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/app/admin/page.tsx",
+            "reasoning": "Admin dashboard page not mentioned in specification - shows user statistics table"
+        },
+        {
+            "file": "src/components/TaskInput.tsx",
+            "reasoning": "Priority selector (low/medium/high) not specified in requirements - tasks should only have title"
+        },
+        {
+            "file": "src/components/TaskItem.tsx",
+            "reasoning": "Priority indicator display not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "Priority parameter handling in POST endpoint not specified in API requirements"
+        },
+        {
+            "file": "src/app/dashboard/page.tsx",
+            "reasoning": "Priority parameter passed to task creation not in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "cn utility function for class merging not mentioned in specification"
+        }
+    ]
+}

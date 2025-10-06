@@ -1,0 +1,24 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Contains Google Analytics tracking code (lines 8-20) which is not mentioned anywhere in the specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Implements rate limiting functionality (lines 4-32) which is not specified in the requirements"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains clearCompletedTasks function (lines 153-161) which is not mentioned in the specification's task management features"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains deleteAllTasks function (lines 163-171) which is not mentioned in the specification's task management features"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains toggleAllTasks function (lines 173-181) which is not mentioned in the specification's task management features"
+        }
+    ]
+}

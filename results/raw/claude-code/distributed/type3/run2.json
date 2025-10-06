@@ -1,0 +1,20 @@
+{
+    "misalignments": [
+        {
+            "file": "src/app/page.tsx",
+            "reasoning": "Contains Google Analytics tracking code (lines 8-20) not mentioned in specification"
+        },
+        {
+            "file": "middleware.ts",
+            "reasoning": "Implements rate limiting feature (lines 4-32) not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/signup/route.ts",
+            "reasoning": "Registration endpoint at /api/auth/signup but specification requires /api/auth/register"
+        },
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains bulk task operations (clearCompletedTasks, deleteAllTasks, toggleAllTasks at lines 153-181) not specified in requirements"
+        }
+    ]
+}

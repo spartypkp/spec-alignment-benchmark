@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "section": "2.4",
+            "reasoning": "Statistics Bar is completely missing from dashboard. Spec requires three metrics displayed horizontally (Total tasks count, Completed tasks count, Completion percentage) using cards/boxes for visual separation. Dashboard only shows TaskInput and TaskList with no statistics display."
+        },
+        {
+            "section": "4.1",
+            "reasoning": "Client-side password validation is completely absent from registration form. Spec requires password minimum 6 characters validation on both client and server. Register page validates name and email format client-side, but has no password length validation - only HTML5 'required' attribute exists."
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "misalignments": [
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error response format with nested structure {error: {code, message}}, and clients should display the message property. However, client-side code incorrectly accesses data.error instead of data.error.message, which would display '[object Object]' instead of the human-readable error message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx",
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec defines MISSING_FIELDS as the error code for 'Required fields missing', but the login endpoint uses MISSING_CREDENTIALS when email/password fields are missing",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ]
+}

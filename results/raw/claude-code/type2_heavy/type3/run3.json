@@ -1,0 +1,12 @@
+{
+    "misalignments": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark mode theme toggle component not specified anywhere in requirements. Spec only mentions Tailwind CSS standard v3 configuration, no dark mode feature."
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Contains dark mode CSS variables and .dark class styling (lines 29-49) not specified in requirements. Spec mentions standard Tailwind CSS v3 configuration only."
+        }
+    ]
+}

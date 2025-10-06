@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/lib/db.ts",
+            "reasoning": "Contains three bulk operation functions (clearCompletedTasks, deleteAllTasks, toggleAllTasks) that are mentioned in spec section 4.3 as examples of transactions but are NOT actually required features. The spec only requires basic CRUD operations for individual tasks, not bulk operations."
+        }
+    ]
+}

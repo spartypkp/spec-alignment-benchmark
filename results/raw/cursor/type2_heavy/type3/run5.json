@@ -1,0 +1,8 @@
+{
+    "misalignments": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Dark mode/theme toggle feature not mentioned anywhere in specification - provides light/dark theme switching capability that was not specified in any section"
+        }
+    ]
+}

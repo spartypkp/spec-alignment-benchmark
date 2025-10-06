@@ -1,0 +1,25 @@
+{
+    "misalignments": [
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error responses in format {error: {code, message}}, and while API correctly returns this format, the login page displays data.error (entire object) instead of data.error.message, which would show '[object Object]' instead of the human-readable message",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Spec requires error responses in format {error: {code, message}}, and while API correctly returns this format, the register page displays data.error (entire object) instead of data.error.message, which would show '[object Object]' instead of the human-readable message",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Spec requires dashboard to display the logged-in user's actual name, but implementation uses hardcoded mock data ('User') instead of fetching and displaying the real user's name",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ]
+}

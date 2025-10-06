@@ -1,0 +1,71 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "5",
+            "reasoning": "User createdAt field set to empty string instead of ISO timestamp in createUser function",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "5",
+            "reasoning": "Timestamps use .toString() instead of .toISOString() for ISO format. Task createdAt, updatedAt, and Session expiresAt use new Date().toString() instead of new Date().toISOString()",
+            "files": [
+                "src/lib/db.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Client-side error handling expects data.error as string but API returns object with {code, message}. Should use data.error.message",
+            "files": [
+                "src/app/(auth)/login/page.tsx",
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint uses error code 'MISSING_CREDENTIALS' instead of 'MISSING_FIELDS' as specified",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user name 'User' instead of actual user's name from session/database",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "formatDate, debounce, and truncateString utility functions not mentioned in specification"
+        },
+        {
+            "file": "src/components/TaskList.tsx",
+            "reasoning": "console.log debug statements not specified (3 occurrences for rendering diagnostics)"
+        },
+        {
+            "file": "src/app/api/tasks/route.ts",
+            "reasoning": "console.log debug logging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/tasks/[id]/route.ts",
+            "reasoning": "console.log debug logging statements not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/register/route.ts",
+            "reasoning": "console.log debug logging statement not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/login/route.ts",
+            "reasoning": "console.log debug logging statement not specified in requirements"
+        },
+        {
+            "file": "src/app/api/auth/logout/route.ts",
+            "reasoning": "console.log debug logging statement not specified in requirements"
+        }
+    ]
+}

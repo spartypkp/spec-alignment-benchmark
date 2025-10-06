@@ -1,0 +1,78 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Password hashing uses SHA256 instead of bcryptjs as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie maxAge set to 1 day instead of specified 7 days",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Task toggle functionality incorrectly toggles ALL tasks instead of just the clicked task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] creates new task instead of updating existing task",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login API returns errors with HTTP status 200 instead of proper error status codes (400/401/500)",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks API (GET/POST) returns errors with HTTP status 200 instead of proper error status codes (401/400/500)",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays mock user data ('User', 'user@example.com') instead of fetching actual user information",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.2",
+            "reasoning": "Login page missing client-side JavaScript email validation (only has HTML5 type='email' validation)",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login API uses MISSING_CREDENTIALS error code instead of specified MISSING_FIELDS code",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Theme toggle component with dark/light mode switching not mentioned in specification"
+        },
+        {
+            "file": "src/app/layout.tsx",
+            "reasoning": "ThemeToggle component imported and rendered, adding unspecified theme switching functionality"
+        }
+    ]
+}

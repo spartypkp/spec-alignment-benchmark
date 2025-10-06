@@ -1,0 +1,114 @@
+{
+    "type1_missing": [],
+    "type2_incorrect": [
+        {
+            "section": "3.1",
+            "reasoning": "Authentication uses SHA256 hashing instead of bcryptjs as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "3.1",
+            "reasoning": "Session cookie maxAge set to 1 day (24 * 60 * 60) instead of 7 days as specified",
+            "files": [
+                "src/lib/auth.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Login endpoint returns status 200 for all responses instead of proper HTTP error codes (400, 401) for validation and authentication errors",
+            "files": [
+                "src/app/api/auth/login/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks GET endpoint returns status 200 for UNAUTHORIZED error instead of 401",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Tasks POST endpoint returns status 200 for errors instead of proper HTTP status codes",
+            "files": [
+                "src/app/api/tasks/route.ts"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format uses 'error' string directly instead of nested object with 'code' and 'message' fields in login page client",
+            "files": [
+                "src/app/(auth)/login/page.tsx"
+            ]
+        },
+        {
+            "section": "4.2",
+            "reasoning": "Error response format uses 'error' string directly instead of nested object with 'code' and 'message' fields in register page client",
+            "files": [
+                "src/app/(auth)/register/page.tsx"
+            ]
+        },
+        {
+            "section": "6.2",
+            "reasoning": "PUT /api/tasks/[id] creates new task using createTask() instead of updating existing task with updateTask()",
+            "files": [
+                "src/app/api/tasks/[id]/route.ts"
+            ]
+        },
+        {
+            "section": "3.2",
+            "reasoning": "Toggle completion handler in dashboard toggles ALL tasks instead of just the clicked task",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Dashboard displays hardcoded mock user data instead of fetching actual user information from session",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar uses single flex container without cards/boxes for visual separation as specified",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "2.4",
+            "reasoning": "Statistics bar displays 'Progress' label instead of 'Completion percentage' as specified",
+            "files": [
+                "src/app/dashboard/page.tsx"
+            ]
+        },
+        {
+            "section": "24",
+            "reasoning": "Tailwind config extends standard configuration with custom color scheme instead of using standard v3 configuration",
+            "files": [
+                "tailwind.config.js"
+            ]
+        }
+    ],
+    "type3_extraneous": [
+        {
+            "file": "src/components/ThemeToggle.tsx",
+            "reasoning": "Theme toggle component with dark/light mode switching not mentioned in specification"
+        },
+        {
+            "file": "src/lib/utils.ts",
+            "reasoning": "Utility file with cn() function for class merging not specified in file structure"
+        },
+        {
+            "file": "src/app/layout.tsx",
+            "reasoning": "Layout includes ThemeToggle component which is not specified in requirements"
+        },
+        {
+            "file": "src/app/globals.css",
+            "reasoning": "Dark mode CSS variables and theming system not mentioned in specification"
+        }
+    ]
+}
