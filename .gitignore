@@ -8,11 +8,11 @@ env/
 venv/
 .venv
 
-# Results (except examples)
-results/raw/*
+# Results (except raw data which we want to publish)
+# results/raw/*  # Commented out - we want to track raw benchmark data
 results/processed/*
 results/visualizations/*
-!results/raw/.gitkeep
+# !results/raw/.gitkeep  # No longer needed since we're tracking the actual data
 !results/processed/.gitkeep
 !results/visualizations/.gitkeep
 

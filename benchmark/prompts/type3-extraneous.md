@@ -1,9 +1,5 @@
 # Type 3 Detection: Extraneous Code
 
-Copy and paste this entire prompt exactly as shown:
-
----
-
 You are analyzing a codebase to identify **Type 3 misalignments**: features that exist in the code but are NOT mentioned anywhere in the specification document.
 
 ## Your Task

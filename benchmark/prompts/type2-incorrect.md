@@ -1,8 +1,5 @@
 # Type 2 Detection: Incorrect Implementation
 
-Copy and paste this entire prompt exactly as shown:
-
----
 
 You are analyzing a codebase to identify **Type 2 misalignments**: features that exist in the code but are implemented DIFFERENTLY than specified in the documentation.
 

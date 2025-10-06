@@ -7,19 +7,24 @@ results/
 ├── raw/                        # Raw outputs from frameworks
 │   ├── cursor/                 # Cursor test outputs
 │   │   ├── control_perfect/    
+│   │   │   ├── type1/
+│   │   │   │   ├── run1.json
+│   │   │   │   ├── run2.json
+│   │   │   │   └── ...
+│   │   │   ├── type2/
+│   │   │   ├── type3/
+│   │   │   └── combined/
 │   │   ├── baseline_balanced/  
-│   │   ├── type1_heavy/       
-│   │   ├── type2_heavy/       
-│   │   ├── subtle_only/       
-│   │   └── distributed/       
+│   │   │   └── [same subdirectory structure]
+│   │   └── [other branches]       
 │   └── claude-code/            # Claude Code test outputs
 │       └── [same structure]
 │
 ├── processed/                  # Scored and validated results
 │   ├── cursor/
-│   │   └── [branch folders with scored results]
+│   │   └── [same structure as raw, with run{N}_scored.json files]
 │   └── claude-code/
-│       └── [branch folders with scored results]
+│       └── [same structure as raw, with run{N}_scored.json files]
 │
 └── analysis/                   # Aggregated analysis and visualizations
     ├── cursor/
@@ -35,20 +40,20 @@ results/
 ## File Naming Convention
 
 ### Raw Results
-Pattern: `{branch}_{test_type}_run{N}_{timestamp}.json`
+Path: `raw/{framework}/{branch}/{test_type}/run{N}.json`
 
 Examples:
-- `baseline_balanced_type1_run1_20251005_143022.json`
-- `baseline_balanced_type2_run1_20251005_143158.json`
-- `baseline_balanced_type3_run1_20251005_143334.json`
-- `baseline_balanced_combined_run1_20251005_143512.json`
+- `raw/cursor/baseline_balanced/type1/run1.json`
+- `raw/cursor/baseline_balanced/type2/run1.json`
+- `raw/cursor/baseline_balanced/type3/run1.json`
+- `raw/cursor/baseline_balanced/combined/run1.json`
 
 ### Processed Results
-Pattern: `{branch}_{test_type}_run{N}_scored.json`
+Path: `processed/{framework}/{branch}/{test_type}/run{N}_scored.json`
 
 Examples:
-- `baseline_balanced_type1_run1_scored.json`
-- `baseline_balanced_combined_run1_scored.json`
+- `processed/cursor/baseline_balanced/type1/run1_scored.json`
+- `processed/cursor/baseline_balanced/combined/run1_scored.json`
 
 ### Analysis Files
 - `{branch}_summary.json` - Aggregated metrics for a branch
@@ -57,8 +62,8 @@ Examples:
 
 ## Data Flow
 
-1. **Raw Output** → Save framework output to `raw/{framework}/{branch}/`
-2. **Scoring** → Process with `score.py` → Save to `processed/{framework}/{branch}/`
+1. **Raw Output** → Save framework output to `raw/{framework}/{branch}/{test_type}/run{N}.json`
+2. **Scoring** → Process with `score_result.py` → Save to `processed/{framework}/{branch}/{test_type}/run{N}_scored.json`
 3. **Aggregation** → Run `aggregate_results.py` → Save to `analysis/{framework}/{branch}/`
 4. **Comparison** → Run `compare_frameworks.py` → Save to `analysis/comparisons/`
 5. **Visualization** → Run `visualize_results.py` → Save charts to `analysis/comparisons/visualizations/`
