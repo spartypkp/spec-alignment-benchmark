@@ -1,7 +1,7 @@
 {
     "test_branch": "control_perfect",
     "test_type": "type3_extraneous",
-    "expected_features": [],
+    "expected_files": [],
     "ground_truth": {
         "misalignments": []
     }

@@ -1,26 +1,24 @@
 {
     "test_branch": "subtle_only",
     "test_type": "type3_extraneous",
-    "expected_features": [
-        "Unused Utilities",
-        "Debug Logging"
+    "expected_files": [
+        "src/lib/utils.ts",
+        "src/app/api/tasks/route.ts",
+        "src/components/TaskList.tsx"
     ],
     "ground_truth": {
         "misalignments": [
             {
-                "feature": "Unused Utilities",
-                "reasoning": "Helper functions not called anywhere in codebase",
-                "files": [
-                    "src/lib/utils.ts"
-                ]
+                "file": "src/lib/utils.ts",
+                "reasoning": "Helper functions not called anywhere in codebase"
             },
             {
-                "feature": "Debug Logging",
-                "reasoning": "Console.log statements left in production code",
-                "files": [
-                    "src/app/api/tasks/route.ts",
-                    "src/components/TaskList.tsx"
-                ]
+                "file": "src/app/api/tasks/route.ts",
+                "reasoning": "Console.log debug statements left in production code"
+            },
+            {
+                "file": "src/components/TaskList.tsx",
+                "reasoning": "Console.log debug statements left in production code"
             }
         ]
     }

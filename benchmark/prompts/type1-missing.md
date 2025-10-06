@@ -1,8 +1,5 @@
 # Type 1 Detection: Missing Implementation
 
-Copy and paste this entire prompt exactly as shown:
-
----
 
 You are analyzing a codebase to identify **Type 1 misalignments**: features that are specified in the documentation but are completely MISSING from the implementation.
 
@@ -44,16 +41,16 @@ Output your findings as a JSON object with this exact structure:
 {
   "misalignments": [
     {
-      "section": "4.1",
-      "reasoning": "Password field exists but no validation for 6-character minimum is implemented in either client or server code"
+      "section": "10.3",
+      "reasoning": "Email notification system for task reminders not implemented"
     },
     {
-      "section": "3.1",
-      "reasoning": "Sessions are created but no expiry logic found in auth.ts or login route"
+      "section": "11.2",
+      "reasoning": "Data backup functionality completely absent from codebase"
     },
     {
-      "section": "2.4",
-      "reasoning": "Dashboard exists but statistics bar component is completely missing"
+      "section": "12.1",
+      "reasoning": "Multi-language support specified but no i18n implementation found"
     }
   ]
 }

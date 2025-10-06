@@ -50,46 +50,51 @@ This is NOT Type 3 if:
 
 ## Output Format
 
-Output your findings as a JSON object with this exact structure:
+Output your findings as a JSON object listing each extraneous file:
 
 ```json
 {
   "misalignments": [
     {
-      "feature": "Admin Dashboard",
-      "reasoning": "Complete admin interface with user management not mentioned anywhere in specification",
-      "files": ["src/app/admin/page.tsx", "src/app/admin/dashboard/page.tsx"]
+      "file": "src/app/metrics/page.tsx",
+      "reasoning": "Analytics dashboard page not mentioned anywhere in specification"
     },
     {
-      "feature": "Task Priority System",
-      "reasoning": "Priority field (low/medium/high) and filtering not specified in requirements",
-      "files": ["src/components/TaskItem.tsx", "src/app/api/tasks/route.ts"]
+      "file": "src/components/charts/MetricsChart.tsx",
+      "reasoning": "Metrics visualization component for unspecified analytics feature"
     },
     {
-      "feature": "Export Data",
-      "reasoning": "CSV export endpoint not mentioned in API specification",
-      "files": ["src/app/api/export/route.ts"]
+      "file": "src/lib/websocket.ts",
+      "reasoning": "WebSocket implementation for real-time updates not specified"
+    },
+    {
+      "file": "src/app/api/ws/route.ts",
+      "reasoning": "WebSocket API endpoint not mentioned in requirements"
+    },
+    {
+      "file": "src/app/debug/route.ts",
+      "reasoning": "Debug console endpoint not specified in API documentation"
     }
   ]
 }
 ```
 
 **Required fields**:
-- `feature`: Brief name/description of the extraneous functionality
-- `reasoning`: Explanation of what this feature does and why it's extraneous
-- `files`: Array of relative file paths that contain this extraneous code
+- `file`: The relative file path of the extraneous code
+- `reasoning`: Brief explanation of what this file does and why it's extraneous
 
 **Important**:
-- Group related files under one feature (e.g., all admin files together)
-- Keep feature names descriptive but concise
-- Reasoning should confirm the feature is not mentioned in spec
+- List each file separately (don't group files)
+- Use exact relative paths from repository root
+- Keep reasoning concise but specific about why the file is extraneous
+- Only include files that represent features/endpoints not in spec
 
 ## Important Notes
 
 - Focus on significant extraneous code, not implementation details
 - Check the ENTIRE specification before reporting as extraneous
 - Report actual features/endpoints/capabilities, not just helper code
-- Group related files under a single feature
-- Include clear reasoning for why each feature is extraneous
+- List each extraneous file separately with its own reasoning
+- Include clear reasoning for why each file is extraneous
 
 Begin your analysis now. Focus ONLY on Type 3 (extraneous) misalignments.

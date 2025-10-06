@@ -56,12 +56,12 @@
         ],
         "type3_extraneous": [
             {
-                "feature": "Theme Toggle",
-                "reasoning": "Dark/light theme switcher not mentioned in specification",
-                "files": [
-                    "src/components/ThemeToggle.tsx",
-                    "src/app/layout.tsx"
-                ]
+                "file": "src/components/ThemeToggle.tsx",
+                "reasoning": "Dark/light theme switcher component not mentioned in specification"
+            },
+            {
+                "file": "src/app/layout.tsx",
+                "reasoning": "Theme toggle implementation not specified in requirements"
             }
         ]
     }

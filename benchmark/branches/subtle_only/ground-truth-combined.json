@@ -26,19 +26,16 @@
         ],
         "type3_extraneous": [
             {
-                "feature": "Unused Utilities",
-                "reasoning": "Helper functions not called anywhere in codebase",
-                "files": [
-                    "src/lib/utils.ts"
-                ]
+                "file": "src/lib/utils.ts",
+                "reasoning": "Helper functions not called anywhere in codebase"
             },
             {
-                "feature": "Debug Logging",
-                "reasoning": "Console.log statements left in production code",
-                "files": [
-                    "src/app/api/tasks/route.ts",
-                    "src/components/TaskList.tsx"
-                ]
+                "file": "src/app/api/tasks/route.ts",
+                "reasoning": "Console.log debug statements left in production code"
+            },
+            {
+                "file": "src/components/TaskList.tsx",
+                "reasoning": "Console.log debug statements left in production code"
             }
         ]
     }

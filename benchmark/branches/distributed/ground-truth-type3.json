@@ -1,25 +1,19 @@
 {
     "test_branch": "distributed",
     "test_type": "type3_extraneous",
-    "expected_features": [
-        "Analytics Tracking",
-        "Rate Limiting"
+    "expected_files": [
+        "src/app/page.tsx",
+        "middleware.ts"
     ],
     "ground_truth": {
         "misalignments": [
             {
-                "feature": "Analytics Tracking",
-                "reasoning": "Analytics/metrics tracking not mentioned in specification",
-                "files": [
-                    "src/app/page.tsx"
-                ]
+                "file": "src/app/page.tsx",
+                "reasoning": "Analytics/metrics tracking not mentioned in specification"
             },
             {
-                "feature": "Rate Limiting",
-                "reasoning": "API rate limiting not specified",
-                "files": [
-                    "middleware.ts"
-                ]
+                "file": "middleware.ts",
+                "reasoning": "API rate limiting not specified"
             }
         ]
     }

@@ -52,26 +52,26 @@ Output your findings as a JSON object with this exact structure:
 {
   "misalignments": [
     {
-      "section": "2.4",
-      "reasoning": "Spec requires tasks sorted newest first (DESC), but code sorts oldest first (ASC) in GET /api/tasks",
-      "files": ["src/app/api/tasks/route.ts"]
+      "section": "13.3",
+      "reasoning": "Spec requires pagination with 20 items per page, but code returns 50 items per page",
+      "files": ["src/app/api/list/route.ts"]
     },
     {
-      "section": "4.2",
-      "reasoning": "Spec requires error format {error: {code, message}}, but code returns {error: message} without error codes",
-      "files": ["src/app/api/auth/login/route.ts", "src/app/api/auth/register/route.ts"]
+      "section": "14.1",
+      "reasoning": "Spec requires SHA-256 hashing for data integrity, but code uses MD5 hashing",
+      "files": ["src/lib/crypto.ts", "src/services/hash-service.ts"]
     },
     {
-      "section": "3.1",
-      "reasoning": "Spec requires 7-day session expiry, but code sets 1-day expiry",
-      "files": ["src/lib/auth.ts"]
+      "section": "15.4",
+      "reasoning": "Spec requires UTC timezone for all timestamps, but code uses local server time",
+      "files": ["src/models/base.ts"]
     }
   ]
 }
 ```
 
 **Required fields**:
-- `section`: The section NUMBER from the specification (e.g., "2.4", "4.2", "3.1")
+- `section`: The section NUMBER from the specification (e.g., "13.3", "14.1", "15.4")
 - `reasoning`: Brief explanation of what the spec requires vs what the code does
 - `files`: Array of relative file paths where the incorrect implementation exists
 

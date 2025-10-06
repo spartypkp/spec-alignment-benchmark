@@ -26,9 +26,9 @@ def extract_sections(misalignments: List[Dict]) -> Set[str]:
     """Extract section numbers from misalignment list."""
     return {m.get('section', '') for m in misalignments if 'section' in m}
 
-def extract_features(misalignments: List[Dict]) -> Set[str]:
-    """Extract feature names from Type 3 misalignments."""
-    return {m.get('feature', '') for m in misalignments if 'feature' in m}
+def extract_files(misalignments: List[Dict]) -> Set[str]:
+    """Extract file paths from Type 3 misalignments."""
+    return {m.get('file', '') for m in misalignments if 'file' in m}
 
 def score_type1(llm_output: List, ground_truth: List[Dict]) -> Dict:
     """Score Type 1 (Missing Implementation) detection."""
@@ -125,38 +125,35 @@ def score_type2(llm_output: List, ground_truth: List[Dict]) -> Dict:
 
 def score_type3(llm_output: List, ground_truth: List[Dict]) -> Dict:
     """Score Type 3 (Extraneous Code) detection."""
-    # Extract features from ground truth
-    gt_features = extract_features(ground_truth)
+    # Extract files from ground truth (new format has individual files)
+    gt_files = extract_files(ground_truth)
     
-    # Also extract any files mentioned
-    gt_files = set()
-    for item in ground_truth:
-        gt_files.update(item.get('files', []))
-    
-    # Process LLM output
-    llm_detections = set()
+    # Process LLM output - expecting files in the new format
+    llm_files = set()
     if isinstance(llm_output, list):
         for item in llm_output:
             if isinstance(item, dict):
-                # Could be a feature or file
+                # New format: {file: "path", reasoning: "..."}
+                file_path = item.get('file', '')
+                if file_path:
+                    llm_files.add(file_path)
+                # Also handle old format for backwards compatibility
                 feature = item.get('feature', '')
-                if feature:
-                    llm_detections.add(feature)
-                for f in item.get('files', []):
-                    llm_detections.add(f)
+                if feature and not file_path:
+                    # Old feature format - extract files if present
+                    for f in item.get('files', []):
+                        llm_files.add(f)
             else:
-                # Simple string (file or feature)
-                llm_detections.add(str(item))
+                # Simple string (file path)
+                llm_files.add(str(item))
     
-    # Score against both features and files
-    all_gt = gt_features | gt_files
+    # Score based on file matching
+    true_positives = llm_files & gt_files
+    false_positives = llm_files - gt_files
+    false_negatives = gt_files - llm_files
     
-    true_positives = llm_detections & all_gt
-    false_positives = llm_detections - all_gt
-    false_negatives = all_gt - llm_detections
-    
-    precision = len(true_positives) / len(llm_detections) if llm_detections else 0
-    recall = len(true_positives) / len(all_gt) if all_gt else 0
+    precision = len(true_positives) / len(llm_files) if llm_files else 0
+    recall = len(true_positives) / len(gt_files) if gt_files else 0
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
     
     # Calculate point score
@@ -170,8 +167,8 @@ def score_type3(llm_output: List, ground_truth: List[Dict]) -> Dict:
         "recall": recall,
         "f1_score": f1,
         "points": points,
-        "total_ground_truth": len(all_gt),
-        "total_detected": len(llm_detections)
+        "total_ground_truth": len(gt_files),
+        "total_detected": len(llm_files)
     }
 
 def score_combined(llm_output: Dict, ground_truth: Dict) -> Dict:

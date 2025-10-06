@@ -1,18 +1,19 @@
 {
     "test_branch": "type2_heavy",
     "test_type": "type3_extraneous",
-    "expected_features": [
-        "Theme Toggle"
+    "expected_files": [
+        "src/components/ThemeToggle.tsx",
+        "src/app/layout.tsx"
     ],
     "ground_truth": {
         "misalignments": [
             {
-                "feature": "Theme Toggle",
-                "reasoning": "Dark/light theme switcher not mentioned in specification",
-                "files": [
-                    "src/components/ThemeToggle.tsx",
-                    "src/app/layout.tsx"
-                ]
+                "file": "src/components/ThemeToggle.tsx",
+                "reasoning": "Dark/light theme switcher component not mentioned in specification"
+            },
+            {
+                "file": "src/app/layout.tsx",
+                "reasoning": "Theme toggle implementation not specified in requirements"
             }
         ]
     }

@@ -1,26 +1,24 @@
 {
     "test_branch": "baseline_balanced",
     "test_type": "type3_extraneous",
-    "expected_features": [
-        "Admin Dashboard",
-        "Task Priority"
+    "expected_files": [
+        "src/app/admin/page.tsx",
+        "src/components/TaskItem.tsx",
+        "src/app/api/tasks/route.ts"
     ],
     "ground_truth": {
         "misalignments": [
             {
-                "feature": "Admin Dashboard",
-                "reasoning": "Admin interface not mentioned in specification",
-                "files": [
-                    "src/app/admin/page.tsx"
-                ]
+                "file": "src/app/admin/page.tsx",
+                "reasoning": "Admin interface not mentioned in specification"
             },
             {
-                "feature": "Task Priority",
-                "reasoning": "Priority field and filtering not specified",
-                "files": [
-                    "src/components/TaskItem.tsx",
-                    "src/app/api/tasks/route.ts"
-                ]
+                "file": "src/components/TaskItem.tsx",
+                "reasoning": "Priority field not specified in requirements"
+            },
+            {
+                "file": "src/app/api/tasks/route.ts",
+                "reasoning": "Priority filtering not specified in requirements"
             }
         ]
     }

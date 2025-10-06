@@ -41,36 +41,38 @@ Output your findings as a JSON object with all three types of misalignments:
 {
   "type1_missing": [
     {
-      "section": "4.1",
-      "reasoning": "Password validation for 6-character minimum not implemented"
+      "section": "16.2",
+      "reasoning": "User activity logging system not implemented anywhere in codebase"
     },
     {
-      "section": "3.1",
-      "reasoning": "Session expiry logic completely missing"
+      "section": "17.1",
+      "reasoning": "Automated testing endpoints specified but completely absent"
     }
   ],
   "type2_incorrect": [
     {
-      "section": "2.4",
-      "reasoning": "Tasks sorted oldest first (ASC) instead of newest first (DESC)",
-      "files": ["src/app/api/tasks/route.ts"]
+      "section": "18.3",
+      "reasoning": "Cache TTL set to 3600 seconds instead of specified 300 seconds",
+      "files": ["src/lib/cache.ts"]
     },
     {
-      "section": "4.2",
-      "reasoning": "Error format missing required code field",
-      "files": ["src/app/api/auth/login/route.ts", "src/app/api/auth/register/route.ts"]
+      "section": "19.2",
+      "reasoning": "API versioning uses header instead of URL path as specified",
+      "files": ["src/middleware/version.ts", "src/app/api/route.ts"]
     }
   ],
   "type3_extraneous": [
     {
-      "feature": "Admin Dashboard",
-      "reasoning": "Admin interface not mentioned in specification",
-      "files": ["src/app/admin/page.tsx"]
+      "file": "src/components/ThemeToggle.tsx",
+      "reasoning": "Dark/light theme toggle component not mentioned in requirements"
     },
     {
-      "feature": "Export API",
-      "reasoning": "CSV export functionality not specified",
-      "files": ["src/app/api/export/route.ts"]
+      "file": "src/app/api/webhooks/route.ts",
+      "reasoning": "Webhook endpoint not specified in API documentation"
+    },
+    {
+      "file": "src/lib/events.ts",
+      "reasoning": "Event system implementation not mentioned in specification"
     }
   ]
 }
@@ -79,7 +81,7 @@ Output your findings as a JSON object with all three types of misalignments:
 **Format Requirements**:
 - **Type 1**: Array of objects with `section` (number only) and `reasoning`
 - **Type 2**: Array of objects with `section`, `reasoning`, and `files` array
-- **Type 3**: Array of objects with `feature`, `reasoning`, and `files` array
+- **Type 3**: Array of objects with `file` (single path) and `reasoning`
 - Use section NUMBERS only (e.g., "4.1", not "4.1 Input Validation")
 - Keep reasoning concise but specific
 
